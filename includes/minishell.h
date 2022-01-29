@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:03:57 by sshera           ###   ########.fr       */
+/*   Updated: 2022/01/29 16:35:07 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include <readline/readline.h>
 # include "../lib/libft.h"
 
+typedef struct s_env{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_list{
 	int		flag;
 	char	*cmd;
@@ -32,7 +38,7 @@ typedef struct s_list{
 
 
 typedef struct s_data{
-	char	*env;
+	t_env	*env;
 	int		std_out;
 	int		std_in;
 	t_list	*cmd;
