@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("\033[1;31mminishell->\033[0m ");
-		data.cmd = parser(&line, argv, &data, env);
+		data.cmd->cmd = parser(&line, argv, &data, env);
 		ft_execve(data);
 	}
 	return (0);
