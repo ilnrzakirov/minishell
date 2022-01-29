@@ -1,11 +1,10 @@
 NAME	=	minishell
 
-SRCS	=	src/minishell.c			src/utils.c		src/get.c\
-			src/error.c
+SRCS	=	src/minishell.c			src/utils.c		src/error.c\
 
-LIB 	=	./libft/libft.a
+LIB 	=	./lib/libft.a
 
-HEADER	=	includes/minishell.h ./libft/libft.h
+HEADER	=	includes/minishell.h ./lib/libft.h
 
 RM		=	rm -f
 
