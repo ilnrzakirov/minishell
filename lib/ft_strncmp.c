@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:04:31 by sshera           ###   ########.fr       */
+/*   Created: 2021/10/11 19:54:52 by sshera            #+#    #+#             */
+/*   Updated: 2021/10/20 14:57:26 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/exe.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_strncmp(const char *s1, const char *s2, size_t len)
 {
-	char	*line;
-	t_data	data;
-
-	if (argc > 1)
-		return (print_error("No such file or directory\n", 2));
-	while (1)
+	while (len-- > 0)
 	{
-		line = readline("\033[1;31mminishell->\033[0m ");
-		data.cmd->cmd = line;
-        data.cmd->flag = 1;
-		ft_execve(&data);
+		if (*s1 == '\0' && *s2 == '\0')
+			return (0);
+		if (*s1 != *s2)
+			return (*((unsigned char *)s1) - *((unsigned char *)s2));
+		s1++;
+		s2++;
 	}
 	return (0);
 }

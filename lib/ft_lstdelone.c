@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:04:31 by sshera           ###   ########.fr       */
+/*   Created: 2021/10/20 11:39:00 by sshera            #+#    #+#             */
+/*   Updated: 2021/10/20 11:43:22 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/exe.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	char	*line;
-	t_data	data;
+	t_list	*new;
 
-	if (argc > 1)
-		return (print_error("No such file or directory\n", 2));
-	while (1)
-	{
-		line = readline("\033[1;31mminishell->\033[0m ");
-		data.cmd->cmd = line;
-        data.cmd->flag = 1;
-		ft_execve(&data);
-	}
-	return (0);
+	new = lst;
+	lst = lst -> next;
+	del(new -> content);
+	free(new);
 }

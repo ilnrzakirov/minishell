@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:04:31 by sshera           ###   ########.fr       */
+/*   Created: 2021/10/17 16:37:23 by sshera            #+#    #+#             */
+/*   Updated: 2021/10/20 12:23:05 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/exe.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	char	*line;
-	t_data	data;
+	int	i;
 
-	if (argc > 1)
-		return (print_error("No such file or directory\n", 2));
-	while (1)
+	i = 0;
+	if (s)
 	{
-		line = readline("\033[1;31mminishell->\033[0m ");
-		data.cmd->cmd = line;
-        data.cmd->flag = 1;
-		ft_execve(&data);
+		while (s[i] != '\0')
+		{
+			f(i, &s[i]);
+			i++;
+		}
 	}
-	return (0);
 }

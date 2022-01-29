@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:04:31 by sshera           ###   ########.fr       */
+/*   Created: 2021/10/20 10:56:18 by sshera            #+#    #+#             */
+/*   Updated: 2021/10/20 11:22:39 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/exe.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_lstsize(t_list *lst)
 {
-	char	*line;
-	t_data	data;
+	int	counter;
 
-	if (argc > 1)
-		return (print_error("No such file or directory\n", 2));
-	while (1)
+	counter = 0;
+	if (!lst)
+		return (0);
+	else
 	{
-		line = readline("\033[1;31mminishell->\033[0m ");
-		data.cmd->cmd = line;
-        data.cmd->flag = 1;
-		ft_execve(&data);
+		while (lst != NULL)
+		{
+			counter++;
+			lst = lst -> next;
+		}
 	}
-	return (0);
+	return (counter);
 }
