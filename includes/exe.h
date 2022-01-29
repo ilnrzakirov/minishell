@@ -13,8 +13,4 @@
 #ifndef EXE_H
 # define EXE_H
 
-# include "./minishell.h"
-
-int ft_execve(t_data *data);
-
 #endif

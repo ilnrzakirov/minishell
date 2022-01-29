@@ -25,6 +25,19 @@ void	clear_arr(char **arr)
 	free(arr);
 }
 
+int	ft_strichr(const char *str, char c)
+{
+    int	count;
+
+    count = 0;
+    while (str[count] != c)
+    {
+        count++;
+    }
+    return (count);
+}
+
+
 char	*ft_strstr(char *str, char *to_find)
 {
 	int	i;
