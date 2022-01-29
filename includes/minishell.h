@@ -21,7 +21,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/readline.h>
-# include "../libft/libft.h"
+# include "../lib/libft.h"
 
 typedef struct s_list{
 	int		flag;
