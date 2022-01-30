@@ -33,6 +33,8 @@ typedef struct s_env{
 typedef struct s_lst{
 	int		        flag;
 	char	        *cmd;
+    char            *filename;
+    int             redirect_type;
 	struct s_lst	*next;
 	struct s_data   *data;
 }			        t_lst;

@@ -12,16 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-void    exe_redirect(t_lst *lst, char **env, int i)
-{
-    char    **cmd;
-    char    *path;
-    int     pid;
-    int     fd;
-
-
-}
-
 char *ft_find_path(char *str, int i)
 {
     char    *cmd;
@@ -51,6 +41,29 @@ char *ft_find_path(char *str, int i)
     return (NULL);
 }
 
+void    exe_redirect(t_lst *lst, char **env)
+{
+    char    **cmd;
+    char    *path;
+    int     pid;
+    int     fd;
+
+    cmd = ft_split(lst->cmd, ' ');
+    path = ft_find_path(cmd[0], 0);
+    if (lst->redirect_type == 1)
+        fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    else if (lst->redirect_type == 2)
+        fd = open(lst->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    pid = fork();
+    if (pid == 0)
+    {
+        dup2(fd, 0);
+        execve(path, cmd, env);
+        close(fd);
+    }
+    wait(0);
+}
+
 void    exe(t_lst *lst, char **env)
 {
     char    **cmd;
@@ -63,6 +76,21 @@ void    exe(t_lst *lst, char **env)
     if (pid == 0)
         execve(path, cmd, env);
     wait(0);
+    dup2(lst->data->std_in, 0);
+}
+
+void    exe_pipe(t_lst *lst, char **env)
+{
+    char    **cmd;
+    char    *path;
+    int     fd[2];
+    int     pid;
+
+    cmd = ft_split(lst->cmd, ' ');
+    path = ft_find_path(cmd[0], 0);
+    pipe(fd);
+    pid = fork();
+    // выполнить форк в дочке выполнить команду подменить дискриптеры в родителе подаждать
 }
 
 int ft_execve(t_data *data, char **env)
@@ -76,7 +104,7 @@ int ft_execve(t_data *data, char **env)
         if (tmp->flag == 1)
             exe_pipe(tmp);
         else if (tmp->flag == 2)
-            exe_redirect(tmp, env, 0);
+            exe_redirect(tmp, env);
         else if (tmp->flag == 0)
             exe(tmp, env);
         tmp = tmp->next;
