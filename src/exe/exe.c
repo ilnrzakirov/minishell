@@ -12,6 +12,16 @@
 
 #include "../../includes/minishell.h"
 
+void    exe_redirect(t_lst *lst, char **env, int i)
+{
+    char    **cmd;
+    char    *path;
+    int     pid;
+    int     fd;
+
+
+}
+
 char *ft_find_path(char *str, int i)
 {
     char    *cmd;
@@ -63,12 +73,12 @@ int ft_execve(t_data *data, char **env)
     tmp = data->cmd;
     while (tmp)
     {
-//        if (tmp->flag == 1)
-//            exe_pipe(tmp);
-//        else if (tmp->flag == 2)
-//            exe_redirect(tmp);
-//        else if (tmp->flag == 0)
-        exe(tmp, env);
+        if (tmp->flag == 1)
+            exe_pipe(tmp);
+        else if (tmp->flag == 2)
+            exe_redirect(tmp, env, 0);
+        else if (tmp->flag == 0)
+            exe(tmp, env);
         tmp = tmp->next;
     }
 }

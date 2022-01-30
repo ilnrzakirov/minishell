@@ -31,6 +31,8 @@ void init_env(t_data *data, char **env)
        i++;
     }
     tmp = NULL;
+    data->std_in = dup(0);
+    data->std_out = dup(1);
 }
 
 
@@ -47,7 +49,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline("\033[1;31mminishell->\033[0m ");
         data.cmd = malloc(sizeof (t_lst));
 		data.cmd->cmd = line;
-        data.cmd->flag = 1;
+        data.cmd->flag = 0;
 		ft_execve(&data, env);
 	}
 	return (0);
