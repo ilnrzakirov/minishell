@@ -57,7 +57,7 @@ void    exe_redirect(t_lst *lst, char **env)
     pid = fork();
     if (pid == 0)
     {
-        dup2(fd, 0);
+        dup2(fd, 1);
         execve(path, cmd, env);
         close(fd);
     }
@@ -77,6 +77,7 @@ void    exe(t_lst *lst, char **env)
         execve(path, cmd, env);
     wait(0);
     dup2(lst->data->std_in, 0);
+    dup2(lst->data->std_out, 1);
 }
 
 void    exe_pipe(t_lst *lst, char **env)
@@ -102,11 +103,12 @@ int ft_execve(t_data *data, char **env)
     while (tmp)
     {
         if (tmp->flag == 1)
-            exe_pipe(tmp);
+            exe_pipe(tmp, env);
         else if (tmp->flag == 2)
             exe_redirect(tmp, env);
         else if (tmp->flag == 0)
             exe(tmp, env);
         tmp = tmp->next;
     }
+    return (0);
 }

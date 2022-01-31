@@ -48,8 +48,10 @@ int	main(int argc, char **argv, char **env)
 	{
 		line = readline("\033[1;31mminishell->\033[0m ");
         data.cmd = malloc(sizeof (t_lst));
-		data.cmd->cmd = line;
-        data.cmd->flag = 0;
+		data.cmd->cmd = ft_strdup("ls");
+        data.cmd->flag = 2;
+        data.cmd->redirect_type = 1;
+        data.cmd->filename = ft_strdup("test");
 		ft_execve(&data, env);
 	}
 	return (0);
