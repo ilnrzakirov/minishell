@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include "../lib/libft.h"
+# include "exe.h"
 
 typedef struct s_env{
 	char			*key;
@@ -32,6 +33,8 @@ typedef struct s_env{
 typedef struct s_lst{
 	int		        flag;
 	char	        *cmd;
+    char            *filename;
+    int             redirect_type;
 	struct s_lst	*next;
 	struct s_data   *data;
 }			        t_lst;
@@ -50,4 +53,5 @@ int		print_error(char *str, int i);
 void	clear_arr(char **arr);
 int		get_infile(char **line, t_data *mate);
 int 	ft_strichr(const char *str, char c);
+int     ft_execve(t_data *data, char **env);
 #endif

@@ -30,6 +30,9 @@ void init_env(t_data *data, char **env)
        tmp = tmp->next;
        i++;
     }
+    tmp = NULL;
+    data->std_in = dup(0);
+    data->std_out = dup(1);
 }
 
 
@@ -43,6 +46,8 @@ int	main(int argc, char **argv, char **env)
 	init_env(&data, env);
 	while (1)
 	{
+        dup2(data.std_in, 0);
+        dup2(data.std_out, 1);
 		line = readline("\033[1;31mminishell->\033[0m ");
 		data.cmd->cmd = parser(line, &data);
 		ft_execve(data);
