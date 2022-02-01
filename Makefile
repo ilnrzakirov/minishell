@@ -1,7 +1,7 @@
 NAME	=	minishell
 
 SRCS	=	src/minishell.c			src/utils.c		src/error.c\
-			src/exe/exe.c
+			src/exe/exe.c			src/exe/utils.c
 
 LIB 	=	./lib/libft.a
 

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void init_env(t_data *data, char **env)
+t_env *init_env(t_data *data, char **env)
 {
     int     i;
     char    *j;
@@ -33,6 +33,7 @@ void init_env(t_data *data, char **env)
     tmp = NULL;
     data->std_in = dup(0);
     data->std_out = dup(1);
+    return (data->env);
 }
 
 
@@ -40,10 +41,11 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
+    t_env   *envp;
 
 	if (argc > 1)
 		return (print_error("No such file or directory\n", 2));
-	init_env(&data, env);
+	envp = init_env(&data, env);
 	while (1)
 	{
         dup2(data.std_in, 0);

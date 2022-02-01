@@ -77,6 +77,7 @@ void    exe(t_lst *lst, char **env)
     pid = fork();
     if (pid == 0)
         execve(path, cmd, env);
+    wait(0);
     dup2(lst->data->std_in, 0);
     dup2(lst->data->std_out, 1);
 }
@@ -109,6 +110,7 @@ void    get_data(t_lst *lst, char **env)
 
     fd = open(lst->filename, O_RDONLY);
     dup2(fd , 0);
+    close(fd);
 }
 
 int ft_execve(t_data *data, char **env)
@@ -117,6 +119,8 @@ int ft_execve(t_data *data, char **env)
     int     i;
 
     tmp = data->cmd;
+    if (!tmp)
+        return (1);
     while (tmp)
     {
         if (tmp->flag == 1)
@@ -129,5 +133,6 @@ int ft_execve(t_data *data, char **env)
             exe(tmp, env);
         tmp = tmp->next;
     }
+//    clear_struct(data);
     return (0);
 }

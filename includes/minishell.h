@@ -54,4 +54,5 @@ void	clear_arr(char **arr);
 int		get_infile(char **line, t_data *mate);
 int 	ft_strichr(const char *str, char c);
 int     ft_execve(t_data *data, char **env);
+void    clear_struct(t_data *data);
 #endif
