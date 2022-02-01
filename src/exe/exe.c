@@ -54,14 +54,17 @@ void    exe_redirect(t_lst *lst, char **env)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     else if (lst->redirect_type == 2)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-    pid = fork();
-    if (pid == 0)
+    if (lst->cmd)
     {
-        dup2(fd, 1);
-        execve(path, cmd, env);
-        close(fd);
+        pid = fork();
+        if (pid == 0)
+        {
+            dup2(fd, 1);
+            execve(path, cmd, env);
+            close(fd);
+        }
+        wait(0);
     }
-    wait(0);
 }
 
 void    exe(t_lst *lst, char **env)
@@ -103,6 +106,14 @@ void    exe_pipe(t_lst *lst, char **env)
     close(fd[0]);
 }
 
+void    get_data(t_lst *lst, char **env)
+{
+    int fd;
+
+    fd = open(lst->filename, O_RDONLY);
+    dup2(fd , 0);
+}
+
 int ft_execve(t_data *data, char **env)
 {
     t_lst  *tmp;
@@ -113,6 +124,8 @@ int ft_execve(t_data *data, char **env)
     {
         if (tmp->flag == 1)
             exe_pipe(tmp, env);
+        else if (tmp->flag == 3)
+            get_data(tmp, env);
         else if (tmp->flag == 2)
             exe_redirect(tmp, env);
         else if (tmp->flag == 0)

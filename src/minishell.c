@@ -50,11 +50,12 @@ int	main(int argc, char **argv, char **env)
         dup2(data.std_out, 1);
 		line = readline("\033[1;31mminishell->\033[0m ");
         data.cmd = malloc(sizeof (t_lst));
-		data.cmd->cmd = ft_strdup("ls");
-        data.cmd->flag = 1;
+		data.cmd->cmd = ft_strdup("cat");
+        data.cmd->flag = 3;
+        data.cmd->filename = ft_strdup("test");
         data.cmd->next = malloc(sizeof (t_lst));
         data.cmd->next->cmd = ft_strdup(("cat -e"));
-        data.cmd->next->flag = 2;
+        data.cmd->next->flag = 0;
         data.cmd->next->redirect_type = 2;
         data.cmd->next->filename = ft_strdup("test");
         data.cmd->next->next = NULL;
