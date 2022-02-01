@@ -104,6 +104,5 @@ int ft_execve(t_data *data, char **env)
             exe(tmp, env);
         tmp = tmp->next;
     }
-//    clear_struct(data);
     return (0);
 }

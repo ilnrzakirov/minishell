@@ -12,6 +12,22 @@
 
 #include "../../includes/minishell.h"
 
+char **get_env(t_data *data)
+{
+    int     i;
+    t_env   *env;
+    char    **res;
+
+    env = data->env;
+    i = 0;
+    res = malloc(sizeof(char*) * ft_lstsize(env) + 1);
+    while(env)
+    {
+        res[i++] = ft_strjoin(env->key, env->value);
+        env = env->next;
+    }
+}
+
 void clear_struct(t_data *data)
 {
     while(data->cmd)
