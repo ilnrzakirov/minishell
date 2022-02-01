@@ -91,7 +91,16 @@ void    exe_pipe(t_lst *lst, char **env)
     path = ft_find_path(cmd[0], 0);
     pipe(fd);
     pid = fork();
-    // выполнить форк в дочке выполнить команду подменить дискриптеры в родителе подаждать
+    if (pid == 0)
+    {
+        close(fd[0]);
+        dup2(fd[1], STDOUT_FILENO);
+        execve(path, cmd, env);
+    }
+    close(fd[1]);
+    dup2(fd[0], 0);
+    wait(0);
+    close(fd[0]);
 }
 
 int ft_execve(t_data *data, char **env)
