@@ -55,4 +55,5 @@ int		get_infile(char **line, t_data *mate);
 int 	ft_strichr(const char *str, char c);
 int     ft_execve(t_data *data, char **env);
 void    clear_struct(t_data *data);
+char    *ft_find_path(char *str, int i);
 #endif
