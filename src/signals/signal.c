@@ -38,7 +38,7 @@ void    init_signal_chaild(t_data *data)
 
 void    init_signal_h(t_data *data)
 {
-    if (signal(SIGQUIT, SIG_IGN))
+    signal(SIGQUIT, SIG_IGN);
+    if (signal(SIGINT, sigint_func))
         data->exit_code = 1;
-    signal(SIGINT, sigint_func);
 }
