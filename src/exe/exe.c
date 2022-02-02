@@ -75,7 +75,7 @@ void    exe_pipe(t_lst *lst, char **env)
         close(fd[1]);
         execve(path, cmd, env);
     }
-//    wait(0);
+    wait(0);
     dup2(fd[0], STDIN_FILENO);
     close(fd[0]);
     close(fd[1]);

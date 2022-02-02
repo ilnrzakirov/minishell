@@ -51,6 +51,7 @@ typedef struct s_data{
 	int		    std_in;
 	t_lst	    *cmd;
     t_history   *history;
+    int         exit_code;
 }			t_data;
 
 void	    rl_replace_line(const char *buffer, int val);
