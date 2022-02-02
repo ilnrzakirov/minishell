@@ -2,7 +2,7 @@ NAME	=	minishell
 
 SRCS	=	src/minishell.c			src/utils.c			src/error.c\
 			src/exe/exe.c			src/exe/utils.c		src/builtins/echo_env.c\
-			src/lst_func.c			src/lst_func2.c
+			src/lst_func.c			src/lst_func2.c		src/signals/signal.c\
 
 LIB 	=	./lib/libft.a
 
@@ -16,7 +16,7 @@ GCC		= clang
 
 CFLAGS	=	
 
-FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/includ
+FLAG	=	-lreadline -ltermcap -g -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
 
 $(NAME)	:	$(OBJS) $(HEADER)
 			@$(GCC) $(CFLAGS) $(OBJS) $(LIB) $(FLAG) -o ${NAME}

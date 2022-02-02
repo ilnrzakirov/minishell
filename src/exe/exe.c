@@ -31,6 +31,7 @@ void    exe_redirect(t_lst *lst, char **env)
         pid = fork();
         if (pid == 0)
         {
+            init_signal_chaild(lst->data);
             dup2(fd, 1);
             execve(path, cmd, env);
             close(fd);
@@ -49,6 +50,7 @@ void    exe(t_lst *lst, char **env)
     path = ft_find_path(cmd[0], 0);
     pid = fork();
     if (pid == 0) {
+        init_signal_chaild(lst->data);
         execve(path, cmd, env);
     }
     close(STDIN_FILENO);
@@ -70,6 +72,7 @@ void    exe_pipe(t_lst *lst, char **env)
     pid = fork();
     if (pid == 0)
     {
+        init_signal_chaild(lst->data);
         close(fd[0]);
         dup2(fd[1], STDOUT_FILENO);
         close(fd[1]);
