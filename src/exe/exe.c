@@ -19,6 +19,7 @@ void    exe_redirect(t_lst *lst, char **env)
     int     pid;
     int     fd;
 
+    env = get_env(lst->data);
     cmd = ft_split(lst->cmd, ' ');
     path = ft_find_path(cmd[0], 0);
     if (lst->redirect_type == 1)
@@ -43,14 +44,16 @@ void    exe(t_lst *lst, char **env)
     char    *path;
     int     pid;
 
+    env = get_env(lst->data);
     cmd = ft_split(lst->cmd, ' ');
     path = ft_find_path(cmd[0], 0);
     pid = fork();
-    if (pid == 0)
+    if (pid == 0) {
         execve(path, cmd, env);
-    wait(0);
+    }
+    close(STDIN_FILENO);
     dup2(lst->data->std_in, 0);
-    dup2(lst->data->std_out, 1);
+    wait(0);
 }
 
 void    exe_pipe(t_lst *lst, char **env)
@@ -60,6 +63,7 @@ void    exe_pipe(t_lst *lst, char **env)
     int     fd[2];
     int     pid;
 
+    env = get_env(lst->data);
     cmd = ft_split(lst->cmd, ' ');
     path = ft_find_path(cmd[0], 0);
     pipe(fd);
@@ -68,11 +72,13 @@ void    exe_pipe(t_lst *lst, char **env)
     {
         close(fd[0]);
         dup2(fd[1], STDOUT_FILENO);
+        close(fd[1]);
         execve(path, cmd, env);
     }
-    close(fd[1]);
-    dup2(fd[0], 0);
+//    wait(0);
+    dup2(fd[0], STDIN_FILENO);
     close(fd[0]);
+    close(fd[1]);
 }
 
 void    get_data(t_lst *lst, char **env)

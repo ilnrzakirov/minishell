@@ -36,6 +36,21 @@ t_env *init_env(t_data *data, char **env)
     return (data->env);
 }
 
+void    init_history(t_data *data)
+{
+    t_history   *hs;
+
+    hs = data->history;
+    hs = (t_history *)malloc(sizeof (t_history));
+}
+
+void    add_history(t_data *data, char *str)
+{
+    char        *line;
+
+    line = ft_strdup(str);
+    ft_link_lst_cr_front(&data->history, line);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -46,17 +61,21 @@ int	main(int argc, char **argv, char **env)
 	if (argc > 1)
 		return (print_error("No such file or directory\n", 2));
 	envp = init_env(&data, env);
+    init_history(&data);
 	while (1)
 	{
         dup2(data.std_in, 0);
         dup2(data.std_out, 1);
 		line = readline("\033[1;31mminishell->\033[0m ");
+        add_history(&data, line);
         data.cmd = malloc(sizeof (t_lst));
         data.cmd->flag = 1;
+        data.cmd->redirect_type = 1;
+//        data.cmd->filename = ft_strdup("test");
         data.cmd->cmd = ft_strdup("echo dghkjsdhfkjsdhfkjs");
         data.cmd->next = malloc(sizeof (t_lst));
         data.cmd->next->cmd = ft_strdup(("cat -e"));
-        data.cmd->next->flag = 2;
+        data.cmd->next->flag = 0;
         data.cmd->next->next = NULL;
         data.cmd->data = &data;
         data.cmd->next->data = &data;
