@@ -24,7 +24,7 @@ int get_prev_dir(char **old, t_data *data)
     }
     else
     {
-        new = ft_pwd();
+        new = ft_pwd(1);
         chdir(*old);
         free(*old);
         *old = ft_strdup(new);
@@ -37,8 +37,8 @@ int get_prev_dir(char **old, t_data *data)
 
 int put_error(t_data *data)
 {
-    ft_putstr_fd("eBash: cd: ", 2);
-    ft_putstr_fd(dest, 2);
+    ft_putstr_fd("cd: ", 2);
+    ft_putstr_fd(&data->cmd->cmd[1], 2);
     ft_putstr_fd(": ", 2);
     perror(NULL);
     data->exit_code = 1;
