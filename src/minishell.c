@@ -33,8 +33,26 @@ void init_env(t_data *data, char **env)
     tmp = NULL;
     data->std_in = dup(0);
     data->std_out = dup(1);
+    return (data->env);
 }
 
+void    init_history(t_data *data)
+{
+    t_history   *hs;
+
+    hs = data->history;
+    hs = (t_history *)malloc(sizeof (t_history));
+}
+
+void    add_history(t_data *data, char *str)
+{
+    char        *line;
+
+    if (str) {
+        line = ft_strdup(str);
+        ft_link_lst_cr_front(&data->history, line);
+    }
+}
 
 int	main(int argc, char **argv, char **env)
 {
