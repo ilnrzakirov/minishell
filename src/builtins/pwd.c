@@ -1,7 +1,19 @@
 
 #include "../../includes/minishell.h"
 
-char	*ft_pwd(void)
+char    *free_flag(char *path, int flag)
+{
+    if (!flag)
+    {
+        ft_putendl_fd(path, STDOUT_FILENO);
+        free(path);
+        return (NULL);
+    }
+    else
+        return (path);
+}
+
+char	*ft_pwd(int flag)
 {
     char	*buf;
     int 	l;
@@ -21,5 +33,5 @@ char	*ft_pwd(void)
     buf = malloc(sizeof(char) * l);
     if (!buf)
         return (NULL);
-    return (getcwd(buf, l));
+    return (free_flag(getcwd(buf, l), flag));
 }

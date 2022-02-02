@@ -74,4 +74,9 @@ t_history	*ft_link_lstlast(t_history *lst);
 int         ft_link_lstsize(t_history *lst);
 void        init_signal_h(t_data *data);
 void        init_signal_chaild(t_data *data);
+char	    *ft_pwd(int flag);
+int         ft_env(t_env *e);
+int         ft_echo(char **arg);
+int     	ft_strcmp(const char *s1, const char *s2);
+int         ft_cd(t_data *data);
 #endif
