@@ -79,6 +79,6 @@ int         ft_env(t_env *e);
 int         ft_echo(char **arg);
 int     	ft_strcmp(const char *s1, const char *s2);
 int         ft_cd(t_data *data);
-void        ft_exit(t_data *data);
-void        buildins_hub(t_data *data);
+void        ft_exit(t_lst *cmd, t_data *data);
+void        buildins_hub(t_lst *cmd, t_data *data)
 #endif
