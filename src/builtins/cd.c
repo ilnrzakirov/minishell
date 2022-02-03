@@ -60,7 +60,7 @@ int ft_cd(t_data *data)
 {
     static char *old;
 
-    if (data->cmd->flag == 1)
+    if (data->cmd->flag != 0)
         return (EXIT_SUCCESS);
     if (!data->cmd->cmd[1] || !ft_strcmp(&data->cmd->cmd[1], "~"))
     {
