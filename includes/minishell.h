@@ -33,7 +33,7 @@ typedef struct s_env{
 
 typedef struct s_lst{
 	int		        flag;
-	char	        *cmd;
+	char	        **cmd;
     char            *filename;
     int             redirect_type;
 	struct s_lst	*next;
@@ -72,4 +72,13 @@ void	    ft_link_lstadd_back(t_history **lst, t_history *new);
 void	    ft_link_lstadd_front(t_history **lst, t_history *new);
 t_history	*ft_link_lstlast(t_history *lst);
 int         ft_link_lstsize(t_history *lst);
+void        init_signal_h(t_data *data);
+void        init_signal_chaild(t_data *data);
+char	    *ft_pwd(int flag);
+int         ft_env(t_env *e);
+int         ft_echo(char **arg);
+int     	ft_strcmp(const char *s1, const char *s2);
+int         ft_cd(t_lst *cmd);
+void        ft_exit(t_lst *cmd, t_data *data);
+void        buildins_hub(t_lst *cmd, t_data *data);
 #endif
