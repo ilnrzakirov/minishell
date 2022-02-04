@@ -12,14 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-int get_prev_dir(char **old, t_data *data)
+int get_prev_dir(char **old, t_lst *cmd)
 {
     char    *new;
 
     if (!old)
     {
         ft_putendl_fd("cd: OLDPWD not set", 2);
-        data->exit_code = 1;
+        cmd->data->exit_code = 1;
         return (EXIT_FAILURE);
     }
     else
@@ -29,54 +29,54 @@ int get_prev_dir(char **old, t_data *data)
         free(*old);
         *old = ft_strdup(new);
         free(new);
-        data->exit_code = 0;
+        cmd->data->exit_code = 0;
     }
     return (EXIT_SUCCESS);
 
 }
 
-int put_error(t_data *data)
+int put_error(t_lst *cmd)
 {
     ft_putstr_fd("cd: ", 2);
-    ft_putstr_fd(&data->cmd->cmd[1], 2);
+    ft_putstr_fd(cmd->cmd[1], 2);
     ft_putstr_fd(": ", 2);
     perror(NULL);
-    data->exit_code = 1;
+    cmd->data->exit_code = 1;
     return (EXIT_FAILURE);
 }
 
-int get_dir(char **old, t_data *data)
+int get_dir(char **old, t_lst *cmd)
 {
     if (old)
         free(*old);
     *old = ft_pwd(1);
-    if (chdir(&data->cmd->cmd[1]))
-        return (put_error(data));
+    if (chdir(cmd->cmd[1]))
+        return (put_error(cmd));
     return (EXIT_SUCCESS);
 }
 
 
-int ft_cd(t_data *data)
+int ft_cd(t_lst *cmd)
 {
     static char *old;
 
-    if (data->cmd->flag != 0)
+    if (cmd->flag != 0)
         return (EXIT_SUCCESS);
-    if (!data->cmd->cmd[1] || !ft_strcmp(&data->cmd->cmd[1], "~"))
+    if (!cmd->cmd[1] || !ft_strcmp(cmd->cmd[1], "~"))
     {
         if (old)
             free(old);
         old = ft_pwd(1);
         chdir(getenv("HOME"));
     }
-    else if (!ft_strcmp(&data->cmd->cmd[1], "-")) {
-        if (get_prev_dir(&old, data))
+    else if (!ft_strcmp(cmd->cmd[1], "-")) {
+        if (get_prev_dir(&old, cmd))
             return (EXIT_FAILURE);
         ft_pwd(0);
     }
     else
-        if (get_dir(&old, data))
+        if (get_dir(&old, cmd))
             return (EXIT_FAILURE);
-    data->exit_code = 0;
+    cmd->data->exit_code = 0;
     return (EXIT_SUCCESS);
 }
