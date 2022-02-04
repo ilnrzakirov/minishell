@@ -58,9 +58,11 @@ int	main(int argc, char **argv, char **env)
         data.cmd->flag = 1;
         data.cmd->redirect_type = 1;
 //        data.cmd->filename = ft_strdup("test");
-        data.cmd->cmd = ft_strdup("echo dghkjsdhfkjsdhfkjs");
+        data.cmd->cmd[0] = ft_strdup("echo");
+        data.cmd->cmd[1] = ft_strdup("sfsdfsdfsdf");
         data.cmd->next = malloc(sizeof (t_lst));
-        data.cmd->next->cmd = ft_strdup(("cat -e"));
+        data.cmd->next->cmd[0] = ft_strdup(("cat"));
+        data.cmd->next->cmd[1] = ft_strdup(("-e"));
         data.cmd->next->flag = 0;
         data.cmd->next->next = NULL;
         data.cmd->data = &data;

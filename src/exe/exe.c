@@ -14,14 +14,12 @@
 
 void    exe_redirect(t_lst *lst, char **env)
 {
-    char    **cmd;
     char    *path;
     int     pid;
     int     fd;
 
     env = get_env(lst->data);
-    cmd = ft_split(lst->cmd, ' ');
-    path = ft_find_path(cmd[0], 0);
+    path = ft_find_path(lst->cmd[0], 0);
     if (lst->redirect_type == 1)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     else if (lst->redirect_type == 2)
@@ -41,13 +39,11 @@ void    exe_redirect(t_lst *lst, char **env)
 
 void    exe(t_lst *lst, char **env)
 {
-    char    **cmd;
     char    *path;
     int     pid;
 
     env = get_env(lst->data);
-    cmd = ft_split(lst->cmd, ' ');
-    path = ft_find_path(cmd[0], 0);
+    path = ft_find_path(lst->cmd[0], 0);
     pid = fork();
     if (pid == 0) {
         init_signal_chaild(lst->data);
@@ -60,14 +56,12 @@ void    exe(t_lst *lst, char **env)
 
 void    exe_pipe(t_lst *lst, char **env)
 {
-    char    **cmd;
     char    *path;
     int     fd[2];
     int     pid;
 
     env = get_env(lst->data);
-    cmd = ft_split(lst->cmd, ' ');
-    path = ft_find_path(cmd[0], 0);
+    path = ft_find_path(lst->cmd[0], 0);
     pipe(fd);
     pid = fork();
     if (pid == 0)
