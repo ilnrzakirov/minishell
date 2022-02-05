@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_data	data;
     t_env   *envp;
+    int     i;
 
 	if (argc > 1)
 		return (print_error("No such file or directory\n", 2));
@@ -54,6 +55,12 @@ int	main(int argc, char **argv, char **env)
 		line = readline("\033[1;31mminishell->\033[0m ");
         if (line[0])
             add_history(line);
+        i = preparsing(line, 0, 0, 0);
+        if (i > 0)
+        {
+            print_error("", i);
+            exit(1);
+        }
         data.cmd = malloc(sizeof (t_lst));
         data.cmd->flag = 1;
         data.cmd->redirect_type = 1;

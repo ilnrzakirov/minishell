@@ -18,5 +18,9 @@ int	print_error(char *str, int i)
 		write(2, "no such file or directory\n", 26);
 	else if (i == 2)
 		write(2, str, ft_strlen(str));
+    else if (i == 3)
+        write(2, "special characters are not processed: \\, ; \n", 45);
+    else if (i == 4)
+        write(2, "unclosed quotes", 15);
 	return (0);
 }

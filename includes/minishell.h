@@ -81,4 +81,5 @@ int     	ft_strcmp(const char *s1, const char *s2);
 int         ft_cd(t_lst *cmd);
 void        ft_exit(t_lst *cmd, t_data *data);
 void        buildins_hub(t_lst *cmd, t_data *data);
+int         preparsing(char *line, int i, int gap, int gap2);
 #endif
