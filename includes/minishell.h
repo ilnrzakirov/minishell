@@ -25,6 +25,14 @@
 # include "../lib/libft.h"
 # include "exe.h"
 
+typedef struct pars{
+    int     i;
+    int     j;
+    int     k;
+    char    *tmp;
+    char    *cmd;
+}           t_pars;
+
 typedef struct s_env{
 	char			*key;
 	char			*value;
@@ -82,4 +90,7 @@ int         ft_cd(t_lst *cmd);
 void        ft_exit(t_lst *cmd, t_data *data);
 void        buildins_hub(t_lst *cmd, t_data *data);
 int         preparsing(char *line, int i, int gap, int gap2);
+int         parsing(char *line, t_data *data, int i);
+int	        count_words(char *str);
+void	    implement_index(int *i, int *j, char *str, char c);
 #endif
