@@ -36,14 +36,13 @@ t_env *init_env(t_data *data, char **env)
     return (data->env);
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(int i, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
     t_env   *envp;
-    int     i;
 
-	if (argc > 1)
+	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
 	envp = init_env(&data, env);
     data.exit_code = 0;
