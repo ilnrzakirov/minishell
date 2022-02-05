@@ -60,6 +60,7 @@ int	main(int i, char **argv, char **env)
             print_error("", i);
             exit(1);
         }
+        i = parsing(line, &data, 0);
         data.cmd = malloc(sizeof (t_lst));
         data.cmd->flag = 1;
         data.cmd->redirect_type = 1;

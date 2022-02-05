@@ -38,7 +38,7 @@ char **get_env(t_data *data)
     res = malloc(sizeof(char*) * ft_env_lstsize(env) + 1);
     while(env)
     {
-        res[i++] = ft_strjoin(env->key, env->value);
+        res[i++] = ft_strjoin(ft_strdup(env->key), env->value);
         env = env->next;
     }
     return (res);
@@ -63,7 +63,7 @@ char *ft_find_path(char *str, int i)
     char    *tmp;
     char    **path;
 
-    cmd = ft_strjoin("/", str);
+    cmd = ft_strjoin(ft_strdup("/"), str);
     path = ft_split(getenv("PATH="), ':');
     while(path[i])
     {
