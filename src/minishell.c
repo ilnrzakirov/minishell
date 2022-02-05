@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void init_env(t_data *data, char **env)
+t_env *init_env(t_data *data, char **env)
 {
     int     i;
     char    *j;
@@ -36,37 +36,30 @@ void init_env(t_data *data, char **env)
     return (data->env);
 }
 
-void    init_history(t_data *data)
-{
-    t_history   *hs;
-
-    hs = data->history;
-    hs = (t_history *)malloc(sizeof (t_history));
-}
-
-void    add_history(t_data *data, char *str)
-{
-    char        *line;
-
-    if (str) {
-        line = ft_strdup(str);
-        ft_link_lst_cr_front(&data->history, line);
-    }
-}
-
-int	main(int argc, char **argv, char **env)
+int	main(int i, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
+    t_env   *envp;
 
-	if (argc > 1)
+	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
-	init_env(&data, env);
+	envp = init_env(&data, env);
+    data.exit_code = 0;
 	while (1)
 	{
         dup2(data.std_in, 0);
         dup2(data.std_out, 1);
+        init_signal_h(&data);
 		line = readline("\033[1;31mminishell->\033[0m ");
+        if (line[0])
+            add_history(line);
+        i = preparsing(line, 0, 0, 0);
+        if (i > 0)
+        {
+            print_error("", i);
+            exit(1);
+        }
 		data.cmd->cmd = parser(line, &data);
 		ft_execve(data);
 	}
