@@ -45,6 +45,7 @@ int	main(int i, char **argv, char **env)
 	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
 	envp = init_env(&data, env);
+    g_data = &data;
     data.exit_code = 0;
 	while (1)
 	{

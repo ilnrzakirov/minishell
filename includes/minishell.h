@@ -80,7 +80,7 @@ typedef struct s_data{
     int         exit_code;
 }			t_data;
 
-//t_data data;
+t_data *g_data;
 
 void	    rl_replace_line(const char *buffer, int val);
 char	    *ft_strstr(char *str, char *to_find);
@@ -113,4 +113,5 @@ int         parsing(char *line, t_data *data, int i);
 int	        count_words(char *str);
 void	    implement_index(int *i, int *j, char *str, char c);
 void        skip_cmd(t_pars *pars);
+char        *replace_value(char *str);
 #endif

@@ -27,7 +27,7 @@ int set_dollar(t_redirect *rd, char c)
 
     if (c == '$')
     {
-
+        tmp2 = replace_value(&rd->str[rd->i]);
     }
 }
 
