@@ -23,12 +23,22 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include "../lib/libft.h"
-# include "exe.h"
 
-typedef struct pars{
+typedef struct s_redirect{
+    int     i;
+    int     j;
+    int     p;
+    char    *s;
+    char    *str;
+    char    *tmp;
+}           t_redirect;
+
+
+typedef struct s_pars{
     int     i;
     int     j;
     int     k;
+    int     r;
     char    *tmp;
     char    *cmd;
 }           t_pars;
@@ -93,4 +103,5 @@ int         preparsing(char *line, int i, int gap, int gap2);
 int         parsing(char *line, t_data *data, int i);
 int	        count_words(char *str);
 void	    implement_index(int *i, int *j, char *str, char c);
+void        skip_cmd(t_pars *pars);
 #endif
