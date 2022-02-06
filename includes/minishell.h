@@ -45,6 +45,9 @@ typedef struct s_dollar{
     int     j;
     t_env   *env;
     char    *str;
+    char    *sing;
+    char    *env_key;
+    char    *res;
 }           t_dollar;
 
 typedef struct s_pars{
@@ -59,6 +62,7 @@ typedef struct s_pars{
 typedef struct s_lst{
 	int		        flag;
 	char	        **cmd;
+    char            *tmp;
     char            *filename;
     int             redirect_type;
 	struct s_lst	*next;
@@ -114,4 +118,8 @@ int	        count_words(char *str);
 void	    implement_index(int *i, int *j, char *str, char c);
 void        skip_cmd(t_pars *pars);
 char        *replace_value(char *str);
+int         set_dollar(t_redirect *rd, char c);
+void        get_str_in_quotes(t_redirect *rd, char c);
+void        pipe_cut(t_pars *pars);
+void        get_data_cut(t_pars *pars);
 #endif

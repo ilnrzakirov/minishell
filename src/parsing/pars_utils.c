@@ -28,7 +28,21 @@ int set_dollar(t_redirect *rd, char c)
     if (c == '$')
     {
         tmp2 = replace_value(&rd->str[rd->i]);
+        if (!tmp2)
+            return (-1);
+        tmp = ft_substr(rd->str, 0, rd->i);
+        if (!tmp)
+            return (-1);
+        free(rd->str);
+        rd->str = ft_strdup(tmp);
+        free(tmp);
+        if (tmp2[0] == '\"')
+            rd->str = ft_strjoin(rd->str, &tmp2[1]);
+        else
+            rd->str = ft_strjoin(rd->str, tmp2);
+        free(tmp2);
     }
+    return (0);
 }
 
 void    redirect_hand(char *str, char c, int *i, int *r)
@@ -55,6 +69,7 @@ void    redirect_hand(char *str, char c, int *i, int *r)
         else if (rd.str[rd.i] == '\'' || rd.str[rd.i] == '\"')
             get_str_in_quotes(&rd, rd.str[rd.i]);
     }
+    printf("%s", rd.tmp);
 }
 
 void    skip_cmd(t_pars *pars)

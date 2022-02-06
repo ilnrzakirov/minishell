@@ -49,9 +49,12 @@ void    split_cmd(t_pars *pars, t_data *data)
     pars->i = 0;
     pars->k = 0;
     pars->r = 0;
-    while (pars->cmd[pars->i])
-    {
-        skip_cmd(pars);
+    while (pars->cmd[pars->i]) {
+        if (pars->cmd[pars->i] == '|')
+            pipe_cut(pars);
+        else if (pars->cmd[pars->i] == '<')
+            get_data_cut(pars);
+        pars->i++;
     }
 }
 
@@ -63,7 +66,9 @@ int parsing(char *line, t_data *data, int i)
     pipe_in_quotes(&pars, 0);
     pars.cmd = ft_strtrim(pars.tmp, " ");
     free(pars.tmp);
-    data->cmd->cmd = (char **) malloc(sizeof (char *) * count_words(pars.cmd));
-    data->cmd->cmd[count_words(pars.cmd)] = NULL;
+    data->cmd = NULL;
+//    data->cmd = malloc(sizeof (t_lst));
+//    data->cmd->cmd = (char **) malloc(sizeof (char *) * count_words(pars.cmd));
+//    data->cmd->cmd[count_words(pars.cmd)] = NULL;
     split_cmd(&pars, data);
 }
