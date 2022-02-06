@@ -48,9 +48,10 @@ void    split_cmd(t_pars *pars, t_data *data)
 {
     pars->i = 0;
     pars->k = 0;
+    pars->r = 0;
     while (pars->cmd[pars->i])
     {
-
+        skip_cmd(pars);
     }
 }
 

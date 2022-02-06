@@ -1,10 +1,11 @@
 NAME	=	minishell
 
-SRCS	=	src/minishell.c			src/utils.c			src/error.c\
-			src/exe/exe.c			src/exe/utils.c		src/builtins/echo_env.c\
-			src/lst_func.c			src/lst_func2.c		src/signals/signal.c\
-			src/builtins/pwd.c		src/builtins/cd.c	src/builtins/exit.c\
-			src/prepars/prepars.c
+SRCS	=	src/minishell.c				src/utils.c			src/error.c\
+			src/exe/exe.c				src/exe/utils.c		src/builtins/echo_env.c\
+			src/lst_func.c				src/lst_func2.c		src/signals/signal.c\
+			src/builtins/pwd.c			src/builtins/cd.c	src/builtins/exit.c\
+			src/prepars/prepars.c		src/utils2.c		src/parsing/parsing.c\
+			src/parsing/pars_utils.c
 
 LIB 	=	./lib/libft.a
 
