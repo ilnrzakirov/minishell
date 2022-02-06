@@ -23,6 +23,13 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include "../lib/libft.h"
+# include "exe.h"
+
+typedef struct s_env{
+    char			*key;
+    char			*value;
+    struct s_env	*next;
+}					t_env;
 
 typedef struct s_redirect{
     int     i;
@@ -33,6 +40,15 @@ typedef struct s_redirect{
     char    *tmp;
 }           t_redirect;
 
+typedef struct s_dollar{
+    int     i;
+    int     j;
+    t_env   *env;
+    char    *str;
+    char    *sing;
+    char    *env_key;
+    char    *res;
+}           t_dollar;
 
 typedef struct s_pars{
     int     i;
