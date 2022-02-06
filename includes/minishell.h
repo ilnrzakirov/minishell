@@ -25,6 +25,12 @@
 # include "../lib/libft.h"
 # include "exe.h"
 
+typedef struct s_env{
+    char			*key;
+    char			*value;
+    struct s_env	*next;
+}					t_env;
+
 typedef struct s_redirect{
     int     i;
     int     j;
@@ -34,6 +40,12 @@ typedef struct s_redirect{
     char    *tmp;
 }           t_redirect;
 
+typedef struct s_dollar{
+    int     i;
+    int     j;
+    t_env   *env;
+    char    *str;
+}           t_dollar;
 
 typedef struct s_pars{
     int     i;
@@ -43,12 +55,6 @@ typedef struct s_pars{
     char    *tmp;
     char    *cmd;
 }           t_pars;
-
-typedef struct s_env{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
 
 typedef struct s_lst{
 	int		        flag;
@@ -73,6 +79,8 @@ typedef struct s_data{
     t_history   *history;
     int         exit_code;
 }			t_data;
+
+//t_data data;
 
 void	    rl_replace_line(const char *buffer, int val);
 char	    *ft_strstr(char *str, char *to_find);
