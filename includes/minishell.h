@@ -122,4 +122,6 @@ int         set_dollar(t_redirect *rd, char c);
 void        get_str_in_quotes(t_redirect *rd, char c);
 void        pipe_cut(t_pars *pars);
 void        get_data_cut(t_pars *pars);
+void	    lst_add_back(t_lst **lst, t_lst *new);
+t_lst	    *lst_new(void *content);
 #endif

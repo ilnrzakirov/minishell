@@ -50,3 +50,39 @@ int	count_words(char *str)
     }
     return (count);
 }
+
+t_lst	*lst_new(void *content)
+{
+    t_lst	*newlist;
+
+    newlist = (t_lst *)malloc(sizeof(t_lst));
+    if (!newlist)
+        return (NULL);
+    newlist -> tmp = content;
+    newlist -> next = NULL;
+    return (newlist);
+}
+
+t_lst	*lst_last(t_lst *lst)
+{
+    if (lst)
+    {
+        while (lst -> next)
+            lst = lst -> next;
+    }
+    return (lst);
+}
+
+
+void	lst_add_back(t_lst **lst, t_lst *new)
+{
+    t_lst	*temp;
+
+    if (*lst)
+    {
+        temp = lst_last(*lst);
+        temp -> next = new;
+    }
+    else
+        *lst = new;
+}
