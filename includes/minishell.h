@@ -59,15 +59,10 @@ typedef struct s_pars{
     char    *cmd;
 }           t_pars;
 
-typedef struct s_env{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
-
 typedef struct s_lst{
 	int		        flag;
 	char	        **cmd;
+    char            *tmp;
     char            *filename;
     int             redirect_type;
 	struct s_lst	*next;
@@ -88,6 +83,8 @@ typedef struct s_data{
     t_history   *history;
     int         exit_code;
 }			t_data;
+
+t_data *g_data;
 
 void	    rl_replace_line(const char *buffer, int val);
 char	    *ft_strstr(char *str, char *to_find);
@@ -120,4 +117,9 @@ int         parsing(char *line, t_data *data, int i);
 int	        count_words(char *str);
 void	    implement_index(int *i, int *j, char *str, char c);
 void        skip_cmd(t_pars *pars);
+char        *replace_value(char *str);
+int         set_dollar(t_redirect *rd, char c);
+void        get_str_in_quotes(t_redirect *rd, char c);
+void        pipe_cut(t_pars *pars);
+void        get_data_cut(t_pars *pars);
 #endif
