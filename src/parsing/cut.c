@@ -10,18 +10,22 @@ void    pipe_cut(t_pars *pars)
     cmd->flag = 1;
     lst_add_back(&g_data->cmd, cmd);
     pars->j = pars->i + 1;
-    printf("%s \n", g_data->cmd->tmp);
+    printf("%s \n", g_data->cmd->next->tmp);
 }
 
 void    get_data_cut(t_pars *pars)
 {
     char    *cmd;
     t_lst   *new;
+    int     k;
 
     pars->i++;
     while (pars->cmd[pars->i] == '<' || pars->cmd[pars->i] == ' ')
         pars->i++;
+    k = pars->i;
     pars->j = pars->i;
+    while (pars->cmd[k] != ' ')
+        k++;
     while (pars->cmd[pars->i] && pars->cmd[pars->i] != '|' &&
     pars->cmd[pars->i] != '>' && pars->cmd[pars->i] != '<')
             pars->i++;
@@ -29,6 +33,7 @@ void    get_data_cut(t_pars *pars)
     new = lst_new(cmd);
     new->flag = 3;
     lst_add_back(&g_data->cmd, new);
-    pars->j = pars->i + 1;
+    pars->i--;
+    pars->j = k + 1;
     printf("%s\n", g_data->cmd->tmp);
 }
