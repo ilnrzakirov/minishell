@@ -57,6 +57,7 @@ typedef struct s_pars{
     int     r;
     char    *tmp;
     char    *cmd;
+    char    *stop;
 }           t_pars;
 
 typedef struct s_lst{
