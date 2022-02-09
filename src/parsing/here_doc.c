@@ -4,7 +4,7 @@ void	sign_here_doc(int i)
 {
     if (i == SIGINT)
     {
-        write(2, "heredoc> ", 9);
+        write(2, "\nheredoc> ", 10);
         exit(1);
     }
 }
@@ -33,17 +33,19 @@ void    here_doc(char *word)
 {
     int		pid;
     int		fd;
+    int     code;
 
+    fd = open("here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+    signal(SIGINT, SIG_IGN);
     pid = fork();
     if (pid == 0) {
-//        init_signal_chaild(g_data);
-        fd = open("here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+        init_signal_chaild(g_data);
         here_doc_find(word, fd, 0);
     }
-    else
-    {
-        waitpid(pid, NULL, 0);
-    }
+    wait(&code);
+    g_data->exit_code = WEXITSTATUS(code);
+    init_signal_h();
+    close(fd);
 }
 
 void    here_doc_init(t_pars *pars)
