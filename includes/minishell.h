@@ -57,6 +57,7 @@ typedef struct s_pars{
     int     r;
     char    *tmp;
     char    *cmd;
+    char    *stop;
 }           t_pars;
 
 typedef struct s_lst{
@@ -124,4 +125,5 @@ void        pipe_cut(t_pars *pars);
 void        get_data_cut(t_pars *pars);
 void	    lst_add_back(t_lst **lst, t_lst *new);
 t_lst	    *lst_new(void *content);
+void        here_doc_init(t_pars *pars);
 #endif

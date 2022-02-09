@@ -10,7 +10,7 @@ void    pipe_cut(t_pars *pars)
     cmd->flag = 1;
     lst_add_back(&g_data->cmd, cmd);
     pars->j = pars->i + 1;
-    printf("%s \n", g_data->cmd->next->tmp);
+    printf("pipe: %s \n", g_data->cmd->tmp);
 }
 
 void    get_data_cut(t_pars *pars)
@@ -35,5 +35,5 @@ void    get_data_cut(t_pars *pars)
     lst_add_back(&g_data->cmd, new);
     pars->i--;
     pars->j = k + 1;
-    printf("%s\n", g_data->cmd->tmp);
+    printf("sym <: %s\n", g_data->cmd->tmp);
 }
