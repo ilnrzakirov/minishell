@@ -45,6 +45,7 @@ int	main(int i, char **argv, char **env)
 	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
 	envp = init_env(&data, env);
+    g_data = &data;
     data.exit_code = 0;
 	while (1)
 	{
@@ -52,6 +53,11 @@ int	main(int i, char **argv, char **env)
         dup2(data.std_out, 1);
         init_signal_h(&data);
 		line = readline("\033[1;31mminishell->\033[0m ");
+        if (!line)
+        {
+            write(1, "exit\n", 5);
+            return (data.exit_code);
+        }
         if (line[0])
             add_history(line);
         i = preparsing(line, 0, 0, 0);
