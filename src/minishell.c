@@ -51,8 +51,13 @@ int	main(int i, char **argv, char **env)
 	{
         dup2(data.std_in, 0);
         dup2(data.std_out, 1);
-        init_signal_h(&data);
+        init_signal_h();
 		line = readline("\033[1;31mminishell->\033[0m ");
+        if (!line)
+        {
+            write(1, "exit\n", 5);
+            return (data.exit_code);
+        }
         if (line[0])
             add_history(line);
         i = preparsing(line, 0, 0, 0);
