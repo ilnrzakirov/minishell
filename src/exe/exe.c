@@ -73,6 +73,8 @@ void    exe_pipe(t_lst *lst, char **env)
         execve(path, lst->cmd, env);
     }
     wait(0);
+    clear_arr(env);
+    free(path);
     dup2(fd[0], STDIN_FILENO);
     close(fd[0]);
     close(fd[1]);

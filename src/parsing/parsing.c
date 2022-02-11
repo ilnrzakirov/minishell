@@ -47,6 +47,7 @@ void    pipe_in_quotes(t_pars *pars, int i)
 void    split_cmd(t_pars *pars, t_data *data)
 {
     pars->i = 0;
+    pars->j = 0;
     pars->k = 0;
     pars->r = 0;
     while (pars->cmd[pars->i]) {
@@ -76,4 +77,9 @@ int parsing(char *line, t_data *data, int i)
     data->cmd = NULL;
 //    if (ft_strcmp(line, "<<"))
     split_cmd(&pars, data);
+    while (g_data->cmd)
+    {
+        printf("%s\n", g_data->cmd->tmp);
+        g_data->cmd = g_data->cmd->next;
+    }
 }

@@ -67,7 +67,7 @@ int	main(int i, char **argv, char **env)
             exit(1);
         }
         i = parsing(line, &data, 0);
-//		ft_execve(&data, env);
+		ft_execve(&data, env);
 //        clear_struct(&data);
 	}
 	return (0);

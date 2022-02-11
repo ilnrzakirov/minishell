@@ -14,7 +14,7 @@ void	here_doc_find(char *here, int fd, int i)
 {
     char	*line;
 
-    signal(SIGINT, sign_here_doc);
+//    signal(SIGINT, sign_here_doc);
     while (1)
     {
         line = readline("heredoc> ");
@@ -39,7 +39,7 @@ void    here_doc(char *word)
     signal(SIGINT, SIG_IGN);
     pid = fork();
     if (pid == 0) {
-        init_signal_chaild(g_data);
+        signal(SIGINT, SIG_IGN);
         here_doc_find(word, fd, 0);
     }
     wait(&code);
