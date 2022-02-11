@@ -104,7 +104,7 @@ void	    ft_link_lstadd_back(t_history **lst, t_history *new);
 void	    ft_link_lstadd_front(t_history **lst, t_history *new);
 t_history	*ft_link_lstlast(t_history *lst);
 int         ft_link_lstsize(t_history *lst);
-void        init_signal_h(t_data *data);
+void        init_signal_h();
 void        init_signal_chaild(t_data *data);
 char	    *ft_pwd(int flag);
 int         ft_env(t_env *e);
@@ -125,4 +125,5 @@ void        pipe_cut(t_pars *pars);
 void        get_data_cut(t_pars *pars);
 void	    lst_add_back(t_lst **lst, t_lst *new);
 t_lst	    *lst_new(void *content);
+void        here_doc_init(t_pars *pars);
 #endif
