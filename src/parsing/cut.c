@@ -34,5 +34,4 @@ void    get_data_cut(t_pars *pars)
     lst_add_back(&g_data->cmd, new);
     pars->i--;
     pars->j = k + 1;
-    printf("sym <: %s\n", g_data->cmd->tmp);
 }
