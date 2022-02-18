@@ -14,6 +14,6 @@
 
 int	error_parser(char *str)
 {
-	printf("%s", str);
+    printf("%s", str);
 	return(0);
 }

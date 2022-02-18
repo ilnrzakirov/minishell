@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-int	preparser(char *line);
+int	preparser(char **line, int i);
 int	error_parser(char *str);
 
 

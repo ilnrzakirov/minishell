@@ -27,14 +27,15 @@ int	pre_gap(char *line, int i)
 			if (!line[i] || line[i] != ch)
 				return(error_parser("Quotation mark missing\n"));
 		}
-		i++;
 	}
 	return(1);
 }
 
 int	pre_pipe(char *line, int i)
 {
-	while (line[++i])
+    if (line[++i] == '|')
+        return(error_parser("Syntax error near unexpected token `|'\n"));
+    while (line[++i])
 	{
 		if (line[i] == '|')
 		{
@@ -80,13 +81,19 @@ int	pre_redirect(char *line, int i)
 	return (1);
 }
 
-int	preparser(char *line)
+int	preparser(char **line, int i)
 {
-	if(!pre_gap(line, -1))
+    char *new_line;
+
+    new_line = *line;
+    while(new_line[++i])
+        if (new_line[i] == '#')
+            *line = ft_substr(*line, 0, i);
+	if(!pre_gap(*line, -1))
 		return(0);
-	if(!pre_pipe(line, -1))
+	if(!pre_pipe(*line, -1))
 		return(0);
-	if(!pre_redirect(line, -1))
+	if(!pre_redirect(*line, -1))
 		return(0);
 	return(1);
 }
