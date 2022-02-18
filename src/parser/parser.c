@@ -16,63 +16,62 @@ char *ft_cut_space(char *line);
 void    pipe_in_quotes(char *newline, int i);
 
 
-//char	*ft_gap(char *line, int *i)
-//{
-//	int		j;
-//	char	*line1;
-//	char	*line2;
-//	char	*line3;
-//	char	*line4;
-//
-//	j = *i;
-//	while (line[++*i])
-//		if (line[*i] == '\'')
-//			break ;
-//	line1 = ft_substr(line, 0, j);
-//	line2 = ft_substr(line, j + 1, *i - j - 1);
-//	line3 = ft_strdup(line + *i);
-//	line4 = ft_strjoin(line1, line2);
-//	free(line1);
-//	free(line2);
-//	line1 = ft_strjoin(line4, line3);
-//	free(line4);
-//	free(line3);
-//	free(line);
-//	*i = *i - (ft_stlren(line1));
-//    printf("%s\n", line1);
-//
-//    return (line1);
-//}
+char	*ft_gap(char *line, int *i)
+{
+	int		j;
+	char	*line1;
+	char	*line2;
+	char	*line3;
+	char	*line4;
+
+	j = *i;
+	while (line[++*i])
+		if (line[*i] == '\'')
+			break ;
+	line1 = ft_substr(line, 0, j);
+	line2 = ft_substr(line, j + 1, *i - j - 2);
+	line3 = ft_strdup(line + *i);
+	line4 = ft_strjoin(line1, line2);
+	free(line1);
+	free(line2);
+	line1 = ft_strjoin(line4, line3);
+	free(line4);
+	free(line3);
+	free(line);
+	*i = *i - 2;
+    return (line1);
+}
 
 void	parser(char *line, t_data *data)
 {
 	int	    i;
 
-	i = -1;
+	i = 0;
     int j = 0;
 	if(preparser(&line, -1))
     {
         line = ft_cut_space(line);
-//        while (line[++i]) {
-//            printf("%c\n", line[i]);
-//            if (line[i] && line[i] == '\'')
-//                ft_gap(line, &i);
-//            printf("%d\n", j++);
-//
-//		if (line[i] && line[i] == '\\')
-//			line = parser_slesh(str, &i);
-//		if (line[i] && line[i] == '\"')
-//		{
-//			line = ft_gap2(line, &i, shell, 1);
-//			i = i - 2;
-//		}
-//		if (line[i] && line[i] == '$')
-//			line = parser_dollar(line, &i, shell);
-//		if (line[i] && (line[i] == ';' || line[i] == '|' ))
-//			shell->flags[i] = 1;
-//        }
+        line = open_dollar(line);
+
+        while (line[i])
+        {
+            if (line[i] && line[i] == '\'')
+                line = ft_gap(line, &i);
+    //		if (line[i] && line[i] == '\\')
+    //			line = parser_slesh(str, &i);
+    //		if (line[i] && line[i] == '\"')
+    //		{
+    //			line = ft_gap2(line, &i, shell, 1);
+    //			i = i - 2;
+    //		}
+    //		if (line[i] && line[i] == '$')
+    //			line = parser_dollar(line, &i, shell);
+    //		if (line[i] && (line[i] == ';' || line[i] == '|' ))
+    //			shell->flags[i] = 1;
+            i++;
+        }
+        printf("%s\n", line);
     }
-    printf("%s\n", line);
 //	return (line);
 }
 
@@ -82,11 +81,9 @@ char *ft_cut_space(char *line)
 {
     char *newline;
     newline = ft_strtrim(line, " ");
-//    free(line);
     pipe_in_quotes(newline, 0);
     line = ft_strtrim(newline, " ");
     free(newline);
-    printf("%s\n", line);
     return (line);
 }
 
