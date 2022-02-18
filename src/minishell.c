@@ -26,7 +26,8 @@ t_env *init_env(t_data *data, char **env)
        j = ft_strchr(env[i], '=');
        tmp->key = ft_substr(env[i], 0, ft_strichr(env[i], '=') + 1);
        tmp->value = ft_substr((j + 1), 0, ft_strlen(j) - 1);
-       tmp->next = malloc(sizeof(t_env));
+       if (env[i + 1])
+           tmp->next = malloc(sizeof(t_env));
        tmp = tmp->next;
        i++;
     }
@@ -44,30 +45,56 @@ int	main(int i, char **argv, char **env)
 
 	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
-	envp = init_env(&data, env);
+    envp = init_env(&data, env);
     g_data = &data;
     data.exit_code = 0;
 	while (1)
 	{
         dup2(data.std_in, 0);
         dup2(data.std_out, 1);
-        init_signal_h();
-		line = readline("\033[1;31mminishell->\033[0m ");
-        if (!line)
-        {
-            write(1, "exit\n", 5);
-            return (data.exit_code);
-        }
-        if (line[0])
-            add_history(line);
-        i = preparsing(line, 0, 0, 0);
-        if (i > 0)
-        {
-            print_error("", i);
-            exit(1);
-        }
-        i = parsing(line, &data, 0);
+//        init_signal_h();
+//		line = readline("\033[1;31mminishell->\033[0m ");
+//        if (!line)
+//        {
+//            write(1, "exit\n", 5);
+//            return (data.exit_code);
+//        }
+//        if (line[0])
+//            add_history(line);
+//        i = preparsing(line, 0, 0, 0);
+//        if (i > 0)
+//        {
+//            print_error("", i);
+//            exit(1);
+//        }
+//        i = parsing(line, &data, 0);
+        data.cmd = malloc(sizeof (t_lst));
+        data.cmd->flag = 2;
+        data.cmd->redirect_type = 2;
+        data.cmd->filename = ft_strdup("test");
+        data.cmd->cmd = malloc(sizeof (char*) * 3);
+        data.cmd->cmd[0] = ft_strdup("echo");
+        data.cmd->cmd[1] = ft_strdup("Hello\nHello");
+        data.cmd->cmd[2] = NULL;
+        data.cmd->next = malloc(sizeof (t_lst));
+        data.cmd->next->cmd = malloc(sizeof (char*) * 4);
+        data.cmd->next->cmd[0] = ft_strdup(("cat"));
+        data.cmd->next->cmd[1] = ft_strdup(("-e"));
+        data.cmd->next->cmd[2] = ft_strdup(("test"));
+        data.cmd->next->cmd[3] = NULL;
+        data.cmd->next->flag = 1;
+        data.cmd->next->next = malloc(sizeof (t_lst));
+        data.cmd->next->next->cmd = malloc(sizeof (char*) * 3);
+        data.cmd->next->next->cmd[0] = ft_strdup(("wc"));
+        data.cmd->next->next->cmd[1] = ft_strdup(("-l"));
+        data.cmd->next->next->cmd[2] = NULL;
+        data.cmd->next->next->flag = 0;
+        data.cmd->data = &data;
+        data.cmd->next->data = &data;
+        data.cmd->next->next->data = &data;
+        data.cmd->next->next->next = NULL;
 		ft_execve(&data, env);
+        break ;
 //        clear_struct(&data);
 	}
 	return (0);

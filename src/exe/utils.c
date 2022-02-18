@@ -15,7 +15,7 @@
 int ft_env_lstsize(t_env *e)
 {
     int	    count;
-    t_env *env;
+    t_env   *env;
 
     env = e;
     count = 0;
