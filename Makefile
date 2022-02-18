@@ -1,6 +1,7 @@
 NAME	=	minishell
 
 SRCS	=	src/minishell.c\
+			src/error.c\
 			src/parser/error_parser.c\
 			src/parser/parser.c\
 			src/parser/preparser.c
@@ -17,7 +18,7 @@ GCC		= clang
 
 CFLAGS	=	
 
-FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/includ
+FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include
 
 $(NAME)	:	$(OBJS) $(HEADER)
 			@$(GCC) $(CFLAGS) $(OBJS) $(LIB) $(FLAG) -o ${NAME}

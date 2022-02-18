@@ -12,6 +12,8 @@
 
 #include "../../includes/parser.h"
 
+int count_redir(char *line);
+
 int	pre_gap(char *line, int i)
 {
 	char	ch;
@@ -33,10 +35,17 @@ int	pre_gap(char *line, int i)
 
 int	pre_pipe(char *line, int i)
 {
+    char ch;
     if (line[++i] == '|')
         return(error_parser("Syntax error near unexpected token `|'\n"));
     while (line[++i])
 	{
+        if(line[i] == '\'' || line[i] == '\"' )
+        {
+            line[i] = ch;
+            while (line[++i] != ch)
+                ;
+        }
 		if (line[i] == '|')
 		{
 			if(!line[i + 1] || line[i + 1] == '|')
@@ -55,30 +64,34 @@ int	pre_pipe(char *line, int i)
 
 int	pre_redirect(char *line, int i)
 {
-	while (line[++i])
-	{
-		if (line[i] == '<' && line[i + 1] != '<')
-		{
-			i++;
-			if(line[i] == '\'' || line[i] == '\"')
-				break ;
-			while (line[i] == ' ')
-				i++;
-			if(line[i] == '<' || !line[i] || line[i] == '>')
-				return(error_parser("Syntax error near unexpected token `> or <'\n"));
-		}
-		if (line[i] == '>' && line[i + 1] != '>')
-		{
-			i++;
-			if(line[i] == '\'' || line[i] == '\"')
-				break ;
-			while (line[i] == ' ')
-				i++;
-			if(line[i] == '>' || !line[i] || line[i] == '<')
-				return(error_parser("Syntax error near unexpected token `> or <'\n"));
-		}
-	}
-	return (1);
+    if(!count_redir(line))
+        return (error_parser("Syntax error near unexpected token `> or <'\n"));
+    while (line[++i])
+    {
+        if (line[i] == '<' && line[i + 1] != '<')
+        {
+            i++;
+            if (line[i] == '\'' || line[i] == '\"')
+                break;
+            while (line[i] == ' ')
+                   i++;
+            if (line[i] == '<' || !line[i] || line[i] == '>')
+                return (error_parser("Syntax error near unexpected token `> or <'\n"));
+        }
+        if (line[i] == '>' && line[i + 1] != '>')
+        {
+            i++;
+            if (line[i] == '\'' || line[i] == '\"')
+                break;
+            if (line[i] == '>' && line[i + 1] == '>')
+                return (error_parser("Syntax error near unexpected token `> or <'\n"));
+            while (line[i] == ' ')
+                i++;
+            if (line[i] == '>' || !line[i] || line[i] == '<')
+                return (error_parser("Syntax error near unexpected token `> or <'\n"));
+        }
+    }
+    return (1);
 }
 
 int	preparser(char **line, int i)
@@ -97,3 +110,27 @@ int	preparser(char **line, int i)
 		return(0);
 	return(1);
 }
+
+//Utils
+
+int count_redir(char *line)
+{
+    int count;
+    int i;
+
+    count = 0;
+    i = -1;
+    while(line[++i])
+    {
+        while(line[i] == '>' || line[i] == '<')
+        {
+            count++;
+            i++;
+        }
+        if(count > 2)
+            return (0);
+        count = 0;
+    }
+    return (1);
+}
+
