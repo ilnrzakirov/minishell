@@ -61,7 +61,7 @@ int ft_cd(t_lst *cmd)
     static char *old;
 
     if (cmd->flag != 0)
-        return (EXIT_SUCCESS);
+        exit (EXIT_SUCCESS);
     if (!cmd->cmd[1] || !ft_strcmp(cmd->cmd[1], "~"))
     {
         if (old)
@@ -71,12 +71,12 @@ int ft_cd(t_lst *cmd)
     }
     else if (!ft_strcmp(cmd->cmd[1], "-")) {
         if (get_prev_dir(&old, cmd))
-            return (EXIT_FAILURE);
+            exit (EXIT_FAILURE);
         ft_pwd(0);
     }
     else
         if (get_dir(&old, cmd))
-            return (EXIT_FAILURE);
+            exit (EXIT_FAILURE);
     cmd->data->exit_code = 0;
-    return (EXIT_SUCCESS);
+    exit (EXIT_SUCCESS);
 }

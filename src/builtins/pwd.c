@@ -16,7 +16,7 @@ char    *free_flag(char *path, int flag)
 char	*ft_pwd(int flag)
 {
     char	*buf;
-    int 	l;
+    size_t 	l;
 
     l = 50;
     buf = malloc(sizeof(char) * l);

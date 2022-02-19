@@ -25,7 +25,7 @@ void    ft_exit(t_lst *cmd, t_data *data)
 {
     if (cmd->flag != 0)
         return ;
-    write(2, "exit", 4);
+    write(2, "exit\n", 5);
     if (len_arr(cmd->cmd) > 1 && isdigit_char(cmd->cmd[1]))
     {
         ft_putstr_fd("Bash: exit: ", 2);

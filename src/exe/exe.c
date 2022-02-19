@@ -31,8 +31,9 @@ void    exe_redirect(t_lst *lst, char **env)
         {
             init_signal_chaild(lst->data);
             dup2(fd, 1);
+			close(fd);
+			buildins_hub(lst, g_data);
             execve(path, lst->cmd, env);
-            close(fd);
         }
     }
 }
@@ -46,7 +47,8 @@ void    exe(t_lst *lst, char **env)
     path = ft_find_path(lst->cmd[0], 0);
     pid = fork();
     if (pid == 0) {
-//        init_signal_chaild(lst->data);
+        init_signal_chaild(lst->data);
+		buildins_hub(lst, g_data);
         execve(path, lst->cmd, env);
     }
     close(STDIN_FILENO);
@@ -54,30 +56,29 @@ void    exe(t_lst *lst, char **env)
     wait(0);
 }
 
-void    exe_pipe(t_lst *lst, char **env)
-{
-    char    *path;
-    int     fd[2];
-    int     pid;
+void    exe_pipe(t_lst *lst, char **env) {
+	char *path;
+	int fd[2];
+	int pid;
 
-    env = get_env(lst->data);
-    path = ft_find_path(lst->cmd[0], 0);
-    pipe(fd);
-    pid = fork();
-    if (pid == 0)
-    {
-//        init_signal_chaild(lst->data);
-        close(fd[0]);
-        dup2(fd[1], STDOUT_FILENO);
-        close(fd[1]);
-        execve(path, lst->cmd, env);
-    }
-    wait(0);
-//    clear_arr(env);
-    free(path);
-    dup2(fd[0], STDIN_FILENO);
-    close(fd[0]);
-    close(fd[1]);
+	env = get_env(lst->data);
+	path = ft_find_path(lst->cmd[0], 0);
+	pipe(fd);
+	pid = fork();
+	if (pid == 0) {
+        init_signal_chaild(lst->data);
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
+		buildins_hub(lst, g_data);
+		execve(path, lst->cmd, env);
+	}
+    clear_arr(env);
+	free(path);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	close(fd[1]);
+//	wait(0);
 }
 
 void    get_data(t_lst *lst, char **env)

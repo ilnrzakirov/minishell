@@ -12,43 +12,28 @@
 
 #include "../../includes/minishell.h"
 
-int len(char **arg)
-{
-    int i;
-
-    i = 0;
-    while (arg[i])
-        i++;
-    return (i);
-}
-
 int ft_echo(char **arg)
 {
-    int i;
-    int n;
+	size_t	i;
+	size_t	j;
 
-    i = 1;
-    n = 0;
-    if (len(arg) > 1) {
-        while (arg[i])
-        {
-            if (arg[i] && ft_strnstr(arg[i], "-n", 2) == 0)
-            {
-                n = 1;
-                i++;
-            }
-            while (arg[i])
-            {
-                ft_putstr_fd(arg[i], 1);
-                if (arg[i + 1] && arg[i][0] != '\0')
-                    write(1, " ", 1);
-                i++;
-            }
-        }
-    }
-    if (n == 0)
-        write (1, "\n", 1);
-    exit(EXIT_SUCCESS);
+	i = 0;
+	j = 0;
+	if (!ft_strcmp(arg[1], "-n"))
+	{
+		i++;
+		j++;
+	}
+	while (arg[++i])
+	{
+		ft_putstr_fd(arg[i], STDOUT_FILENO);
+		if (arg[i + 1])
+			write(STDOUT_FILENO, " ", 1);
+	}
+	if (!j)
+		write(STDOUT_FILENO, "\n", 1);
+	g_data->exit_code = 0;
+	exit (EXIT_SUCCESS);
 }
 
 int ft_env(t_env *e)

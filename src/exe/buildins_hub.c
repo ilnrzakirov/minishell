@@ -11,5 +11,10 @@ void    buildins_hub(t_lst *cmd, t_data *data)
     else if (ft_strstr(cmd->cmd[0], "env"))
         ft_env(data->env);
     else if (ft_strstr(cmd->cmd[0], "pwd"))
-        ft_pwd(0);
+	{
+		if (ft_pwd(0))
+			exit(EXIT_SUCCESS);
+		else
+			exit(EXIT_FAILURE);
+	}
 }
