@@ -50,9 +50,51 @@ char	*ft_gap(char *line, int *i)
     return (line1);
 }
 
-void creat_list_cmd(char *line)
+void make_left_redirect(char *line, int i)
 {
+	int j;
+	char *filename;
 
+	j = i;
+	while(line[j] != ' ' && line[j])
+		j++;
+	filename = ft_substr(line, i, j - 1);
+	g_data->cmd = lst_new_parser(1, filename, 1);
+	printf("%d\n%s\n%d\n", g_data->cmd->flag, g_data->cmd->filename,
+		   g_data->cmd->redirect_type);
+
+
+}
+
+//void make_left_2_redirect(char *temp, int i)
+//{
+//
+//}
+
+//void	make_right_redirect(char *temp, int i)
+//{
+//
+//}
+
+//void	make_pipe(char *line, i)
+//{
+//
+//}
+
+void creat_list_cmd(char *line, int i)
+{
+	g_data->cmd = malloc(sizeof(t_lst));
+	while(line[++i])
+	{
+		if (line[i] == '<' && line[i + 1] && line[i + 1] != '<')
+			make_left_redirect(line, i + 2);
+//		if (temp[i] == '<' && temp[i + 1] == '<')
+//			make_left_2_redirect(temp, i);
+//		if (temp[i] == '|')
+//			make_pipe(temp, i)
+//		if (temp[i] == '>')
+//			make_right_redirect(temp, i);
+	}
 }
 
 void	parser(char *line, t_data *data)
@@ -65,29 +107,11 @@ void	parser(char *line, t_data *data)
     {
         line = ft_cut_space(line);
         line = open_dollar(line, -1);
-		creat_list_cmd(line);
-
-//        while (line[i])
-//        {
-//            if (line[i] && line[i] == '\'')
-//                line = ft_gap(line, &i);
-//    //		if (line[i] && line[i] == '\\')
-//    //			line = parser_slesh(str, &i);
-//    //		if (line[i] && line[i] == '\"')
-//    //		{
-//    //			line = ft_gap2(line, &i, shell, 1);
-//    //			i = i - 2;
-//    //		}
-//    //		if (line[i] && line[i] == '$')
-//    //			line = parser_dollar(line, &i, shell);
-//    //		if (line[i] && (line[i] == ';' || line[i] == '|' ))
-//    //			shell->flags[i] = 1;
-//            i++;
-//        }
-//        printf("%s\n", line);
+		creat_list_cmd(line, -1);
     }
 //	return (line);
 }
+
 
 // utils
 
@@ -164,7 +188,6 @@ char	*ft_open_dollar_util(char *line, int i, int j)
 {
     char    *line1;
     char    *line2;
-    char    *res;
     char    *key;
     char    *value;
 

@@ -38,18 +38,23 @@ typedef struct s_env{
 }					t_env;
 
 typedef struct s_lst{
-	int				flag;
-	char			*cmd;
-    struct s_lst	*next;
-    struct s_data  	*data;
-}					t_lst;
+	int		        flag;
+	char	        **cmd;
+    char            *tmp;
+    char            *filename;
+    int             redirect_type;
+	struct s_lst	*next;
+	struct s_data   *data;
+}			        t_lst;
 
 
 typedef struct s_data{
-	t_env	*env;
-	int		std_out;
-	int		std_in;
-	t_list	*cmd;
+	t_env	    *env;
+	int		    std_out;
+	int		    std_in;
+	t_lst	    *cmd;
+//    t_history   *history;
+    int         exit_code;
 }			t_data;
 
 t_data *g_data;
@@ -61,5 +66,8 @@ int		print_error(char *str, int i);
 void	clear_arr(char **arr);
 int		get_infile(char **line, t_data *mate);
 int	    ft_strichr(const char *str, char c);
+t_lst	*lst_new_parser(int flag, char *filename, int r_t);
+t_lst	*lst_last(t_lst *lst);
+void	lst_add_back(t_lst **lst, t_lst *new);
 
 #endif
