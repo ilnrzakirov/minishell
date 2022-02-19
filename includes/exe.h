@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   exe.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/24 13:48:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/24 14:27:28 by bcarlee          ###   ########.fr       */
+/*   Created: 2022/01/29 16:11:48 by bcarlee           #+#    #+#             */
+/*   Updated: 2022/01/29 16:11:49 by bcarlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef EXE_H
+# define EXE_H
 
-int	print_error(char *str, int i)
-{
-	if (i == 1)
-		write(2, "no such file or directory\n", 26);
-	else if (i == 2)
-		write(2, str, ft_strlen(str));
-    else if (i == 3)
-        write(2, "special characters are not processed: \\, ; \n", 45);
-    else if (i == 4)
-        write(2, "unclosed quotes", 15);
-	return (0);
-}
+#endif
