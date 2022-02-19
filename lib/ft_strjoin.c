@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*newstr;
 	size_t	lens1;
@@ -34,5 +34,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (lens2-- > 0)
 		newstr[i++] = s2[j++];
 	newstr[i] = '\0';
+    free(s1);
 	return (newstr);
 }
