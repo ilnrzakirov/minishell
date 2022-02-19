@@ -15,8 +15,12 @@
 
 # include "minishell.h"
 
-int	preparser(char **line, int i);
-int	error_parser(char *str);
+int		preparser(char **line, int i);
+int		error_parser(char *str);
+char 	*ft_cut_space(char *line);
+void    pipe_in_quotes(char *newline, int i);
+char 	*open_dollar(char *line, int i);
+int		count_redir(char *line);
 
 
 #endif

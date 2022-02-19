@@ -12,9 +12,17 @@
 
 #include "../../includes/parser.h"
 
-char *ft_cut_space(char *line);
-void    pipe_in_quotes(char *newline, int i);
+int	ft_strichr(const char *str, char c)
+{
+    int	count;
 
+    count = 0;
+    while (str[count] != c)
+    {
+        count++;
+    }
+    return (count);
+}
 
 char	*ft_gap(char *line, int *i)
 {
@@ -42,6 +50,11 @@ char	*ft_gap(char *line, int *i)
     return (line1);
 }
 
+void creat_list_cmd(char *line)
+{
+
+}
+
 void	parser(char *line, t_data *data)
 {
 	int	    i;
@@ -51,33 +64,34 @@ void	parser(char *line, t_data *data)
 	if(preparser(&line, -1))
     {
         line = ft_cut_space(line);
-        line = open_dollar(line);
+        line = open_dollar(line, -1);
+		creat_list_cmd(line);
 
-        while (line[i])
-        {
-            if (line[i] && line[i] == '\'')
-                line = ft_gap(line, &i);
-    //		if (line[i] && line[i] == '\\')
-    //			line = parser_slesh(str, &i);
-    //		if (line[i] && line[i] == '\"')
-    //		{
-    //			line = ft_gap2(line, &i, shell, 1);
-    //			i = i - 2;
-    //		}
-    //		if (line[i] && line[i] == '$')
-    //			line = parser_dollar(line, &i, shell);
-    //		if (line[i] && (line[i] == ';' || line[i] == '|' ))
-    //			shell->flags[i] = 1;
-            i++;
-        }
-        printf("%s\n", line);
+//        while (line[i])
+//        {
+//            if (line[i] && line[i] == '\'')
+//                line = ft_gap(line, &i);
+//    //		if (line[i] && line[i] == '\\')
+//    //			line = parser_slesh(str, &i);
+//    //		if (line[i] && line[i] == '\"')
+//    //		{
+//    //			line = ft_gap2(line, &i, shell, 1);
+//    //			i = i - 2;
+//    //		}
+//    //		if (line[i] && line[i] == '$')
+//    //			line = parser_dollar(line, &i, shell);
+//    //		if (line[i] && (line[i] == ';' || line[i] == '|' ))
+//    //			shell->flags[i] = 1;
+//            i++;
+//        }
+//        printf("%s\n", line);
     }
 //	return (line);
 }
 
 // utils
 
-char *ft_cut_space(char *line)
+char	*ft_cut_space(char *line)
 {
     char *newline;
     newline = ft_strtrim(line, " ");
@@ -87,7 +101,7 @@ char *ft_cut_space(char *line)
     return (line);
 }
 
-int correct_cmd(char *newline, int *i, char **s, char **s1)
+int	correct_cmd(char *newline, int *i, char **s, char **s1)
 {
     *s = ft_substr(newline, 0, *i);
     if (!(*s))
@@ -107,7 +121,7 @@ int correct_cmd(char *newline, int *i, char **s, char **s1)
     return (0);
 }
 
-void    pipe_in_quotes(char *newline, int i)
+void	pipe_in_quotes(char *newline, int i)
 {
     char    *s;
     char    *s1;
@@ -131,3 +145,71 @@ void    pipe_in_quotes(char *newline, int i)
     }
 }
 
+char	*ft_find_key(char *key)
+{
+    t_env *temp;
+
+    temp = g_data->env;
+    key = ft_strjoin(key, "=");
+    while(temp && temp->next->key)
+    {
+        if(ft_strnstr(temp->key, key, ft_strlen(key)))
+            return (ft_strdup(temp->value));
+        temp = temp->next;
+    }
+    return (NULL);
+}
+
+char	*ft_open_dollar_util(char *line, int i, int j)
+{
+    char    *line1;
+    char    *line2;
+    char    *res;
+    char    *key;
+    char    *value;
+
+    if (i > 0)
+        line1 = ft_substr(line, 0, i);
+    j = i;
+    while (line[j] != ' ' && line[j])
+        j++;
+    key = ft_substr(line, i + 1, j - i - 1);
+    value = ft_find_key(key);
+    if (value)
+    {
+        line1 = ft_strjoin(line1, value);
+        line2 = ft_substr(line, j, ft_strlen(line));
+        line = ft_strjoin(line1, line2);
+        free(line2);
+    }
+    else
+    {
+        line1 = ft_strjoin(line1, "");
+        line2 = ft_substr(line, j + 1, ft_strlen(line));
+        line = ft_strjoin(line1, line2);
+        free(line2);
+    }
+    return (line);
+}
+
+char	*open_dollar(char *line, int i)
+{
+    while (line[++i])
+    {
+        if (line[i++] == '\'')
+            while (line[i] && line[i] != '\'')
+                i++;
+        if (line[i] == '$' && line[i + 1] && line[i + 1] != '?')
+            line = ft_open_dollar_util(line, i, 0);
+    }
+    i = -1;
+    while (line[++i])
+    {
+        if (line[i++] == '\'')
+            while (line[i] && line[i] != '\'')
+                i++;
+        else if (line[i] == '$')
+            line = open_dollar(line, -1);
+    }
+    return(line);
+}

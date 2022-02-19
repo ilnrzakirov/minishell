@@ -12,8 +12,6 @@
 
 #include "../../includes/parser.h"
 
-int count_redir(char *line);
-
 int	pre_gap(char *line, int i)
 {
 	char	ch;
