@@ -131,4 +131,6 @@ t_env 		*lst_env_new(char *key, char *value);
 void		lst_env_add_back(t_env **lst, t_env *new);
 t_env 		*lst_env_last(t_env *lst);
 int 	   	buildins_hub_parent(t_lst *cmd);
+int 		ft_unset(t_lst *cmd);
+int 		check_key(char *key);
 #endif

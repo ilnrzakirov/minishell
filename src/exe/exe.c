@@ -54,7 +54,6 @@ void    exe(t_lst *lst, char **env)
 		}
 		wait(0);
 	}
-	write(1, "tt", 2);
 	close(STDIN_FILENO);
     dup2(lst->data->std_in, 0);
 }
