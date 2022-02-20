@@ -75,7 +75,7 @@ int	main(int i, char **argv, char **env)
         data.cmd->filename = ft_strdup("test");
         data.cmd->cmd = malloc(sizeof (char*) * 3);
         data.cmd->cmd[0] = ft_strdup("unset");
-        data.cmd->cmd[1] = ft_strdup("MAKELEVEL");
+        data.cmd->cmd[1] = ft_strdup("PWD");
         data.cmd->cmd[2] = NULL;
 		data.cmd->next = NULL;
 

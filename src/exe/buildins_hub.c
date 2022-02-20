@@ -22,7 +22,11 @@ int    buildins_hub_parent(t_lst *cmd)
 		ft_unset(cmd);
 		return (1);
 	}
-	return (0);
+	else if (ft_strstr(cmd->cmd[0], "cd")) {
+		ft_cd(cmd);
+		return (1);
+	}
+		return (0);
 }
 
 void    buildins_hub(t_lst *cmd, t_data *data)
