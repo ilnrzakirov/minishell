@@ -66,8 +66,8 @@ int		print_error(char *str, int i);
 void	clear_arr(char **arr);
 int		get_infile(char **line, t_data *mate);
 int	    ft_strichr(const char *str, char c);
-t_lst	*lst_new_parser(int flag, char *filename, int r_t);
+t_lst	*lst_new_p(int flag, char *filename, int r_t, char **cmd);
 t_lst	*lst_last(t_lst *lst);
-void	lst_add_back_parse(t_lst **lst, t_lst *new);
+void	lst_back_p(t_lst **lst, t_lst *new);
 
 #endif

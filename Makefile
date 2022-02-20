@@ -40,3 +40,6 @@ fclean	:	clean
 			@echo "\033[0;32m------Fclean completed-------"
 
 re		:	fclean all
+
+run		: all
+			./minishell

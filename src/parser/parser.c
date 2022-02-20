@@ -50,36 +50,58 @@ char	*ft_gap(char *line, int *i)
     return (line1);
 }
 
-int skip_space(char  *s, int i, char *c)
+char	**find_command(char *s, int i)
 {
-	while(s[i] == ' ' && s[i] != '\'' && s[i] != '\"' && s[i])
-		i++;
-	if (s[i] == '\'' || s[i] == '\"')
+	char **res;
+	char **temp;
+	int j;
+
+	j = 0;
+	if (s[i] == '<' && s + 1)
 	{
-		*c = s[i];
-		i++;
+		temp = ft_split(s + i + 1, ' ');
+//		res[0] = temp[1];
+		printf("%s\n", temp[1]);
+//		i = 2;
+//		while(temp[i] && temp[i][0] == '-')
+//		{
+//			res[j++] = temp[i++];
+//		}
 	}
-	else
-		*c = '\n';
-	return (i);
+//	i = 0;
+//	while (res[i])
+//	{
+//		printf("%s\n", res[i]);
+//		i++;
+//	}
+
+	return (res);
 }
 
-void make_left_redirect(char *s, int i)
+char **parse_filename(char *s, int i)
 {
-	int		j;
-	char	*flnm;
-	char	c;
+	char **array;
 
-	i = skip_space(s, i, &c);
-	j = i;
-	while((s[j] != ' ' || (s[i] != c && c != '\n')) && s[j])
-	{
-		if (s[j] == c)
-			break ;
-		j++;
-	}
-	flnm = ft_substr(s, i, j - i);
-	lst_add_back_parse(&g_data->cmd, lst_new_parser(1, flnm, 1));
+	array = ft_split(s, ' ');
+	return (array);
+}
+
+void make_left_redirect(char *s, int i, int j)
+{
+	char 	**ar_fl;
+	char 	**cmd;
+
+	cmd = find_command(s, i - 2);
+//	ar_fl = parse_filename(s, i);
+//	lst_back_p(&g_data->cmd, lst_new_p(3, ar_fl[j++], 1, NULL));
+//	if(!ar_fl[j])
+//		lst_back_p(&g_data->cmd, lst_new_p(0, NULL, 0, cmd));
+//	while(ar_fl[j])
+//	{
+//		lst_back_p(&g_data->cmd, lst_new_p(3, ar_fl[j], 0, NULL));
+//		lst_back_p(&g_data->cmd, lst_new_p(0, NULL, 0, cmd));
+//		j++;
+//	}
 }
 
 //void make_left_2_redirect(char *temp, int i)
@@ -101,12 +123,12 @@ void creat_list_cmd(char *line, int i)
 {
 	t_lst	*first;
 
-	first = lst_new_parser(0, NULL, 0);
+	first = lst_new_p(0, NULL, 0, NULL);
 	g_data->cmd = first;
 	while(line[++i])
 	{
 		if (line[i] == '<' && line[i + 1] && line[i + 1] != '<')
-			make_left_redirect(line, i + 2);
+			make_left_redirect(line, i + 2, 0);
 //		if (temp[i] == '<' && temp[i + 1] == '<')
 //			make_left_2_redirect(temp, i);
 //		if (temp[i] == '|')
@@ -114,9 +136,13 @@ void creat_list_cmd(char *line, int i)
 //		if (temp[i] == '>')
 //			make_right_redirect(temp, i);
 	}
-	g_data->cmd = lst_last(first);
-//	printf("%d\n%s\n%d\n", g_data->cmd->flag, g_data->cmd->filename,
-//		   g_data->cmd->redirect_type);
+	lst_last(first);
+//	while(g_data->cmd)
+//	{
+//		printf("%d\n%s\n%d\n", g_data->cmd->flag, g_data->cmd->filename,
+//			   g_data->cmd->redirect_type);
+//		g_data->cmd = g_data->cmd->next;
+//	}
 //	printf("%s\n", line);
 }
 
@@ -130,8 +156,7 @@ void	parser(char *line, t_data *data)
     {
         line = ft_cut_space(line);
         line = open_dollar(line, -1);
-		printf("%s\n", line);
-//		creat_list_cmd(line, -1);
+		creat_list_cmd(line, -1);
     }
 //	return (line);
 }

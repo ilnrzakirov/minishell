@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-t_lst	*lst_new_parser(int flag, char *filename, int r_t)
+t_lst	*lst_new_p(int flag, char *filename, int r_t, char **cmd)
 {
     t_lst	*newlist;
 
@@ -10,6 +10,7 @@ t_lst	*lst_new_parser(int flag, char *filename, int r_t)
     newlist -> flag = flag;
     newlist -> filename = filename;
 	newlist -> redirect_type = r_t;
+	newlist -> cmd = cmd;
 	newlist -> next = NULL;
 	newlist -> data = g_data;
     return (newlist);
@@ -26,7 +27,7 @@ t_lst	*lst_last(t_lst *lst)
 }
 
 
-void	lst_add_back_parse(t_lst **lst, t_lst *new)
+void	lst_back_p(t_lst **lst, t_lst *new)
 {
     t_lst	*temp;
 
