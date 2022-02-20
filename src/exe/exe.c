@@ -45,15 +45,18 @@ void    exe(t_lst *lst, char **env)
 
     env = get_env(lst->data);
     path = ft_find_path(lst->cmd[0], 0);
-    pid = fork();
-    if (pid == 0) {
-        init_signal_chaild(lst->data);
-		buildins_hub(lst, g_data);
-        execve(path, lst->cmd, env);
-    }
-    close(STDIN_FILENO);
+	if (!(buildins_hub_parent(lst))) {
+		pid = fork();
+		if (pid == 0) {
+			init_signal_chaild(lst->data);
+			buildins_hub(lst, g_data);
+			execve(path, lst->cmd, env);
+		}
+		wait(0);
+	}
+	write(1, "tt", 2);
+	close(STDIN_FILENO);
     dup2(lst->data->std_in, 0);
-    wait(0);
 }
 
 void    exe_pipe(t_lst *lst, char **env) {

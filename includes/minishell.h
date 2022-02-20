@@ -126,4 +126,9 @@ void        get_data_cut(t_pars *pars);
 void	    lst_add_back(t_lst **lst, t_lst *new);
 t_lst	    *lst_new(void *content);
 void        here_doc_init(t_pars *pars);
+int 		ft_export(t_lst *cmd, int i);
+t_env 		*lst_env_new(char *key, char *value);
+void		lst_env_add_back(t_env **lst, t_env *new);
+t_env 		*lst_env_last(t_env *lst);
+int 	   	buildins_hub_parent(t_lst *cmd);
 #endif

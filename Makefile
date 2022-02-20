@@ -6,7 +6,7 @@ SRCS	=	src/minishell.c				src/utils.c					src/error.c\
 			src/builtins/pwd.c			src/builtins/cd.c			src/builtins/exit.c\
 			src/prepars/prepars.c		src/utils2.c				src/parsing/parsing.c\
 			src/parsing/pars_utils.c	src/parsing/dollar_rep.c	src/parsing/cut.c\
-			src/parsing/here_doc.c		src/exe/buildins_hub.c
+			src/parsing/here_doc.c		src/exe/buildins_hub.c		src/builtins/export.c\
 
 LIB 	=	./lib/libft.a
 
