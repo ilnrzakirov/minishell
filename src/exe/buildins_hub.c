@@ -19,7 +19,7 @@ int    buildins_hub_parent(t_lst *cmd)
 		return (1);
 	}
 	else if (ft_strstr(cmd->cmd[0], "unset")) {
-		ft_unset(cmd, 0);
+		ft_unset(cmd);
 		return (1);
 	}
 	return (0);
