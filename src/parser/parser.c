@@ -50,20 +50,36 @@ char	*ft_gap(char *line, int *i)
     return (line1);
 }
 
-void make_left_redirect(char *line, int i)
+int skip_space(char  *s, int i, char *c)
 {
-	int j;
-	char *filename;
+	while(s[i] == ' ' && s[i] != '\'' && s[i] != '\"' && s[i])
+		i++;
+	if (s[i] == '\'' || s[i] == '\"')
+	{
+		*c = s[i];
+		i++;
+	}
+	else
+		*c = '\n';
+	return (i);
+}
 
+void make_left_redirect(char *s, int i)
+{
+	int		j;
+	char	*flnm;
+	char	c;
+
+	i = skip_space(s, i, &c);
 	j = i;
-	while(line[j] != ' ' && line[j])
+	while((s[j] != ' ' || (s[i] != c && c != '\n')) && s[j])
+	{
+		if (s[j] == c)
+			break ;
 		j++;
-	filename = ft_substr(line, i, j - 1);
-	g_data->cmd = lst_new_parser(1, filename, 1);
-	printf("%d\n%s\n%d\n", g_data->cmd->flag, g_data->cmd->filename,
-		   g_data->cmd->redirect_type);
-
-
+	}
+	flnm = ft_substr(s, i, j - i);
+	lst_add_back_parse(&g_data->cmd, lst_new_parser(1, flnm, 1));
 }
 
 //void make_left_2_redirect(char *temp, int i)
@@ -83,7 +99,10 @@ void make_left_redirect(char *line, int i)
 
 void creat_list_cmd(char *line, int i)
 {
-	g_data->cmd = malloc(sizeof(t_lst));
+	t_lst	*first;
+
+	first = lst_new_parser(0, NULL, 0);
+	g_data->cmd = first;
 	while(line[++i])
 	{
 		if (line[i] == '<' && line[i + 1] && line[i + 1] != '<')
@@ -95,6 +114,10 @@ void creat_list_cmd(char *line, int i)
 //		if (temp[i] == '>')
 //			make_right_redirect(temp, i);
 	}
+	g_data->cmd = lst_last(first);
+//	printf("%d\n%s\n%d\n", g_data->cmd->flag, g_data->cmd->filename,
+//		   g_data->cmd->redirect_type);
+//	printf("%s\n", line);
 }
 
 void	parser(char *line, t_data *data)
@@ -107,7 +130,8 @@ void	parser(char *line, t_data *data)
     {
         line = ft_cut_space(line);
         line = open_dollar(line, -1);
-		creat_list_cmd(line, -1);
+		printf("%s\n", line);
+//		creat_list_cmd(line, -1);
     }
 //	return (line);
 }
@@ -193,10 +217,16 @@ char	*ft_open_dollar_util(char *line, int i, int j)
 
     if (i > 0)
         line1 = ft_substr(line, 0, i);
+	else
+		line1 = ft_strdup("");
     j = i;
-    while (line[j] != ' ' && line[j])
-        j++;
-    key = ft_substr(line, i + 1, j - i - 1);
+    while ((line[j] != ' ') && line[j])
+	{
+		if (line[j] == '\"')
+			break ;
+		j++;
+	}
+	key = ft_substr(line, i + 1, j - i - 1);
     value = ft_find_key(key);
     if (value)
     {
@@ -219,9 +249,13 @@ char	*open_dollar(char *line, int i)
 {
     while (line[++i])
     {
-        if (line[i++] == '\'')
-            while (line[i] && line[i] != '\'')
-                i++;
+
+        if (line[i] == '\'')
+		{
+			i++;
+			while (line[i] && line[i] != '\'')
+				i++;
+		}
         if (line[i] == '$' && line[i + 1] && line[i + 1] != '?')
             line = ft_open_dollar_util(line, i, 0);
     }
