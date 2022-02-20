@@ -26,7 +26,8 @@ t_env *init_env(t_data *data, char **env)
        j = ft_strchr(env[i], '=');
        tmp->key = ft_substr(env[i], 0, ft_strichr(env[i], '=') + 1);
        tmp->value = ft_substr((j + 1), 0, ft_strlen(j) - 1);
-       tmp->next = malloc(sizeof(t_env));
+       if (env[i + 1])
+           tmp->next = malloc(sizeof(t_env));
        tmp = tmp->next;
        i++;
     }
