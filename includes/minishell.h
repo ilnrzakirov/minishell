@@ -31,35 +31,6 @@ typedef struct s_env{
     struct s_env	*next;
 }					t_env;
 
-typedef struct s_redirect{
-    int     i;
-    int     j;
-    int     p;
-    char    *s;
-    char    *str;
-    char    *tmp;
-}           t_redirect;
-
-typedef struct s_dollar{
-    int     i;
-    int     j;
-    t_env   *env;
-    char    *str;
-    char    *sing;
-    char    *env_key;
-    char    *res;
-}           t_dollar;
-
-typedef struct s_pars{
-    int     i;
-    int     j;
-    int     k;
-    int     r;
-    char    *tmp;
-    char    *cmd;
-    char    *stop;
-}           t_pars;
-
 typedef struct s_lst{
 	int		        flag;
 	char	        **cmd;
@@ -69,12 +40,6 @@ typedef struct s_lst{
 	struct s_lst	*next;
 	struct s_data   *data;
 }			        t_lst;
-
-typedef struct s_history{
-    char                *content;
-    struct s_history    *next;
-    struct s_history    *prev;
-}                       t_history;
 
 typedef struct s_data{
 	t_env	    *env;
