@@ -75,7 +75,7 @@ int	main(int i, char **argv, char **env)
         data.cmd->filename = ft_strdup("test");
         data.cmd->cmd = malloc(sizeof (char*) * 3);
         data.cmd->cmd[0] = ft_strdup("cd");
-        data.cmd->cmd[1] = ft_strdup("src");
+        data.cmd->cmd[1] = ft_strdup("src/prepars");
         data.cmd->cmd[2] = NULL;
 		data.cmd->next = NULL;
 
