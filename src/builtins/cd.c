@@ -29,6 +29,7 @@ int get_prev_dir(char **old, t_lst *cmd)
         free(*old);
         *old = ft_strdup(new);
         free(new);
+		replace_value_envp(ft_strdup("PWD="), ft_pwd(1));
         cmd->data->exit_code = 0;
     }
     return (EXIT_SUCCESS);
@@ -52,6 +53,7 @@ int get_dir(char **old, t_lst *cmd)
     *old = ft_pwd(1);
     if (chdir(cmd->cmd[1]))
         return (put_error(cmd));
+	replace_value_envp(ft_strdup("PWD="), ft_pwd(1));
     return (EXIT_SUCCESS);
 }
 
@@ -68,6 +70,7 @@ int ft_cd(t_lst *cmd)
             free(old);
         old = ft_pwd(1);
         chdir(getenv("HOME"));
+		replace_value_envp(ft_strdup("PWD="), ft_pwd(1));
     }
     else if (!ft_strcmp(cmd->cmd[1], "-")) {
         if (get_prev_dir(&old, cmd))
@@ -77,6 +80,11 @@ int ft_cd(t_lst *cmd)
     else
         if (get_dir(&old, cmd))
             exit (EXIT_FAILURE);
-    cmd->data->exit_code = 0;
+	cmd->data->exit_code = 0;
+	while (g_data->env && g_data->env->key)
+	{
+		printf("%s%s\n", g_data->env->key, g_data->env->value);
+		g_data->env = g_data->env->next;
+	}
 	return (EXIT_SUCCESS);
 }

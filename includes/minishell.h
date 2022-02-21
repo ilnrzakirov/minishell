@@ -133,4 +133,5 @@ t_env 		*lst_env_last(t_env *lst);
 int 	   	buildins_hub_parent(t_lst *cmd);
 int 		ft_unset(t_lst *cmd);
 int 		check_key(char *key);
+int 		replace_value_envp(char *key, char *value);
 #endif

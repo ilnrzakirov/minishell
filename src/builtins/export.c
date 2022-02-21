@@ -17,7 +17,7 @@ int replace_value_envp(char *key, char *value)
 	t_env 	*temp;
 
 	temp = g_data->env;
-	while(temp && temp->next->key)
+	while(temp && temp->next)
 	{
 		if(ft_strnstr(temp->key, key, ft_strlen(key))) {
 			free(temp->value);
@@ -92,4 +92,9 @@ int ft_export(t_lst *cmd, int i) {
 		replace_value_envp(key, value);
 	else
 		lst_env_add_back(&g_data->env, lst_env_new(key, value));
+	while (g_data->env && g_data->env->key)
+	{
+		printf("%s%s\n", g_data->env->key, g_data->env->value);
+		g_data->env = g_data->env->next;
+	}
 }
