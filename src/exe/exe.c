@@ -44,8 +44,8 @@ void    exe(t_lst *lst, char **env)
     int     pid;
 
     env = get_env(lst->data);
-    path = ft_find_path(lst->cmd[0], 0);
 	if (!(buildins_hub_parent(lst))) {
+        path = ft_find_path(lst->cmd[0], 0);
 		pid = fork();
 		if (pid == 0) {
 			init_signal_chaild(lst->data);

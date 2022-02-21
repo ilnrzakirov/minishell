@@ -20,8 +20,8 @@ GCC		= clang
 
 CFLAGS	=	
 
-#FLAG	=	-lreadline -ltermcap -g -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
-FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include
+FLAG	=	-lreadline -ltermcap -g -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
+#FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include
 
 $(NAME)	:	$(OBJS) $(HEADER)
 			@$(GCC) $(CFLAGS) $(OBJS) $(LIB) $(FLAG) -o ${NAME}
