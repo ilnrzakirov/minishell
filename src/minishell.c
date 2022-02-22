@@ -71,11 +71,10 @@ int	main(int i, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
-    t_env   *envp;
 
 	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
-    envp = init_env(&data, env);
+    init_env(&data, env);
     g_data = &data;
 	replace_shell_lvl();
     data.exit_code = 0;
@@ -138,8 +137,8 @@ int	main(int i, char **argv, char **env)
 //		data.cmd->next->next->next->data = &data;
 //        data.cmd->next->next->next->next = NULL;
 		ft_execve(&data, env);
+		clear_struct(&data);
         break ;
-//        clear_struct(&data);
 	}
 	return (0);
 }

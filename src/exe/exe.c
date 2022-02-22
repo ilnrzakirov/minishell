@@ -18,7 +18,6 @@ void    exe_redirect(t_lst *lst, char **env)
     int     pid;
     int     fd;
 
-    env = get_env(lst->data);
     path = ft_find_path(lst->cmd[0], 0);
     if (lst->redirect_type == 1)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -43,7 +42,6 @@ void    exe(t_lst *lst, char **env)
     char    *path;
     int     pid;
 
-    env = get_env(lst->data);
 	if (!(buildins_hub_parent(lst))) {
         path = ft_find_path(lst->cmd[0], 0);
 		pid = fork();
@@ -52,6 +50,7 @@ void    exe(t_lst *lst, char **env)
 			buildins_hub(lst, g_data);
 			execve(path, lst->cmd, env);
 		}
+		free(path);
 		wait(0);
 	}
 	close(STDIN_FILENO);
@@ -63,7 +62,6 @@ void    exe_pipe(t_lst *lst, char **env) {
 	int fd[2];
 	int pid;
 
-	env = get_env(lst->data);
 	path = ft_find_path(lst->cmd[0], 0);
 	pipe(fd);
 	pid = fork();
@@ -75,12 +73,10 @@ void    exe_pipe(t_lst *lst, char **env) {
 		buildins_hub(lst, g_data);
 		execve(path, lst->cmd, env);
 	}
-    clear_arr(env);
 	free(path);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-//	wait(0);
 }
 
 void    get_data(t_lst *lst, char **env)
@@ -100,6 +96,7 @@ int ft_execve(t_data *data, char **env)
     tmp = data->cmd;
     if (!tmp)
         return (1);
+	env = get_env(data);
     while (tmp)
     {
         if (tmp->flag == 1)
@@ -112,5 +109,6 @@ int ft_execve(t_data *data, char **env)
             exe(tmp, env);
         tmp = tmp->next;
     }
+	clear_arr(env);
     return (0);
 }

@@ -20,7 +20,7 @@ int get_prev_dir(char **old, t_lst *cmd)
     {
         ft_putendl_fd("cd: OLDPWD not set", 2);
         cmd->data->exit_code = 1;
-        return (EXIT_FAILURE);
+        return (1);
     }
     else
     {
@@ -32,7 +32,7 @@ int get_prev_dir(char **old, t_lst *cmd)
 		replace_value_envp(ft_strdup("PWD="), ft_pwd(1));
         cmd->data->exit_code = 0;
     }
-    return (EXIT_SUCCESS);
+    return (0);
 
 }
 
@@ -43,7 +43,7 @@ int put_error(t_lst *cmd)
     ft_putstr_fd(": ", 2);
     perror(NULL);
     cmd->data->exit_code = 1;
-    return (EXIT_FAILURE);
+    return (1);
 }
 
 int get_dir(char **old, t_lst *cmd)
@@ -54,7 +54,7 @@ int get_dir(char **old, t_lst *cmd)
     if (chdir(cmd->cmd[1]))
         return (put_error(cmd));
 	replace_value_envp(ft_strdup("PWD="), ft_pwd(1));
-    return (EXIT_SUCCESS);
+    return (0);
 }
 
 
@@ -63,7 +63,7 @@ int ft_cd(t_lst *cmd)
     static char *old;
 
     if (cmd->flag != 0)
-		return (EXIT_SUCCESS);
+		return (1);
     if (!cmd->cmd[1] || !ft_strcmp(cmd->cmd[1], "~"))
     {
         if (old)
@@ -74,17 +74,17 @@ int ft_cd(t_lst *cmd)
     }
     else if (!ft_strcmp(cmd->cmd[1], "-")) {
         if (get_prev_dir(&old, cmd))
-			return (EXIT_FAILURE);
+			return (1);
         ft_pwd(0);
     }
     else
         if (get_dir(&old, cmd))
-            exit (EXIT_FAILURE);
+            exit (1);
 	cmd->data->exit_code = 0;
 	while (g_data->env && g_data->env->key)
 	{
 		printf("%s%s\n", g_data->env->key, g_data->env->value);
 		g_data->env = g_data->env->next;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

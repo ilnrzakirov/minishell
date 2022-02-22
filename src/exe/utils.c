@@ -41,11 +41,21 @@ char **get_env(t_data *data)
         res[i++] = ft_strjoin(ft_strdup(env->key), env->value);
         env = env->next;
     }
+	res[i] = NULL;
     return (res);
 }
 
 void clear_struct(t_data *data)
 {
+	while(data->env)
+	{
+		if (data->env->key)
+			free(data->env);
+		if (data->env->value)
+			free(data->env->value);
+		data->env = data->env->next;
+	}
+	free(data->env);
     while(data->cmd)
     {
         if (data->cmd->cmd)
