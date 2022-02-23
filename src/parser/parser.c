@@ -50,74 +50,167 @@ char	*ft_gap(char *line, int *i)
     return (line1);
 }
 
-char	**find_command(char *s, int i)
+int	skip_space(char *s, int i)
 {
-	char **res;
-	char **temp;
-	int j;
+	while(s[i] && s[i] == ' ')
+		i++;
+	return (i);
+}
 
-	j = 0;
-	if (s[i] == '<' && s + 1)
+//char	**find_command(char *s, int i)
+//{
+//	char **res;
+//	char **temp;
+//	int j;
+//
+//	j = 0;
+//	if (s[i] == '<' && s + 1)
+//	{
+//		temp = ft_split(s + i + 1, ' ');
+////		res[0] = temp[1];
+//		printf("%s\n", temp[1]);
+////		i = 2;
+////		while(temp[i] && temp[i][0] == '-')
+////		{
+////			res[j++] = temp[i++];
+////		}
+//	}
+////	i = 0;
+////	while (res[i])
+////	{
+////		printf("%s\n", res[i]);
+////		i++;
+////	}
+//
+//	return (res);
+//}
+
+char *cut_str(char *s, int i, int j)
+{
+	char *s1;
+	char *s2;
+	char *res;
+
+	s1 = ft_substr(s, 0, i);
+	s2 = ft_substr(s, j, ft_strlen(s) - j);
+	res = ft_strjoin(s1, s2);
+	free(s2);
+	return(res);
+}
+
+char *make_left_redirect(char *s, int *h, int j, int r_t)
+{
+	char	*file;
+	char 	c;
+	int		save_i;
+	int 	i;
+
+
+	i = *h;
+	save_i = i;
+	if(s[i + 1] == '<')
 	{
-		temp = ft_split(s + i + 1, ' ');
-//		res[0] = temp[1];
-		printf("%s\n", temp[1]);
-//		i = 2;
-//		while(temp[i] && temp[i][0] == '-')
-//		{
-//			res[j++] = temp[i++];
-//		}
+		r_t = 2;
+		i += 2;
 	}
-//	i = 0;
-//	while (res[i])
-//	{
-//		printf("%s\n", res[i]);
-//		i++;
-//	}
-
-	return (res);
+	i = skip_space(s, i + 1);
+	j = i;
+	if(s[j] == '\'' || s[j] == '\"')
+	{
+		i++;
+		c = s[j++];
+		while (s[j] != c)
+			j++;
+	}
+	else
+		while (s[j] && s[j] != ' ')
+			j++;
+	file = ft_substr(s, i, j - i);
+	s = cut_str(s, save_i, j);
+	lst_back_p(&g_data->cmd, lst_new_p(3, file, r_t, NULL));
+	*h = 0;
+	return (s);
 }
 
-char **parse_filename(char *s, int i)
+char *make_right_redirect(char *s, int *h, int j, int r_t)
 {
-	char **array;
+	char	*file;
+	char 	c;
+	int		save_i;
+	int 	i;
 
-	array = ft_split(s, ' ');
-	return (array);
+	i = *h;
+	save_i = i;
+	if(s[i + 1] == '>')
+	{
+		r_t = 2;
+		i += 2;
+	}
+	i = skip_space(s, i + 1);
+	j = i;
+	if(s[j] == '\'' || s[j] == '\"')
+	{
+		i++;
+		c = s[j++];
+		while (s[j] != c)
+			j++;
+	}
+	else
+		while (s[j] && s[j] != ' ')
+			j++;
+	file = ft_substr(s, i, j - i);
+	s = cut_str(s, save_i, j);
+	lst_back_p(&g_data->cmd, lst_new_p(2, file, r_t, NULL));
+	*h = 0;
+	return (s);
 }
 
-void make_left_redirect(char *s, int i, int j)
+char **get_cmd(char *s, int i, int j, int h)
 {
-	char 	**ar_fl;
-	char 	**cmd;
+	char **cmds;
+	char ch;
 
-	cmd = find_command(s, i - 2);
-//	ar_fl = parse_filename(s, i);
-//	lst_back_p(&g_data->cmd, lst_new_p(3, ar_fl[j++], 1, NULL));
-//	if(!ar_fl[j])
-//		lst_back_p(&g_data->cmd, lst_new_p(0, NULL, 0, cmd));
-//	while(ar_fl[j])
-//	{
-//		lst_back_p(&g_data->cmd, lst_new_p(3, ar_fl[j], 0, NULL));
-//		lst_back_p(&g_data->cmd, lst_new_p(0, NULL, 0, cmd));
-//		j++;
-//	}
+	cmds = malloc(sizeof(char *) * 200);
+	while(s[++i])
+	{
+		i = skip_space(s, i);
+		if(s[i] == '\0')
+			break ;
+		j = i;
+		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
+			i++;
+		if(s[i] == ' ' || s[i] == '\0')
+			cmds[h++] = ft_substr(s, j, i - j);
+		if (s[i] == '\'' || s[i] == '\"')
+		{
+			if(s[i - 1] != ' ')
+				cmds[h++] = ft_substr(s, j, i - j);
+			ch = s[i++];
+			j = i;
+			while(s[i] && s[i] != ch)
+				i++;
+			cmds[h++] = ft_substr(s, j, i - j);
+		}
+	}
+	return(cmds);
 }
 
-//void make_left_2_redirect(char *temp, int i)
-//{
-//
-//}
+char *make_pipe(char *s, int *i, int f)
+{
+	char *ret;
+	char **cmd;
+	char *temp;
 
-//void	make_right_redirect(char *temp, int i)
-//{
-//
-//}
 
-//void	make_pipe(char *line, i)
-//{
-//
-//}
+	temp = ft_substr(s, 0, (size_t)*i);
+	*i += 1;
+	ret = ft_substr(s, *i, ft_strlen(s));
+	*i = 0;
+	free(s);
+	cmd = get_cmd(temp, -1, 0, 0);
+	lst_back_p(&g_data->cmd, lst_new_p(f, NULL, 0, cmd));
+	return(ret);
+}
 
 void creat_list_cmd(char *line, int i)
 {
@@ -127,38 +220,37 @@ void creat_list_cmd(char *line, int i)
 	g_data->cmd = first;
 	while(line[++i])
 	{
-		if (line[i] == '<' && line[i + 1] && line[i + 1] != '<')
-			make_left_redirect(line, i + 2, 0);
-//		if (temp[i] == '<' && temp[i + 1] == '<')
-//			make_left_2_redirect(temp, i);
-//		if (temp[i] == '|')
-//			make_pipe(temp, i)
-//		if (temp[i] == '>')
-//			make_right_redirect(temp, i);
+		if (line[i] == '<')
+			line = make_left_redirect(line, &i, 0, 1);
+		if (line[i] == '|')
+			line = make_pipe(line, &i, 1);
+		else if (line[i] == '>')
+			line = make_right_redirect(line, &i, 0, 1);
 	}
+	make_pipe(line, &i, 0);
 	lst_last(first);
-//	while(g_data->cmd)
-//	{
-//		printf("%d\n%s\n%d\n", g_data->cmd->flag, g_data->cmd->filename,
-//			   g_data->cmd->redirect_type);
-//		g_data->cmd = g_data->cmd->next;
-//	}
-//	printf("%s\n", line);
+	while(g_data->cmd)
+	{
+		i = 0;
+		if(g_data->cmd->cmd)
+			while(g_data->cmd->cmd[i])
+			{
+				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
+				i++;
+			}
+		if(g_data->cmd->filename)
+			printf("filename = %s\n", g_data->cmd->filename);
+		g_data->cmd = g_data->cmd->next;
+	}
 }
 
 void	parser(char *line, t_data *data)
 {
-	int	    i;
-
-	i = 0;
-    int j = 0;
 	if(preparser(&line, -1))
     {
-        line = ft_cut_space(line);
         line = open_dollar(line, -1);
 		creat_list_cmd(line, -1);
     }
-//	return (line);
 }
 
 
@@ -174,7 +266,7 @@ char	*ft_cut_space(char *line)
     return (line);
 }
 
-int	correct_cmd(char *newline, int *i, char **s, char **s1)
+int		correct_cmd(char *newline, int *i, char **s, char **s1)
 {
     *s = ft_substr(newline, 0, *i);
     if (!(*s))
