@@ -45,26 +45,26 @@ char **get_env(t_data *data)
     return (res);
 }
 
-void clear_struct(t_data *data)
+void clear_struct()
 {
-	while(data->env)
+	while(g_data->env)
 	{
-		if (data->env->key)
-			free(data->env);
-		if (data->env->value)
-			free(data->env->value);
-		data->env = data->env->next;
+		if (g_data->env->key)
+			free(g_data->env);
+		if (g_data->env->value)
+			free(g_data->env->value);
+		g_data->env = g_data->env->next;
 	}
-	free(data->env);
-    while(data->cmd)
+	free(g_data->env);
+    while(g_data->cmd)
     {
-        if (data->cmd->cmd)
-            free(data->cmd->cmd);
-        if (data->cmd->filename)
-            free(data->cmd->filename);
-        data->cmd = data->cmd->next;
+        if (g_data->cmd->cmd)
+            free(g_data->cmd->cmd);
+        if (g_data->cmd->filename)
+            free(g_data->cmd->filename);
+		g_data->cmd = g_data->cmd->next;
     }
-    data->cmd = NULL;
+	g_data->cmd = NULL;
 }
 
 char *ft_find_path(char *str, int i)

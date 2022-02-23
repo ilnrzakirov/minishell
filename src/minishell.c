@@ -137,7 +137,7 @@ int	main(int i, char **argv, char **env)
 //		data.cmd->next->next->next->data = &data;
 //        data.cmd->next->next->next->next = NULL;
 		ft_execve(&data, env);
-		clear_struct(&data);
+		clear_struct();
         break ;
 	}
 	return (0);
