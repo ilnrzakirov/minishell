@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:25:55 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/23 14:25:55 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/23 15:07:39 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 int	skip_space(char *s, int i)
 {
-	while(s[i] && s[i] == ' ')
+	while (s[i] && s[i] == ' ')
 		i++;
 	return (i);
 }
 
-char *cut_str(char *s, int i, int j)
+char	*cut_str(char *s, int i, int j)
 {
-	char *s1;
-	char *s2;
-	char *res;
+	char	*s1;
+	char	*s2;
+	char	*res;
 
 	s1 = ft_substr(s, 0, i);
 	s2 = ft_substr(s, j, ft_strlen(s) - j);
 	res = ft_strjoin(s1, s2);
 	free(s2);
-	return(res);
+	return (res);
 }
 
 t_lst	*lst_new_p(int flag, char *filename, int r_t, char **cmd)
@@ -57,7 +57,6 @@ t_lst	*lst_last(t_lst *lst)
 	}
 	return (lst);
 }
-
 
 void	lst_back_p(t_lst **lst, t_lst *new)
 {

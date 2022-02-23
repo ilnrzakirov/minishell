@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:19:51 by sshera            #+#    #+#             */
-/*   Updated: 2022/01/30 08:42:33 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/23 15:07:53 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	error_parser(char *str)
 {
-    printf("%s", str);
-	return(0);
+	printf("%s", str);
+	return (0);
 }

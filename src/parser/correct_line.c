@@ -6,13 +6,13 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:50:43 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/23 14:50:45 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/23 15:05:04 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
-int		correct_cmd(char *newline, int *i, char **s, char **s1)
+int	correct_cmd(char *newline, int *i, char **s, char **s1)
 {
 	*s = ft_substr(newline, 0, *i);
 	if (!(*s))
@@ -34,8 +34,8 @@ int		correct_cmd(char *newline, int *i, char **s, char **s1)
 
 void	pipe_in_quotes(char *newline, int i)
 {
-	char    *s;
-	char    *s1;
+	char	*s;
+	char	*s1;
 
 	while (newline[i])
 	{
@@ -58,13 +58,11 @@ void	pipe_in_quotes(char *newline, int i)
 
 char	*ft_cut_space(char *line)
 {
-	char *newline;
+	char	*newline;
+
 	newline = ft_strtrim(line, " ");
 	pipe_in_quotes(newline, 0);
 	line = ft_strtrim(newline, " ");
 	free(newline);
 	return (line);
 }
-
-
-
