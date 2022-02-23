@@ -86,63 +86,17 @@ int	main(int i, char **argv, char **env)
 	{
         dup2(data.std_in, 0);
         dup2(data.std_out, 1);
-//        init_signal_h();
-//		line = readline("\033[1;31mminishell->\033[0m ");
-//        if (!line)
-//        {
-//            write(1, "exit\n", 5);
-//            return (data.exit_code);
-//        }
-//        if (line[0])
-//            add_history(line);
-//        i = preparsing(line, 0, 0, 0);
-//        if (i > 0)
-//        {
-//            print_error("", i);
-//            exit(1);
-//        }
-//        i = parsing(line, &data, 0);
-        data.cmd = malloc(sizeof (t_lst));
-
-        data.cmd->flag = 1;
-//        data.cmd->redirect_type = 2;
-        data.cmd->filename = ft_strdup("test");
-        data.cmd->cmd = malloc(sizeof (char*) * 2);
-        data.cmd->cmd[0] = ft_strdup("yes");
-//        data.cmd->cmd[1] = ft_strdup("test");
-        data.cmd->cmd[1] = NULL;
-		data.cmd->next = NULL;
-
-        data.cmd->next = malloc(sizeof (t_lst));
-        data.cmd->next->cmd = malloc(sizeof (char*) * 3);
-        data.cmd->next->cmd[0] = ft_strdup(("head"));
-        data.cmd->next->cmd[1] = ft_strdup(("-5"));
-//        data.cmd->next->cmd[2] = ft_strdup(("test"));
-        data.cmd->next->cmd[2] = NULL;
-        data.cmd->next->flag = 0;
-
-//        data.cmd->next->next = malloc(sizeof (t_lst));
-		data.cmd->next->next = NULL;
-//        data.cmd->next->next->cmd = malloc(sizeof (char*) * 3);
-//        data.cmd->next->next->cmd[0] = ft_strdup(("wc"));
-//        data.cmd->next->next->cmd[1] = ft_strdup(("-l"));
-//		data.cmd->next->next->filename = ft_strdup("test1");
-//        data.cmd->next->next->cmd[2] = NULL;
-//        data.cmd->next->next->flag = 3;
-//		data.cmd->next->next->next = malloc(sizeof (t_lst));
-//		data.cmd->next->next->next->cmd = malloc(sizeof (char*) * 3);
-//		data.cmd->next->next->next->cmd[0] = ft_strdup(("cat"));
-//        data.cmd->next->next->next->cmd[1] = ft_strdup(("-e"));
-//		data.cmd->next->next->next->cmd[2] = NULL;
-//		data.cmd->next->next->next->flag = 0;
-        data.cmd->data = &data;
-        data.cmd->next->data = &data;
-//        data.cmd->next->next->data = &data;
-//		data.cmd->next->next->next->data = &data;
-//        data.cmd->next->next->next->next = NULL;
+        init_signal_h();
+		line = readline("\033[1;31mminishell->\033[0m ");
+		if (!line)
+        {
+            write(1, "exit", 4);
+            return (data.exit_code);
+        }
+        if (line[0])
+            add_history(line);
 		ft_execve(&data, env);
 		clear_struct();
-        break ;
 	}
 	return (0);
 }

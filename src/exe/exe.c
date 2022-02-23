@@ -53,7 +53,6 @@ void    exe(t_lst *lst, char **env)
 			execve(path, lst->cmd, env);
 		}
 		free(path);
-//		wait(0);
 	}
 	close(STDIN_FILENO);
     dup2(lst->data->std_in, 0);
@@ -103,8 +102,12 @@ int ft_execve(t_data *data, char **env)
     {
         if (tmp->flag == 1)
             exe_pipe(tmp, env);
-        else if (tmp->flag == 3)
-            get_data(tmp, env);
+        else if (tmp->flag == 3) {
+			if (tmp->redirect_type == 1)
+				get_data(tmp, env);
+			else if (tmp->redirect_type == 2)
+				here_doc(tmp->filename);
+		}
         else if (tmp->flag == 2)
             exe_redirect(tmp, env);
         else if (tmp->flag == 0)

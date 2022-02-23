@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/23 15:04:00 by bcarlee           #+#    #+#             */
+/*   Updated: 2022/02/23 15:04:04 by bcarlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	sign_here_doc(int i)
@@ -46,19 +58,4 @@ void    here_doc(char *word)
     g_data->exit_code = WEXITSTATUS(code);
     init_signal_h();
     close(fd);
-}
-
-void    here_doc_init(t_pars *pars)
-{
-    int i;
-    int k;
-
-    while (pars->cmd[pars->i] == '<' || pars->cmd[pars->i] == ' ')
-        pars->i++;
-    k = pars->i;
-    while (pars->cmd[pars->i] != ' ')
-        pars->i++;
-    i = pars->i;
-    pars->stop = ft_substr(pars->cmd, k, i - k);
-    here_doc(pars->stop);
 }

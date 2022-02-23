@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "../lib/libft.h"
 # include "exe.h"
 
@@ -30,35 +31,6 @@ typedef struct s_env{
     char			*value;
     struct s_env	*next;
 }					t_env;
-
-typedef struct s_redirect{
-    int     i;
-    int     j;
-    int     p;
-    char    *s;
-    char    *str;
-    char    *tmp;
-}           t_redirect;
-
-typedef struct s_dollar{
-    int     i;
-    int     j;
-    t_env   *env;
-    char    *str;
-    char    *sing;
-    char    *env_key;
-    char    *res;
-}           t_dollar;
-
-typedef struct s_pars{
-    int     i;
-    int     j;
-    int     k;
-    int     r;
-    char    *tmp;
-    char    *cmd;
-    char    *stop;
-}           t_pars;
 
 typedef struct s_lst{
 	int		        flag;
@@ -70,18 +42,11 @@ typedef struct s_lst{
 	struct s_data   *data;
 }			        t_lst;
 
-typedef struct s_history{
-    char                *content;
-    struct s_history    *next;
-    struct s_history    *prev;
-}                       t_history;
-
 typedef struct s_data{
 	t_env	    *env;
 	int		    std_out;
 	int		    std_in;
 	t_lst	    *cmd;
-    t_history   *history;
     int         exit_code;
 }			t_data;
 
@@ -97,13 +62,6 @@ int         ft_execve(t_data *data, char **env);
 void        clear_struct();
 char        *ft_find_path(char *str, int i);
 char        **get_env(t_data *data);
-t_history	*ft_link_lsnew(void *content);
-t_history	*ft_link_lst_cr_back(t_history **lst, void *content);
-t_history	*ft_link_lst_cr_front(t_history **lst, void *content);
-void	    ft_link_lstadd_back(t_history **lst, t_history *new);
-void	    ft_link_lstadd_front(t_history **lst, t_history *new);
-t_history	*ft_link_lstlast(t_history *lst);
-int         ft_link_lstsize(t_history *lst);
 void        init_signal_h();
 void        init_signal_chaild(t_data *data);
 char	    *ft_pwd(int flag);
@@ -113,19 +71,9 @@ int     	ft_strcmp(const char *s1, const char *s2);
 int         ft_cd(t_lst *cmd);
 void        ft_exit(t_lst *cmd, t_data *data);
 void        buildins_hub(t_lst *cmd, t_data *data);
-int         preparsing(char *line, int i, int gap, int gap2);
-int         parsing(char *line, t_data *data, int i);
 int	        count_words(char *str);
-void	    implement_index(int *i, int *j, char *str, char c);
-void        skip_cmd(t_pars *pars);
-char        *replace_value(char *str);
-int         set_dollar(t_redirect *rd, char c);
-void        get_str_in_quotes(t_redirect *rd, char c);
-void        pipe_cut(t_pars *pars);
-void        get_data_cut(t_pars *pars);
 void	    lst_add_back(t_lst **lst, t_lst *new);
 t_lst	    *lst_new(void *content);
-void        here_doc_init(t_pars *pars);
 int 		ft_export(t_lst *cmd, int i);
 t_env 		*lst_env_new(char *key, char *value);
 void		lst_env_add_back(t_env **lst, t_env *new);
@@ -134,4 +82,5 @@ int 	   	buildins_hub_parent(t_lst *cmd);
 int 		ft_unset(t_lst *cmd);
 int 		check_key(char *key);
 int 		replace_value_envp(char *key, char *value);
+void    	here_doc(char *word);
 #endif
