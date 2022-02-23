@@ -12,6 +12,27 @@
 
 #include "../../includes/parser.h"
 
+int count_redir(char *line)
+{
+	int count;
+	int i;
+
+	count = 0;
+	i = -1;
+	while(line[++i])
+	{
+		while(line[i] == '>' || line[i] == '<')
+		{
+			count++;
+			i++;
+		}
+		if(count > 2)
+			return (0);
+		count = 0;
+	}
+	return (1);
+}
+
 int	pre_gap(char *line, int i)
 {
 	char	ch;
@@ -108,27 +129,3 @@ int	preparser(char **line, int i)
 		return(0);
 	return(1);
 }
-
-//Utils
-
-int count_redir(char *line)
-{
-    int count;
-    int i;
-
-    count = 0;
-    i = -1;
-    while(line[++i])
-    {
-        while(line[i] == '>' || line[i] == '<')
-        {
-            count++;
-            i++;
-        }
-        if(count > 2)
-            return (0);
-        count = 0;
-    }
-    return (1);
-}
-
