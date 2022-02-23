@@ -87,7 +87,7 @@ char *ft_find_path(char *str, int i)
     path = ft_split(getenv("PATH="), ':');
     while(path[i])
     {
-        tmp = ft_strjoin(path[i], cmd);
+        tmp = ft_strjoin(ft_strdup(path[i]), cmd);
         if (access(tmp, F_OK))
         {
             free(tmp);

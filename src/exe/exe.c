@@ -18,13 +18,13 @@ void    exe_redirect(t_lst *lst, char **env)
     int     pid;
     int     fd;
 
-    path = ft_find_path(lst->cmd[0], 0);
     if (lst->redirect_type == 1)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     else if (lst->redirect_type == 2)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
     if (lst->cmd)
     {
+		path = ft_find_path(lst->cmd[0], 0);
         pid = fork();
         if (pid == 0)
         {
@@ -35,6 +35,8 @@ void    exe_redirect(t_lst *lst, char **env)
             execve(path, lst->cmd, env);
         }
     }
+	dup2(fd, 1);
+	close(fd);
 }
 
 void    exe(t_lst *lst, char **env)
