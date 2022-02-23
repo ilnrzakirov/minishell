@@ -51,7 +51,7 @@ void    exe(t_lst *lst, char **env)
 			execve(path, lst->cmd, env);
 		}
 		free(path);
-		wait(0);
+//		wait(0);
 	}
 	close(STDIN_FILENO);
     dup2(lst->data->std_in, 0);

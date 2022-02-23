@@ -33,7 +33,7 @@ int ft_echo(char **arg)
 	if (!j)
 		write(STDOUT_FILENO, "\n", 1);
 	g_data->exit_code = 0;
-	exit (EXIT_SUCCESS);
+	exit (0);
 }
 
 int ft_env(t_env *e)
@@ -48,5 +48,5 @@ int ft_env(t_env *e)
         write(1, "\n", 1);
         env= env->next;
     }
-    exit(EXIT_SUCCESS);
+    exit(0);
 }

@@ -47,22 +47,32 @@ char **get_env(t_data *data)
 
 void clear_struct()
 {
-	while(g_data->env)
-	{
-		if (g_data->env->key)
-			free(g_data->env);
-		if (g_data->env->value)
-			free(g_data->env->value);
-		g_data->env = g_data->env->next;
+	int i;
+	t_lst *fr;
+	t_env *en;
+
+	if (g_data->env) {
+		while (g_data->env) {
+			en = g_data->env;
+			if (g_data->env->key)
+				free(g_data->env->key);
+			if (g_data->env->value)
+				free(g_data->env->value);
+			g_data->env = g_data->env->next;
+			free(en);
+		}
+		free(g_data->env);
 	}
-	free(g_data->env);
     while(g_data->cmd)
     {
-        if (g_data->cmd->cmd)
-            free(g_data->cmd->cmd);
+		i = 0;
+		fr = g_data->cmd;
+        while(g_data->cmd->cmd[i])
+			free(g_data->cmd->cmd[i++]);
         if (g_data->cmd->filename)
             free(g_data->cmd->filename);
 		g_data->cmd = g_data->cmd->next;
+		free(fr);
     }
 	g_data->cmd = NULL;
 }

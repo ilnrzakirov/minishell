@@ -48,22 +48,26 @@ t_env *init_env(t_data *data, char **env)
     char    *j;
     t_env   *tmp;
 
-    data->env = malloc(sizeof(t_env));
-    tmp = data->env;
+    g_data->env = malloc(sizeof(t_env));
+    tmp = g_data->env;
     i = 0;
     while (env[i])
     {
        j = ft_strchr(env[i], '=');
        tmp->key = ft_substr(env[i], 0, ft_strichr(env[i], '=') + 1);
+		if (ft_strlen(tmp->key) == 0)
+			tmp->key = NULL;
        tmp->value = ft_substr((j + 1), 0, ft_strlen(j) - 1);
+	   if (ft_strlen(tmp->value) == 0)
+		   tmp->value = NULL;
        if (env[i + 1])
            tmp->next = malloc(sizeof(t_env));
        tmp = tmp->next;
        i++;
     }
     tmp = NULL;
-    data->std_in = dup(0);
-    data->std_out = dup(1);
+    g_data->std_in = dup(0);
+    g_data->std_out = dup(1);
     return (data->env);
 }
 
@@ -72,10 +76,10 @@ int	main(int i, char **argv, char **env)
 	char	*line;
 	t_data	data;
 
+	g_data = &data;
 	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
     init_env(&data, env);
-    g_data = &data;
 	replace_shell_lvl();
     data.exit_code = 0;
 	while (1)
@@ -100,25 +104,25 @@ int	main(int i, char **argv, char **env)
 //        i = parsing(line, &data, 0);
         data.cmd = malloc(sizeof (t_lst));
 
-        data.cmd->flag = 0;
+        data.cmd->flag = 1;
 //        data.cmd->redirect_type = 2;
         data.cmd->filename = ft_strdup("test");
-        data.cmd->cmd = malloc(sizeof (char*) * 3);
-        data.cmd->cmd[0] = ft_strdup("cd");
-        data.cmd->cmd[1] = ft_strdup("src/prepars");
-        data.cmd->cmd[2] = NULL;
+        data.cmd->cmd = malloc(sizeof (char*) * 2);
+        data.cmd->cmd[0] = ft_strdup("yes");
+//        data.cmd->cmd[1] = ft_strdup("test");
+        data.cmd->cmd[1] = NULL;
 		data.cmd->next = NULL;
 
-//        data.cmd->next = malloc(sizeof (t_lst));
-//        data.cmd->next->cmd = malloc(sizeof (char*) * 3);
-//        data.cmd->next->cmd[0] = ft_strdup(("head"));
-//        data.cmd->next->cmd[1] = ft_strdup(("-5"));
-////        data.cmd->next->cmd[2] = ft_strdup(("test"));
-//        data.cmd->next->cmd[2] = NULL;
-//        data.cmd->next->flag = 0;
+        data.cmd->next = malloc(sizeof (t_lst));
+        data.cmd->next->cmd = malloc(sizeof (char*) * 3);
+        data.cmd->next->cmd[0] = ft_strdup(("head"));
+        data.cmd->next->cmd[1] = ft_strdup(("-5"));
+//        data.cmd->next->cmd[2] = ft_strdup(("test"));
+        data.cmd->next->cmd[2] = NULL;
+        data.cmd->next->flag = 0;
 
 //        data.cmd->next->next = malloc(sizeof (t_lst));
-//		data.cmd->next->next = NULL;
+		data.cmd->next->next = NULL;
 //        data.cmd->next->next->cmd = malloc(sizeof (char*) * 3);
 //        data.cmd->next->next->cmd[0] = ft_strdup(("wc"));
 //        data.cmd->next->next->cmd[1] = ft_strdup(("-l"));
@@ -132,7 +136,7 @@ int	main(int i, char **argv, char **env)
 //		data.cmd->next->next->next->cmd[2] = NULL;
 //		data.cmd->next->next->next->flag = 0;
         data.cmd->data = &data;
-//        data.cmd->next->data = &data;
+        data.cmd->next->data = &data;
 //        data.cmd->next->next->data = &data;
 //		data.cmd->next->next->next->data = &data;
 //        data.cmd->next->next->next->next = NULL;
