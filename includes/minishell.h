@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include "../lib/libft.h"
 # include "exe.h"
+# include "parser.h"
 
 typedef struct s_env{
 	char			*key;

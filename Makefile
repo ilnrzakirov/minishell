@@ -9,7 +9,7 @@ SRCS	=	src/minishell.c				src/utils.c					src/error.c\
 			src/parser/parser_pipe.c	src/parser/parser_redirects.c\
 			src/parser/utils_parser.c	src/parser/preparser.c		src/parser/correct_line.c\
 
-LIB 	=	./libft/libft.a
+LIB 	=	./lib/libft.a
 
 HEADER	=	includes/minishell.h ./lib/libft.h includes/exe.h
 

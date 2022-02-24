@@ -95,14 +95,8 @@ int	main(int i, char **argv, char **env)
         }
         if (line[0])
             add_history(line);
-        i = preparsing(line, 0, 0, 0);
-        if (i > 0)
-        {
-            print_error("", i);
-            exit(1);
-        }
-		data.cmd->cmd = parser(line, &data);
-		ft_execve(data);
+		parser(line, &data);
+		ft_execve(&data, env);
 		clear_struct();
 	}
 	return (0);
