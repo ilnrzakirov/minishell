@@ -44,27 +44,31 @@ void	replace_shell_lvl(void){
 
 t_env *init_env(t_data *data, char **env)
 {
-    int     i;
-    char    *j;
-    t_env   *tmp;
+	int     i;
+	char    *j;
+	t_env   *tmp;
 
-    data->env = malloc(sizeof(t_env));
-    tmp = data->env;
-    i = 0;
-    while (env[i])
-    {
-       j = ft_strchr(env[i], '=');
-       tmp->key = ft_substr(env[i], 0, ft_strichr(env[i], '=') + 1);
-       tmp->value = ft_substr((j + 1), 0, ft_strlen(j) - 1);
-       if (env[i + 1])
-           tmp->next = malloc(sizeof(t_env));
-       tmp = tmp->next;
-       i++;
-    }
-    tmp = NULL;
-    data->std_in = dup(0);
-    data->std_out = dup(1);
-    return (data->env);
+	g_data->env = malloc(sizeof(t_env));
+	tmp = g_data->env;
+	i = 0;
+	while (env[i])
+	{
+		j = ft_strchr(env[i], '=');
+		tmp->key = ft_substr(env[i], 0, ft_strichr(env[i], '=') + 1);
+		if (ft_strlen(tmp->key) == 0)
+			tmp->key = NULL;
+		tmp->value = ft_substr((j + 1), 0, ft_strlen(j) - 1);
+		if (ft_strlen(tmp->value) == 0)
+			tmp->value = NULL;
+		if (env[i + 1])
+			tmp->next = malloc(sizeof(t_env));
+		tmp = tmp->next;
+		i++;
+	}
+	tmp = NULL;
+	g_data->std_in = dup(0);
+	g_data->std_out = dup(1);
+	return (data->env);
 }
 
 int	main(int i, char **argv, char **env)
@@ -72,10 +76,10 @@ int	main(int i, char **argv, char **env)
 	char	*line;
 	t_data	data;
 
+	g_data = &data;
 	if (i > 1)
 		return (print_error("No such file or directory\n", 2));
     init_env(&data, env);
-    g_data = &data;
 	replace_shell_lvl();
     data.exit_code = 0;
 	while (1)
@@ -99,6 +103,7 @@ int	main(int i, char **argv, char **env)
         }
 		data.cmd->cmd = parser(line, &data);
 		ft_execve(data);
+		clear_struct();
 	}
 	return (0);
 }
