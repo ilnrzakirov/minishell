@@ -28,8 +28,18 @@ void    sigint_func(int sig)
 
 void    sigquit(int sig)
 {
-    (void)sig;
-    printf("Quit: %d\n", sig);
+	(void)sig;
+	write(1, "\n", 1);
+	g_data->exit_code = 130;
+}
+
+static	void	ft_signal_quit(int sig)
+{
+	write(1, "\b\b  \b\b", 6);
+	write(1, "^\\Quit: ", 8);
+	ft_putnbr_fd(sig, 1);
+	write(1, "\n", 1);
+	g_data->exit_code = 131;
 }
 
 void    sigint_proc(int sig)
@@ -42,10 +52,8 @@ void    sigint_proc(int sig)
 
 void    init_signal_chaild(t_data *data)
 {
-    if (signal(SIGQUIT, sigquit))
-        data->exit_code = 131;
-    if (signal(SIGINT, sigint_proc))
-        data->exit_code = 1;
+    signal(SIGQUIT, sigquit);
+    signal(SIGINT, ft_signal_quit);
 }
 
 void    init_signal_h()

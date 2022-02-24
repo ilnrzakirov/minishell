@@ -48,16 +48,6 @@ t_lst	*lst_new_p(int flag, char *filename, int r_t, char **cmd)
 	return (newlist);
 }
 
-//t_lst	*lst_last(t_lst *lst)
-//{
-//	if (lst)
-//	{
-//		while (lst -> next)
-//			lst = lst -> next;
-//	}
-//	return (lst);
-//}
-
 void	lst_back_p(t_lst **lst, t_lst *new)
 {
 	t_lst	*temp;

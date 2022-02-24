@@ -11,4 +11,5 @@
 9) cat -e <test"test" +
 10) cat -e<'test'"test"     Fail
 11) cat -e <"test" "test"   Fail
+12) cat <'test' | cat Fail
 
