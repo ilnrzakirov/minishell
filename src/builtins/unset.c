@@ -34,15 +34,12 @@ void delete_env_var(char *key){
 int ft_unset(t_lst *cmd){
 	char *key;
 
-	key = cmd->cmd[1];
-	key = ft_strjoin(key, "=");
-	if (check_key(key))
-		delete_env_var(key);
-    free(key);
-	while (g_data->env && g_data->env->key)
-	{
-		printf("%s%s\n", g_data->env->key, g_data->env->value);
-		g_data->env = g_data->env->next;
+	if (cmd->cmd[1]) {
+		key = cmd->cmd[1];
+		key = ft_strjoin(key, "=");
+		if (check_key(key))
+			delete_env_var(key);
+		free(key);
 	}
 	return  (1);
 }

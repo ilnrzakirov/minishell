@@ -99,7 +99,7 @@ int	main(int i, char **argv, char **env)
 			continue ;
 		parser(line, &data);
 		ft_execve(&data, env);
-		clear_struct();
+//		clear_struct();
 	}
 	return (0);
 }

@@ -69,6 +69,7 @@ void    exe_pipe(t_lst *lst, char **env) {
 	if (pid == 0) {
         init_signal_chaild(lst->data);
 		close(fd[0]);
+		close(STDOUT_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		buildins_hub(lst, g_data);
