@@ -17,7 +17,7 @@ char	**get_cmd(char *s, int i, int j, int h)
 	char	**cmds;
 	char	ch;
 
-	cmds = malloc(sizeof(char *) * 200);
+	cmds = calloc(sizeof(char *), 200);
 	while (s[++i])
 	{
 		i = skip_space(s, i);

@@ -84,8 +84,8 @@ int	main(int i, char **argv, char **env)
     data.exit_code = 0;
 	while (1)
 	{
-        dup2(data.std_in, 0);
-        dup2(data.std_out, 1);
+		dup2(data.std_in, 0);
+		dup2(data.std_out, 1);
         init_signal_h();
 		line = readline("\033[1;31mminishell->\033[0m ");
         if (!line)
@@ -95,6 +95,8 @@ int	main(int i, char **argv, char **env)
         }
         if (line[0])
             add_history(line);
+		if (!line[0])
+			continue ;
 		parser(line, &data);
 		ft_execve(&data, env);
 		clear_struct();

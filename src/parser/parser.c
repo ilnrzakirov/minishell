@@ -14,10 +14,10 @@
 
 void	creat_list_cmd(char *line, int i)
 {
-	t_lst	*first;
-
-	first = lst_new_p(0, NULL, 0, NULL);
-	g_data->cmd = first;
+//	t_lst	*first;
+//
+//	first = lst_new_p(0, NULL, 0, NULL);
+//	g_data->cmd = first;
 	while (line[++i])
 	{
 		if (line[i] == '<')
@@ -29,21 +29,21 @@ void	creat_list_cmd(char *line, int i)
 	}
 	make_pipe(line, &i, 0);
 //	lst_last(first);
-	int l = 1;
-	while(g_data->cmd)
-	{
-		i = 0;
-		printf("__________LIST_%d________\n", l++);
-		if (g_data->cmd->cmd)
-			while(g_data->cmd->cmd[i])
-			{
-				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
-				i++;
-			}
-		if (g_data->cmd->filename)
-			printf("filename = %s\n", g_data->cmd->filename);
-		g_data->cmd = g_data->cmd->next;
-	}
+//	int l = 1;
+//	while(g_data->cmd)
+//	{
+//		i = 0;
+//		printf("__________LIST_%d________\n", l++);
+//		if (g_data->cmd->cmd)
+//			while(g_data->cmd->cmd[i])
+//			{
+//				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
+//				i++;
+//			}
+//		if (g_data->cmd->filename)
+//			printf("filename = %s\n", g_data->cmd->filename);
+//		g_data->cmd = g_data->cmd->next;
+//	}
 }
 
 char	*ft_find_key(char *key)

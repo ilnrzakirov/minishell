@@ -75,6 +75,7 @@ void    exe_pipe(t_lst *lst, char **env) {
 		execve(path, lst->cmd, env);
 	}
 	free(path);
+	close(STDIN_FILENO);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	close(fd[1]);
@@ -85,6 +86,7 @@ void    get_data(t_lst *lst, char **env)
     int fd;
 
     fd = open(lst->filename, O_RDONLY);
+	close (0);
     dup2(fd , 0);
     close(fd);
 }
@@ -114,6 +116,7 @@ int ft_execve(t_data *data, char **env)
             exe(tmp, env);
         tmp = tmp->next;
     }
+	wait(0);
 	clear_arr(env);
     return (0);
 }
