@@ -9,7 +9,6 @@ SRCS	=	src/minishell.c				src/utils.c					src/error.c\
 			src/parsing/here_doc.c		src/parser/error_parser.c	src/parser/parser.c\
 			src/parser/parser_pipe.c	src/parser/parser_redirects.c\
 			src/parser/utils_parser.c	src/parser/preparser.c		src/parser/correct_line.c\
-			src/ilnur.c
 
 LIB 	=	./lib/libft.a
 
