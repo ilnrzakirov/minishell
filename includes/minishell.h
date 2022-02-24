@@ -20,23 +20,24 @@
 # include <string.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <signal.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "../lib/libft.h"
-# include "exe.h"
+
+struct s_data;
 
 typedef struct s_env{
-    char			*key;
-    char			*value;
-    struct s_env	*next;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }					t_env;
 
 typedef struct s_lst{
 	int		        flag;
 	char	        **cmd;
-    char            *tmp;
-    char            *filename;
-    int             redirect_type;
+	char            *tmp;
+	char            *filename;
+	int             redirect_type;
 	struct s_lst	*next;
 	struct s_data   *data;
 }			        t_lst;
@@ -46,49 +47,18 @@ typedef struct s_data{
 	int		    std_out;
 	int		    std_in;
 	t_lst	    *cmd;
-    t_history   *history;
-    int         exit_code;
+	int         exit_code;
 }			t_data;
 
 t_data *g_data;
 
-void	    rl_replace_line(const char *buffer, int val);
-char	    *ft_strstr(char *str, char *to_find);
-int		    print_error(char *str, int i);
-void	    clear_arr(char **arr);
-int		    get_infile(char **line, t_data *mate);
-int 	    ft_strichr(const char *str, char c);
-int         ft_execve(t_data *data, char **env);
-void        clear_struct(t_data *data);
-char        *ft_find_path(char *str, int i);
-char        **get_env(t_data *data);
-t_history	*ft_link_lsnew(void *content);
-t_history	*ft_link_lst_cr_back(t_history **lst, void *content);
-t_history	*ft_link_lst_cr_front(t_history **lst, void *content);
-void	    ft_link_lstadd_back(t_history **lst, t_history *new);
-void	    ft_link_lstadd_front(t_history **lst, t_history *new);
-t_history	*ft_link_lstlast(t_history *lst);
-int         ft_link_lstsize(t_history *lst);
-void        init_signal_h();
-void        init_signal_chaild(t_data *data);
-char	    *ft_pwd(int flag);
-int         ft_env(t_env *e);
-int         ft_echo(char **arg);
-int     	ft_strcmp(const char *s1, const char *s2);
-int         ft_cd(t_lst *cmd);
-void        ft_exit(t_lst *cmd, t_data *data);
-void        buildins_hub(t_lst *cmd, t_data *data);
-int         preparsing(char *line, int i, int gap, int gap2);
-int         parsing(char *line, t_data *data, int i);
-int	        count_words(char *str);
-void	    implement_index(int *i, int *j, char *str, char c);
-void        skip_cmd(t_pars *pars);
-char        *replace_value(char *str);
-int         set_dollar(t_redirect *rd, char c);
-void        get_str_in_quotes(t_redirect *rd, char c);
-void        pipe_cut(t_pars *pars);
-void        get_data_cut(t_pars *pars);
-void	    lst_add_back(t_lst **lst, t_lst *new);
-t_lst	    *lst_new(void *content);
-void        here_doc_init(t_pars *pars);
+void	rl_replace_line(const char *buffer, int val);
+char	*ft_strstr(char *str, char *to_find);
+int		print_error(char *str, int i);
+void	clear_arr(char **arr);
+int		get_infile(char **line, t_data *mate);
+void 	parser(char *line, t_data *data);
+t_lst	*lst_new_p(int flag, char *filename, int r_t, char **cmd);
+t_lst	*lst_last(t_lst *lst);
+void	lst_back_p(t_lst **lst, t_lst *new);
 #endif

@@ -6,7 +6,10 @@ SRCS	=	src/minishell.c				src/utils.c					src/error.c\
 			src/builtins/pwd.c			src/builtins/cd.c			src/builtins/exit.c\
 			src/prepars/prepars.c		src/utils2.c				src/parsing/parsing.c\
 			src/parsing/pars_utils.c	src/parsing/dollar_rep.c	src/parsing/cut.c\
-			src/parsing/here_doc.c
+			src/parsing/here_doc.c		src/parser/error_parser.c	src/parser/parser.c\
+			src/parser/parser_pipe.c	src/parser/parser_redirects.c\
+			src/parser/utils_parser.c	src/parser/preparser.c		src/parser/correct_line.c\
+			src/ilnur.c
 
 LIB 	=	./lib/libft.a
 
@@ -20,7 +23,7 @@ GCC		= clang
 
 CFLAGS	=	
 
-FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/includ
+FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include
 
 $(NAME)	:	$(OBJS) $(HEADER)
 			@$(GCC) $(CFLAGS) $(OBJS) $(LIB) $(FLAG) -o ${NAME}

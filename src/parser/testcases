@@ -1,0 +1,14 @@
+1) cat -e test | echo Hello +
+2) cat -e "   1 2 3 " test2 | echo "   hello"    | echo bye bye +
+3) cat -e"   1 2 3 "test2 | echo"   hello"| echo bye bye +
+4) cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye +
+5)        cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye "" +
+
+//Redirects
+6) cat -e < test +
+7) cat -e < test test2 +
+8) cat -e <test test +
+9) cat -e <test"test" +
+10) cat -e<'test'"test"     Fail
+11) cat -e <"test" "test"   Fail
+

@@ -25,34 +25,32 @@ void	clear_arr(char **arr)
 	free(arr);
 }
 
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
-    size_t	i;
+	size_t	i;
 
-    i = -1;
-    if (!s1 && !s2)
-        return (0);
-    else if (!s1 || !s2)
-        return (1);
-    while (s1[++i] || s2[i])
-        if (s1[i] != s2[i])
-            return (s1[i] - s2[i]);
-    return (0);
+	i = -1;
+	if (!s1 && !s2)
+		return (0);
+	else if (!s1 || !s2)
+		return (1);
+	while (s1[++i] || s2[i])
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+	return (0);
 }
 
 int	ft_strichr(const char *str, char c)
 {
-    int	count;
+	int	count;
 
-    count = 0;
-    while (str[count] != c)
-    {
-        count++;
-    }
-    return (count);
+	count = 0;
+	while (str[count] != c)
+	{
+		count++;
+	}
+	return (count);
 }
-
 
 char	*ft_strstr(char *str, char *to_find)
 {
