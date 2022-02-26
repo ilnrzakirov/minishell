@@ -17,9 +17,7 @@ char	**get_cmd(char *s, int i, int j, int h)
 	char	**cmds;
 	char	ch;
 
-	printf("i=%d\n temp = %s\n", i, s);
-
-	cmds = malloc(sizeof(char *) * 200);
+	cmds = calloc(sizeof(char *), 100);
 	while (s[++i])
 	{
 		i = skip_space(s, i);
@@ -51,13 +49,10 @@ char	*make_pipe(char *s, int *i, int f)
 	char	*temp;
 
 	temp = ft_substr(s, 0, (size_t)*i);
-//	printf("temp=%s\nres=%s\n", temp, ret);
 	*i += 1;
 	ret = ft_substr(s, *i, ft_strlen(s));
 	*i = 0;
 	free(s);
-//		cmd = get_cmd(ft_strtrim(temp, " "), -1, 0, 0);
-
 	cmd = get_cmd(temp, -1, 0, 0);
 	if(cmd[0])
 		lst_back_p(&g_data->cmd, lst_new_p(f, NULL, 0, cmd));
