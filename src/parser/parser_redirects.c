@@ -82,7 +82,7 @@ char	*make_right_redirect(char *s, int *h, int j, int r_t)
 		file = ft_substr(s, i, j - i);
 	}
 	s = ft_cut_space(cut_str(s, save_i, j + 1));
-	lst_back_p(&g_data->cmd, lst_new_p(3, file, r_t, NULL));
+	lst_back_p(&g_data->cmd, lst_new_p(2, file, r_t, NULL));
 	*h = 0;
 	return (s);
 }

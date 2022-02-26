@@ -22,7 +22,7 @@ void    exe_redirect(t_lst *lst, char **env)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     else if (lst->redirect_type == 2)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	dup2(fd, 1);
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
@@ -43,6 +43,7 @@ void    exe(t_lst *lst, char **env)
 		}
 		free(path);
 	}
+	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
     dup2(lst->data->std_in, STDIN_FILENO);
 }
@@ -92,11 +93,8 @@ int ft_execve(t_data *data, char **env)
     if (!tmp)
         return (1);
 	env = get_env(data);
-	if (data->cmd->next)
-		printf("-->%s\n", data->cmd->next->cmd[2]);
     while (tmp)
     {
-		write(1, "-->a\n", 5);
         if (tmp->flag == 1)
             exe_pipe(tmp, env);
         else if (tmp->flag == 3) {
