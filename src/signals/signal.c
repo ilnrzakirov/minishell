@@ -52,8 +52,8 @@ void    sigint_proc(int sig)
 
 void    init_signal_chaild(t_data *data)
 {
-    signal(SIGQUIT, sigquit);
-    signal(SIGINT, ft_signal_quit);
+    signal(SIGQUIT, ft_signal_quit);
+    signal(SIGINT, sigquit);
 }
 
 void    init_signal_h()

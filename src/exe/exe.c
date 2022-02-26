@@ -22,19 +22,6 @@ void    exe_redirect(t_lst *lst, char **env)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     else if (lst->redirect_type == 2)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-    if (lst->cmd)
-    {
-		path = ft_find_path(lst->cmd[0], 0);
-        pid = fork();
-        if (pid == 0)
-        {
-            init_signal_chaild(lst->data);
-            dup2(fd, 1);
-			close(fd);
-			buildins_hub(lst, g_data);
-            execve(path, lst->cmd, env);
-        }
-    }
 	dup2(fd, 1);
 	close(fd);
 }
@@ -51,11 +38,12 @@ void    exe(t_lst *lst, char **env)
 			init_signal_chaild(lst->data);
 			buildins_hub(lst, g_data);
 			execve(path, lst->cmd, env);
+			exit(1);
 		}
 		free(path);
 	}
 	close(STDIN_FILENO);
-    dup2(lst->data->std_in, 0);
+    dup2(lst->data->std_in, STDIN_FILENO);
 }
 
 void    exe_pipe(t_lst *lst, char **env) {
@@ -88,8 +76,8 @@ void    get_data(t_lst *lst, char **env)
     int fd;
 
     fd = open(lst->filename, O_RDONLY);
-	close (0);
-    dup2(fd , 0);
+	close (STDIN_FILENO);
+    dup2(fd , STDIN_FILENO);
     close(fd);
 }
 
@@ -118,7 +106,7 @@ int ft_execve(t_data *data, char **env)
             exe(tmp, env);
         tmp = tmp->next;
     }
-	wait(0);
+	wait(NULL);
 	clear_arr(env);
     return (0);
 }
