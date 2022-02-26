@@ -1,7 +1,7 @@
-1) cat -e test | echo Hello +
+1) cat -e test | echo Hello                                     +
 2) cat -e "   1 2 3 " test2 | echo "   hello"    | echo bye bye +
-3) cat -e"   1 2 3 "test2 | echo"   hello"| echo bye bye +
-4) cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye +
+3) cat -e"   1 2 3 "test2 | echo"   hello"| echo bye bye        +
+4) cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye           +
 5)        cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye "" +
 
 //Redirects
@@ -15,3 +15,12 @@
 13) <'test' | cat           +
 14) <"test" "test"          +
 15) <test"test"             +
+
+//double redirect
+
+16) echo Hello >> test              +
+17) echo Hello>> test               +
+18) echo Hello>>test                +
+19) echo Hello>>"test"              +
+20) echo Hello>>"test"'Test'        +
+21) echo Hello    >>         "TEST" +
