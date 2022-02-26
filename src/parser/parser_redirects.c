@@ -34,12 +34,20 @@ char	*make_left_redirect(char *s, int *h, int j, int r_t)
 		c = s[j++];
 		while (s[j] && s[j] != c)
 			j++;
+		file = ft_substr(s, i, j - i);
+		j++;
 	}
 	else
-		while (s[j] && s[j] != ' '&& s[j] != '\'' && s[j] != '\"')
+	{
+		while (s[j] && s[j] != ' ' && s[j] != '\'' && s[j] != '\"')
+		{
+			printf("j=%d\n", j);
 			j++;
-	file = ft_substr(s, i, j - i);
-	s = cut_str(s, save_i, j);
+		}
+		file = ft_substr(s, i, j - i);
+	}
+
+	s = ft_cut_space(cut_str(s, save_i, j + 1));
 	lst_back_p(&g_data->cmd, lst_new_p(3, file, r_t, NULL));
 	*h = 0;
 	return (s);
