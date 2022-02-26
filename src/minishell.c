@@ -101,6 +101,7 @@ int	main(int i, char **argv, char **env)
 		ft_execve(&data, env);
 		free(line);
 		line = NULL;
+
 		clear_struct();
 	}
 	return (0);

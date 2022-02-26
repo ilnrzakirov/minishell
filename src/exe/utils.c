@@ -63,22 +63,20 @@ void clear_struct()
 		}
 		free(g_data->env);
 	}
-//    if (g_data->cmd) {
-//		while (g_data->cmd) {
-//			i = 0;
-//			fr = g_data->cmd;
-//			if (g_data->cmd->cmd) {
-//				while (g_data->cmd->cmd[i])
-//					free(g_data->cmd->cmd[i++]);
-//				free(g_data->cmd->cmd);
-//			}
-//			if (g_data->cmd->filename)
-//				free(g_data->cmd->filename);
-//			if (g_data->cmd->next)
-//				g_data->cmd = g_data->cmd->next;
-//			free(fr);
-//		}
-//	}
+	while (g_data->cmd)
+	{
+			i = -1;
+			fr = g_data->cmd;
+			if (g_data->cmd->cmd) {
+				while (g_data->cmd->cmd[++i])
+					free(g_data->cmd->cmd[i]);
+				free(g_data->cmd->cmd);
+			}
+			if (g_data->cmd->filename)
+				free(g_data->cmd->filename);
+			g_data->cmd = g_data->cmd->next;
+			free(fr);
+		}
 	g_data->cmd = NULL;
 }
 

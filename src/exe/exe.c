@@ -92,6 +92,7 @@ int ft_execve(t_data *data, char **env)
     tmp = data->cmd;
     if (!tmp)
         return (1);
+
 	env = get_env(data);
     while (tmp)
     {
