@@ -30,7 +30,6 @@ void    exe(t_lst *lst, char **env)
 {
     char    *path;
     int     pid;
-	int 	status;
 
 	if (!(buildins_hub_parent(lst))) {
         path = ft_find_path(lst->cmd[0], 0);
@@ -44,8 +43,6 @@ void    exe(t_lst *lst, char **env)
 		}
 		free(path);
 	}
-	wait(&status);
-	g_data->exit_code = WEXITSTATUS(status);
 	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
     dup2(lst->data->std_in, STDIN_FILENO);
@@ -55,7 +52,6 @@ void    exe_pipe(t_lst *lst, char **env) {
 	char *path;
 	int fd[2];
 	int pid;
-	int status;
 
 	path = ft_find_path(lst->cmd[0], 0);
 	pipe(fd);
@@ -71,8 +67,6 @@ void    exe_pipe(t_lst *lst, char **env) {
 			perror("Bash: ");
 		exit(1);
 	}
-	wait(&status);
-	g_data->exit_code = WEXITSTATUS(status);
 	free(path);
 	close(STDIN_FILENO);
 	dup2(fd[0], STDIN_FILENO);
@@ -94,6 +88,7 @@ int ft_execve(t_data *data, char **env)
 {
     t_lst  *tmp;
     int     i;
+	int 	status;
 
     tmp = data->cmd;
     if (!tmp)
@@ -116,7 +111,8 @@ int ft_execve(t_data *data, char **env)
             exe(tmp, env);
         tmp = tmp->next;
     }
-	wait(NULL);
+	wait(&status);
+	g_data->exit_code = WEXITSTATUS(status);
 	clear_arr(env);
     return (0);
 }
