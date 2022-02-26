@@ -37,7 +37,8 @@ void    exe(t_lst *lst, char **env)
 		if (pid == 0) {
 			init_signal_chaild(lst->data);
 			buildins_hub(lst, g_data);
-			execve(path, lst->cmd, env);
+			if (execve(path, lst->cmd, env) == -1)
+				perror("Bash: ");
 			exit(1);
 		}
 		free(path);
@@ -61,7 +62,8 @@ void    exe_pipe(t_lst *lst, char **env) {
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		buildins_hub(lst, g_data);
-		execve(path, lst->cmd, env);
+		if (execve(path, lst->cmd, env) == -1)
+			perror("Bash: ");
 		exit(1);
 	}
 	free(path);
@@ -90,8 +92,11 @@ int ft_execve(t_data *data, char **env)
     if (!tmp)
         return (1);
 	env = get_env(data);
+	if (data->cmd->next)
+		printf("-->%s\n", data->cmd->next->cmd[2]);
     while (tmp)
     {
+		write(1, "-->a\n", 5);
         if (tmp->flag == 1)
             exe_pipe(tmp, env);
         else if (tmp->flag == 3) {
