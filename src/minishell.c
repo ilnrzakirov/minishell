@@ -123,6 +123,5 @@ int	main(int i, char **argv, char **env)
 		line = NULL;
 		clear_struct();
 	}
-	clear_env();
 	return (0);
 }
