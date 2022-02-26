@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:50:43 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/23 15:05:04 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:44:04 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	pipe_in_quotes(char *newline, int i)
 					;
 			i++;
 		}
-		if (!newline[i] || i == 0 || (newline[i - 1] == ' ' && newline[i + 1] && newline[i + 1] == ' '))
+		if (!newline[i] || i == 0 || (newline[i - 1] == ' ' \
+			&& newline[i + 1] && newline[i + 1] == ' '))
 			return ;
 		if (correct_cmd(newline, &i, &s, &s1))
 			return ;

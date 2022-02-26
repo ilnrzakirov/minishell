@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/30 08:43:56 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:37:47 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char *make_right_redirect(char *s, int *h, int j, int r_t);
 //utils
 int	skip_space(char *s, int i);
 char *cut_str(char *s, int i, int j);
+char	*ft_split_line(char *begin, char *value, char *all_line, int j);
 
 
 #endif

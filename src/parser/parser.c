@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 16:42:04 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/23 15:08:12 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/26 17:21:18 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	creat_list_cmd(char *line, int i)
 	}
 	make_pipe(line, &i, 0);
 	int l = 1;
-	while(g_data->cmd)
+	while (g_data->cmd)
 	{
 		i = 0;
 		printf("__________LIST_%d________\n", l++);
 		if (g_data->cmd->cmd)
-			while(g_data->cmd->cmd[i])
+			while (g_data->cmd->cmd[i])
 			{
 				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
 				i++;
@@ -43,11 +43,13 @@ void	creat_list_cmd(char *line, int i)
 
 char	*ft_find_key(char *key)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	temp = g_data->env;
+	if(ft_strnstr("?", key, 1))
+		return (ft_itoa(g_data->exit_code));
 	key = ft_strjoin(key, "=");
-	while (temp && temp->next->key)
+	while (temp)
 	{
 		if (ft_strnstr(temp->key, key, ft_strlen(key)))
 			return (ft_strdup(temp->value));
@@ -58,15 +60,15 @@ char	*ft_find_key(char *key)
 
 char	*ft_open_dollar_util(char *line, int i, int j)
 {
-	char	*line1;
+	char	*begin;
 	char	*line2;
 	char	*key;
 	char	*value;
 
 	if (i > 0)
-		line1 = ft_substr(line, 0, i);
+		begin = ft_substr(line, 0, i);
 	else
-		line1 = ft_strdup("");
+		begin = ft_strdup("");
 	j = i;
 	while ((line[j] != ' ') && line[j])
 	{
@@ -76,20 +78,7 @@ char	*ft_open_dollar_util(char *line, int i, int j)
 	}
 	key = ft_substr(line, i + 1, j - i - 1);
 	value = ft_find_key(key);
-	if (value)
-	{
-		line1 = ft_strjoin(line1, value);
-		line2 = ft_substr(line, j, ft_strlen(line));
-		line = ft_strjoin(line1, line2);
-		free(line2);
-	}
-	else
-	{
-		line1 = ft_strjoin(line1, "");
-		line2 = ft_substr(line, j + 1, ft_strlen(line));
-		line = ft_strjoin(line1, line2);
-		free(line2);
-	}
+	line = ft_split_line(begin, value, line, j);
 	return (line);
 }
 
@@ -103,7 +92,7 @@ char	*open_dollar(char *line, int i)
 			while (line[i] && line[i] != '\'')
 				i++;
 		}
-		if (line[i] == '$' && line[i + 1] && line[i + 1] != '?')
+		if (line[i] == '$')
 			line = ft_open_dollar_util(line, i, 0);
 	}
 	i = -1;
@@ -120,7 +109,7 @@ char	*open_dollar(char *line, int i)
 
 void	parser(char *line, t_data *data)
 {
-	if(preparser(&line, -1))
+	if (preparser(&line, -1))
 	{
 		line = ft_cut_space(line);
 		line = open_dollar(line, -1);

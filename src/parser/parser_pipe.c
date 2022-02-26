@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:29:54 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/23 15:07:58 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:43:10 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ char	**get_cmd(char *s, int i, int j, int h)
 		j = i;
 		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
 			i++;
-		if(s[i] == ' ' || s[i] == '\0')
+		if (s[i] == ' ' || s[i] == '\0')
 			cmds[h++] = ft_substr(s, j, i - j);
 		if (s[i] == '\'' || s[i] == '\"')
 		{
-			if(s[i - 1] && s[i - 1] != ' ')
+			if (s[i - 1] && s[i - 1] != ' ')
 				cmds[h++] = ft_substr(s, j, i - j);
 			ch = s[i++];
 			j = i;
-			while(s[i] && s[i] != ch)
+			while (s[i] && s[i] != ch)
 				i++;
 			cmds[h++] = ft_substr(s, j, i - j);
 		}
@@ -54,7 +54,7 @@ char	*make_pipe(char *s, int *i, int f)
 	*i = 0;
 	free(s);
 	cmd = get_cmd(temp, -1, 0, 0);
-	if(cmd[0])
+	if (cmd[0])
 		lst_back_p(&g_data->cmd, lst_new_p(f, NULL, 0, cmd));
 	return (ret);
 }
