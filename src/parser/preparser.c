@@ -62,7 +62,7 @@ int	pre_pipe(char *line, int i)
 	{
 		if (line[i] == '\'' || line[i] == '\"' )
 		{
-			line[i] = ch;
+			ch = line[i];
 			while (line[++i] != ch)
 				;
 		}

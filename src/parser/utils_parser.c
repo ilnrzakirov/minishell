@@ -26,6 +26,8 @@ char	*cut_str(char *s, int i, int j)
 	char	*res;
 
 	s1 = ft_substr(s, 0, i);
+	if((s[j] != '\'' && s[j] !='\"') && (s[j - 1] == '\'' || s[j - 1] == '\"'))
+		j--;
 	s2 = ft_substr(s, j, ft_strlen(s) - j);
 	res = ft_strjoin(s1, s2);
 	free(s2);
