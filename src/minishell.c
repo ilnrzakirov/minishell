@@ -12,6 +12,24 @@
 
 #include "../includes/minishell.h"
 
+void	clear_env(void)
+{
+	t_env *en;
+
+	if (g_data->env) {
+		while (g_data->env) {
+			en = g_data->env;
+			if (g_data->env->key)
+				free(g_data->env->key);
+			if (g_data->env->value)
+				free(g_data->env->value);
+			g_data->env = g_data->env->next;
+			free(en);
+		}
+		free(g_data->env);
+	}
+}
+
 char	*get_value(char *key)
 {
 	t_env *temp;
@@ -91,6 +109,8 @@ int	main(int i, char **argv, char **env)
         if (!line)
         {
             write(1, "exit\n", 5);
+			clear_struct();
+			clear_env();
             return (data.exit_code);
         }
         if (line[0])
@@ -101,8 +121,8 @@ int	main(int i, char **argv, char **env)
 		ft_execve(&data, env);
 		free(line);
 		line = NULL;
-
 		clear_struct();
 	}
+	clear_env();
 	return (0);
 }

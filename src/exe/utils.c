@@ -49,20 +49,6 @@ void clear_struct()
 {
 	int i;
 	t_lst *fr;
-	t_env *en;
-
-	if (g_data->env) {
-		while (g_data->env) {
-			en = g_data->env;
-			if (g_data->env->key)
-				free(g_data->env->key);
-			if (g_data->env->value)
-				free(g_data->env->value);
-			g_data->env = g_data->env->next;
-			free(en);
-		}
-		free(g_data->env);
-	}
 	while (g_data->cmd)
 	{
 			i = -1;
