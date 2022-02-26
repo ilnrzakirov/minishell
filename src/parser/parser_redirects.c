@@ -40,10 +40,7 @@ char	*make_left_redirect(char *s, int *h, int j, int r_t)
 	else
 	{
 		while (s[j] && s[j] != ' ' && s[j] != '\'' && s[j] != '\"')
-		{
-			printf("j=%d\n", j);
 			j++;
-		}
 		file = ft_substr(s, i, j - i);
 	}
 
@@ -81,13 +78,9 @@ char	*make_right_redirect(char *s, int *h, int j, int r_t)
 	else
 	{
 		while (s[j] && s[j] != ' ' && s[j] != '\'' && s[j] != '\"')
-		{
-			printf("j=%d\n", j);
 			j++;
-		}
 		file = ft_substr(s, i, j - i);
 	}
-
 	s = ft_cut_space(cut_str(s, save_i, j + 1));
 	lst_back_p(&g_data->cmd, lst_new_p(3, file, r_t, NULL));
 	*h = 0;
