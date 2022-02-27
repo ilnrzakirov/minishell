@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:29:54 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/27 10:38:36 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 12:27:09 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**get_cmd(char *s, int i, int j, int h)
 		j = i;
 		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
 			i++;
-		if ((s[i] == ' ' || s[i] == '\0') && i != j)
+		if ((s[i] == ' ' || s[i] == '\0'))
 			cmds[h++] = ft_substr(s, j, i - j);
 		if (s[i] == '\'' || s[i] == '\"')
 		{
@@ -61,9 +61,9 @@ char	*make_pipe(char *s, int *i, int f)
 	char	*temp;
 
 	temp = ft_substr(s, 0, (size_t)(*i));
-	*i += 1;
+	(*i) += 1;
 	ret = ft_substr(s, *i, ft_strlen(s));
-	*i = 0;
+	(*i) = 0;
 	free(s);
 	cmd = get_cmd(ft_cut_space(temp), -1, 0, 0);
 	if (cmd[0])
