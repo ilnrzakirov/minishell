@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:04:31 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 12:43:13 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int i, char **argv, char **env)
 	{
 		dup2(data.std_in, 0);
 		dup2(data.std_out, 1);
-        init_signal_h();
+        // init_signal_h();
 		line = readline("\033[1;31mminishell->\033[0m ");
         if (!line)
         {
@@ -99,7 +99,7 @@ int	main(int i, char **argv, char **env)
 			continue ;
 		parser(line, &data);
 //		ft_execve(&data, env);
-//		clear_struct();
+		clear_struct();
 	}
 	return (0);
 }
