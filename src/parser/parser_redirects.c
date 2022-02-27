@@ -6,16 +6,35 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:27:40 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/23 15:43:44 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 10:51:33 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
+char	*make_redirect_util(char *s, int *i, int *j)
+{
+	char	ch;
+	char	*file;
+	int		b;
+	int		end;
+
+	b = *i;
+	end = *j;
+	b++;
+	ch = s[end++];
+	while (s[end] && s[end] != ch)
+		end++;
+	file = ft_substr(s, b, end - b);
+	end++;
+	*i = b;
+	*j = end;
+	return (file);
+}
+
 char	*make_left_redirect(char *s, int *h, int j, int r_t)
 {
 	char	*file;
-	char	c;
 	int		save_i;
 	int		i;
 
@@ -29,14 +48,7 @@ char	*make_left_redirect(char *s, int *h, int j, int r_t)
 	i = skip_space(s, i + 1);
 	j = i;
 	if (s[j] && (s[j] == '\'' || s[j] == '\"'))
-	{
-		i++;
-		c = s[j++];
-		while (s[j] && s[j] != c)
-			j++;
-		file = ft_substr(s, i, j - i);
-		j++;
-	}
+		file = make_redirect_util(s, &i, &j);
 	else
 	{
 		while (s[j] && s[j] != ' ' && s[j] != '\'' && s[j] != '\"')
@@ -52,7 +64,6 @@ char	*make_left_redirect(char *s, int *h, int j, int r_t)
 char	*make_right_redirect(char *s, int *h, int j, int r_t)
 {
 	char	*file;
-	char	c;
 	int		save_i;
 	int		i;
 
@@ -66,14 +77,7 @@ char	*make_right_redirect(char *s, int *h, int j, int r_t)
 	i = skip_space(s, i + 1);
 	j = i;
 	if (s[j] && (s[j] == '\'' || s[j] == '\"'))
-	{
-		i++;
-		c = s[j++];
-		while (s[j] && s[j] != c)
-			j++;
-		file = ft_substr(s, i, j - i);
-		j++;
-	}
+		file = make_redirect_util(s, &i, &j);
 	else
 	{
 		while (s[j] && s[j] != ' ' && s[j] != '\'' && s[j] != '\"')
