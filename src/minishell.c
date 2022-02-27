@@ -102,26 +102,26 @@ int	main(int i, char **argv, char **env)
     data.exit_code = 0;
 	while (1)
 	{
-		// dup2(data.std_in, 0);
-		// dup2(data.std_out, 1);
-        // init_signal_h();
+		 dup2(data.std_in, 0);
+		 dup2(data.std_out, 1);
+        init_signal_h();
 		line = readline("\033[1;31mminishell->\033[0m ");
-        // if (!line)
-        // {
-        //     write(1, "exit\n", 5);
-		// 	clear_struct();
-		// 	clear_env();
-        //     return (data.exit_code);
-        // }
-        // if (line[0])
-        //     add_history(line);
-		// if (!line[0])
-		// 	continue ;
+         if (!line)
+         {
+             write(1, "exit\n", 5);
+		 	clear_struct();
+		 	clear_env();
+             return (data.exit_code);
+         }
+         if (line[0])
+             add_history(line);
+		 if (!line[0])
+		 	continue ;
 		parser(line, &data);
 		// ft_execve(&data, env);
-		// free(line);
-		// line = NULL;
-		// clear_struct();
+		 free(line);
+		 line = NULL;
+		 clear_struct();
 	}
 	return (0);
 }

@@ -25,7 +25,7 @@ char	*get_cmd_utils(char *s, int *i, int *j)
 	while (s[b] && s[b] != ch)
 		b++;
 	*i = b;
-	*j = end;
+	*j = *i;
 	return (ft_substr(s, end, b - end));
 }
 
@@ -37,12 +37,12 @@ char	**get_cmd(char *s, int i, int j, int h)
 	while (s[++i])
 	{
 		i = skip_space(s, i);
-		if (s[i] == '\0')
-			break ;
+//		if (s[i] == '\0')
+//			break ;
 		j = i;
 		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
 			i++;
-		if ((s[i] == ' ' || s[i] == '\0'))
+		if ((s[i] == ' ' || s[i] == '\0') && j != i)
 			cmds[h++] = ft_substr(s, j, i - j);
 		if (s[i] == '\'' || s[i] == '\"')
 		{
@@ -60,12 +60,12 @@ char	*make_pipe(char *s, int *i, int f)
 	char	**cmd;
 	char	*temp;
 
-	temp = ft_substr(s, 0, (size_t)(*i));
+	temp = ft_cut_space(ft_substr(s, 0, (size_t)(*i)));
 	(*i) += 1;
 	ret = ft_substr(s, *i, ft_strlen(s));
 	(*i) = 0;
 	free(s);
-	cmd = get_cmd(ft_cut_space(temp), -1, 0, 0);
+	cmd = get_cmd(temp, -1, 0, 0);
 	if (cmd[0])
 		lst_back_p(&g_data->cmd, lst_new_p(f, NULL, 0, cmd));
 	return (ret);

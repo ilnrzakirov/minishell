@@ -42,10 +42,10 @@ void	pipe_in_quotes(char *newline, int i)
 		while (newline[i] && newline[i] != '|')
 		{
 			if (newline[i] == '\'')
-				while (newline[++i] != '\'')
+				while (newline[i + 1] && newline[++i] != '\'')
 					;
 			if (newline[i] == '\"')
-				while (newline[++i] != '\"')
+				while (newline[i + 1] && newline[++i] != '\"')
 					;
 			i++;
 		}
