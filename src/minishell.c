@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:04:31 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 09:38:33 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	main(int i, char **argv, char **env)
 		if (!line[0])
 			continue ;
 		parser(line, &data);
-		ft_execve(&data, env);
+		// ft_execve(&data, env);
 		free(line);
 		line = NULL;
 		clear_struct();
