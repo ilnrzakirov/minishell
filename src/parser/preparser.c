@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 16:41:58 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/23 15:09:54 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 09:30:34 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	pre_pipe(char *line, int i)
 	char	ch;
 
 	if (line[++i] == '|')
-		return (error_parser("Syntax error near unexpected token `|'\n"));
+		return (error_parser(PIPE));
 	while (line[++i])
 	{
 		if (line[i] == '\'' || line[i] == '\"' )
@@ -69,14 +69,14 @@ int	pre_pipe(char *line, int i)
 		if (line[i] == '|')
 		{
 			if (!line[i + 1] || line[i + 1] == '|')
-				return (error_parser("Syntax error near unexpected token `|'\n"));
+				return (error_parser(PIPE));
 			i++;
 			while (line[i] == ' ')
 				i++;
 			if (line[i] == '\'' || line[i] == '\"')
 				break ;
 			if (line[i] == '|' || !line[i])
-				return (error_parser("Syntax error near unexpected token `|'\n"));
+				return (error_parser(PIPE));
 		}
 	}
 	return (1);
@@ -85,7 +85,7 @@ int	pre_pipe(char *line, int i)
 int	pre_redirect(char *line, int i)
 {
 	if (!count_redir(line))
-		return (error_parser("Syntax error near unexpected token `> or <'\n"));
+		return (error_parser(SYNTAX));
 	while (line[++i])
 	{
 		if (line[i] == '<' && line[i + 1] != '<')
@@ -96,7 +96,7 @@ int	pre_redirect(char *line, int i)
 			while (line[i] == ' ')
 				i++;
 			if (line[i] == '<' || !line[i] || line[i] == '>')
-				return (error_parser("Syntax error near unexpected token `> or <'\n"));
+				return (error_parser(SYNTAX));
 		}
 		if (line[i] == '>' && line[i + 1] != '>')
 		{
@@ -104,11 +104,11 @@ int	pre_redirect(char *line, int i)
 			if (line[i] == '\'' || line[i] == '\"')
 				break ;
 			if (line[i] == '>' && line[i + 1] == '>')
-				return (error_parser("Syntax error near unexpected token `> or <'\n"));
+				return (error_parser(SYNTAX));
 			while (line[i] == ' ')
 				i++;
 			if (line[i] == '>' || !line[i] || line[i] == '<')
-				return (error_parser("Syntax error near unexpected token `> or <'\n"));
+				return (error_parser(SYNTAX));
 		}
 	}
 	return (1);

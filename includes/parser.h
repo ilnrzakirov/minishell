@@ -6,12 +6,14 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/26 16:37:47 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 09:30:24 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+# define SYNTAX "Syntax error near unexpected token `> or <'\n"
+# define PIPE "Syntax error near unexpected token `|'\n"
 
 # include "minishell.h"
 

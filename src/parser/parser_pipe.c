@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:29:54 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/26 16:43:10 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 09:29:02 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*make_pipe(char *s, int *i, int f)
 	char	**cmd;
 	char	*temp;
 
-	temp = ft_substr(s, 0, (size_t)*i);
+	temp = ft_substr(s, 0, (size_t)(*i));
 	*i += 1;
 	ret = ft_substr(s, *i, ft_strlen(s));
 	*i = 0;
