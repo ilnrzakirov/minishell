@@ -54,18 +54,12 @@ int	pre_gap(char *line, int i)
 
 int	pre_pipe(char *line, int i)
 {
-	char	ch;
-
 	if (line[++i] == '|')
 		return (error_parser(PIPE));
 	while (line[++i])
 	{
 		if (line[i] == '\'' || line[i] == '\"' )
-		{
-			ch = line[i];
-			while (line[++i] != ch)
-				;
-		}
+			pre_pipe_util(line, &i);
 		if (line[i] == '|')
 		{
 			if (!line[i + 1] || line[i + 1] == '|')
@@ -90,23 +84,14 @@ int	pre_redirect(char *line, int i)
 	{
 		if (line[i] == '<' && line[i + 1] != '<')
 		{
-			i++;
-			if (line[i] == '\'' || line[i] == '\"')
-				break ;
-			while (line[i] == ' ')
-				i++;
+			pre_redirect_util2(line, &i);
 			if (line[i] == '<' || !line[i] || line[i] == '>')
 				return (error_parser(SYNTAX));
 		}
 		if (line[i] == '>' && line[i + 1] != '>')
 		{
-			i++;
-			if (line[i] == '\'' || line[i] == '\"')
-				break ;
-			if (line[i] == '>' && line[i + 1] == '>')
+			if (pre_redirect_util(line, &i))
 				return (error_parser(SYNTAX));
-			while (line[i] == ' ')
-				i++;
 			if (line[i] == '>' || !line[i] || line[i] == '<')
 				return (error_parser(SYNTAX));
 		}

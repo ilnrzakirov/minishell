@@ -20,6 +20,9 @@
 
 int		preparser(char **line, int i);
 int		error_parser(char *str);
+int 	pre_redirect_util(char *line, int *i);
+int		pre_redirect_util2(char *line, int *i);
+void	pre_pipe_util(char *line, int *i);
 
 //correct_line.c
 char 	*ft_cut_space(char *line);

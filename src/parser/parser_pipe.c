@@ -37,8 +37,8 @@ char	**get_cmd(char *s, int i, int j, int h)
 	while (s[++i])
 	{
 		i = skip_space(s, i);
-//		if (s[i] == '\0')
-//			break ;
+		if (s[i] == '\0')
+			break ;
 		j = i;
 		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
 			i++;

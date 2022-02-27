@@ -1,7 +1,7 @@
 1) cat -e test | echo Hello                                     +
 2) cat -e "   1 2 3 " test2 | echo "   hello"    | echo bye bye +
 3) cat -e"   1 2 3 "test2 | echo"   hello"| echo bye bye        +
-4) cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye           +
+4) cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye           f
 5)        cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye "" +
 
 //Redirects
