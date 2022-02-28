@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:03:57 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 14:52:06 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_data{
 	int		    std_out;
 	int		    std_in;
 	t_lst	    *cmd;
-    int         exit_code;
+	int         exit_code;
 }			t_data;
 
 t_data *g_data;
@@ -98,6 +98,9 @@ void		exe_redirect(t_lst *lst, char **env);
 void		exe(t_lst *lst, char **env);
 char		*get_next_line(int fd);
 int			ft_strle(const char *str, char sym);
+void		sigint_func(int sig);
+
+
 
 
 #endif

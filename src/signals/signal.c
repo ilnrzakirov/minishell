@@ -3,37 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 09:40:21 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/20 09:40:22 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:07:46 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
 
-void    sigint_func(int sig)
-{
-    if (sig == SIGINT)
-    {
-        rl_on_new_line();
-        rl_redisplay();
-        write(2, "  \n", 3);
-        rl_replace_line("", 0);
-        rl_on_new_line();
-        rl_redisplay();
-    }
-}
-
-void    sigquit(int sig)
+void	sigquit(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
 	g_data->exit_code = 130;
 }
 
-static	void	ft_signal_quit(int sig)
+static void	ft_signal_quit(int sig)
 {
 	write(1, "\b\b  \b\b", 6);
 	write(1, "^\\Quit: ", 8);
@@ -42,22 +28,22 @@ static	void	ft_signal_quit(int sig)
 	g_data->exit_code = 131;
 }
 
-void    sigint_proc(int sig)
+void	sigint_proc(int sig)
 {
-    if (sig == SIGINT)
-    {
-        write(2, "\n", 1);
-    }
+	if (sig == SIGINT)
+	{
+		write(2, "\n", 1);
+	}
 }
 
-void    init_signal_chaild(t_data *data)
+void	init_signal_chaild(t_data *data)
 {
-    signal(SIGQUIT, ft_signal_quit);
-    signal(SIGINT, sigquit);
+	signal(SIGQUIT, ft_signal_quit);
+	signal(SIGINT, sigquit);
 }
 
-void    init_signal_h()
+void	init_signal_h(void)
 {
-    signal(SIGQUIT, SIG_IGN);
-    signal(SIGINT, sigint_func);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_func);
 }
