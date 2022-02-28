@@ -22,20 +22,7 @@ void    exe_redirect(t_lst *lst, char **env)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     else if (lst->redirect_type == 2)
         fd = open(lst->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-    if (lst->cmd)
-    {
-		path = ft_find_path(lst->cmd[0], 0);
-        pid = fork();
-        if (pid == 0)
-        {
-            init_signal_chaild(lst->data);
-            dup2(fd, 1);
-			close(fd);
-			buildins_hub(lst, g_data);
-            execve(path, lst->cmd, env);
-        }
-    }
-	dup2(fd, 1);
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
@@ -50,12 +37,15 @@ void    exe(t_lst *lst, char **env)
 		if (pid == 0) {
 			init_signal_chaild(lst->data);
 			buildins_hub(lst, g_data);
-			execve(path, lst->cmd, env);
+			if (execve(path, lst->cmd, env) == -1)
+				perror("Bash: ");
+			exit(1);
 		}
 		free(path);
 	}
+	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
-    dup2(lst->data->std_in, 0);
+    dup2(lst->data->std_in, STDIN_FILENO);
 }
 
 void    exe_pipe(t_lst *lst, char **env) {
@@ -73,7 +63,8 @@ void    exe_pipe(t_lst *lst, char **env) {
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		buildins_hub(lst, g_data);
-		execve(path, lst->cmd, env);
+		if (execve(path, lst->cmd, env) == -1)
+			perror("Bash: ");
 		exit(1);
 	}
 	free(path);
@@ -88,8 +79,8 @@ void    get_data(t_lst *lst, char **env)
     int fd;
 
     fd = open(lst->filename, O_RDONLY);
-	close (0);
-    dup2(fd , 0);
+	close (STDIN_FILENO);
+    dup2(fd , STDIN_FILENO);
     close(fd);
 }
 
@@ -97,10 +88,12 @@ int ft_execve(t_data *data, char **env)
 {
     t_lst  *tmp;
     int     i;
+	int 	status;
 
     tmp = data->cmd;
     if (!tmp)
         return (1);
+
 	env = get_env(data);
     while (tmp)
     {
@@ -118,7 +111,8 @@ int ft_execve(t_data *data, char **env)
             exe(tmp, env);
         tmp = tmp->next;
     }
-	wait(0);
+	wait(&status);
+	g_data->exit_code = WEXITSTATUS(status);
 	clear_arr(env);
     return (0);
 }

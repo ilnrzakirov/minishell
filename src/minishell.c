@@ -6,11 +6,29 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/27 12:43:13 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 12:18:13 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	clear_env(void)
+{
+	t_env *en;
+
+	if (g_data->env) {
+		while (g_data->env) {
+			en = g_data->env;
+			if (g_data->env->key)
+				free(g_data->env->key);
+			if (g_data->env->value)
+				free(g_data->env->value);
+			g_data->env = g_data->env->next;
+			free(en);
+		}
+		free(g_data->env);
+	}
+}
 
 char	*get_value(char *key)
 {
@@ -84,22 +102,26 @@ int	main(int i, char **argv, char **env)
     data.exit_code = 0;
 	while (1)
 	{
-		dup2(data.std_in, 0);
-		dup2(data.std_out, 1);
-        // init_signal_h();
+		 dup2(data.std_in, 0);
+		 dup2(data.std_out, 1);
+        init_signal_h();
 		line = readline("\033[1;31mminishell->\033[0m ");
-        if (!line)
-        {
-            write(1, "exit\n", 5);
-            return (data.exit_code);
-        }
-        if (line[0])
-            add_history(line);
-		if (!line[0])
-			continue ;
-		parser(line, &data);
-//		ft_execve(&data, env);
-		clear_struct();
+         if (!line)
+         {
+             write(1, "exit\n", 5);
+		 	 clear_struct();
+		 	 clear_env();
+             return (data.exit_code);
+         }
+         if (line[0])
+             add_history(line);
+		 if (!line[0])
+		 	continue ;
+		 parser(line, &data);
+		 ft_execve(&data, env);
+		 free(line);
+		 line = NULL;
+		 clear_struct();
 	}
 	return (0);
 }

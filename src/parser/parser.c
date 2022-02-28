@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 16:42:04 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/27 12:43:06 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 12:29:01 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	creat_list_cmd(char *line, int i)
 {
+	char ch;
+
 	while (line[++i])
 	{
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			ch = line[i++];
+			while(line[i] && line[i] != ch)
+				i++;
+		}
 		if (line[i] == '<')
 			line = make_left_redirect(line, &i, 0, 1);
 		if (line[i] == '|')
@@ -46,7 +54,7 @@ char	*ft_find_key(char *key)
 	t_env	*temp;
 
 	temp = g_data->env;
-	if(ft_strnstr("?", key, 1))
+	if (ft_strnstr("?", key, 1))
 		return (ft_itoa(g_data->exit_code));
 	key = ft_strjoin(key, "=");
 	while (temp)
@@ -82,11 +90,13 @@ char	*ft_open_dollar_util(char *line, int i, int j)
 	return (line);
 }
 
-char	*open_dollar(char *line, int i)
+char	*open_dollar(char *line, int i, int f)
 {
 	while (line[++i])
 	{
-		if (line[i] == '\'')
+		if (line[i] == '\"')
+			f = 1;
+		if (line[i] == '\'' && !f)
 		{
 			i++;
 			while (line[i] && line[i] != '\'')
@@ -96,13 +106,19 @@ char	*open_dollar(char *line, int i)
 			line = ft_open_dollar_util(line, i, 0);
 	}
 	i = -1;
+	f = 0;
 	while (line[++i])
 	{
-		if (line[i++] == '\'')
+		if (line[i] == '\"')
+			f = 1;
+		if (line[i] == '\'' && !f)
+		{
+			i++;
 			while (line[i] && line[i] != '\'')
 				i++;
+		}
 		else if (line[i] == '$')
-			line = open_dollar(line, -1);
+			line = open_dollar(line, -1, 0);
 	}
 	return (line);
 }
@@ -112,7 +128,7 @@ void	parser(char *line, t_data *data)
 	if (preparser(&line, -1))
 	{
 		line = ft_cut_space(line);
-		line = open_dollar(line, -1);
+		line = open_dollar(line, -1, 0);
 		creat_list_cmd(line, -1);
 	}
 }

@@ -36,7 +36,7 @@ int ft_unset(t_lst *cmd){
 
 	if (cmd->cmd[1]) {
 		key = cmd->cmd[1];
-		key = ft_strjoin(key, "=");
+		key = ft_strjoin(ft_strdup(key), "=");
 		if (check_key(key))
 			delete_env_var(key);
 		free(key);

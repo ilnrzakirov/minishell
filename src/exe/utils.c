@@ -49,36 +49,20 @@ void clear_struct()
 {
 	int i;
 	t_lst *fr;
-	t_env *en;
-
-	if (g_data->env) {
-		while (g_data->env) {
-			en = g_data->env;
-			if (g_data->env->key)
-				free(g_data->env->key);
-			if (g_data->env->value)
-				free(g_data->env->value);
-			g_data->env = g_data->env->next;
-			free(en);
-		}
-		free(g_data->env);
-	}
-    if (g_data->cmd) {
-		while (g_data->cmd) {
-			i = 0;
+	while (g_data->cmd)
+	{
+			i = -1;
 			fr = g_data->cmd;
 			if (g_data->cmd->cmd) {
-				while (g_data->cmd->cmd[i])
-					free(g_data->cmd->cmd[i++]);
+				while (g_data->cmd->cmd[++i])
+					free(g_data->cmd->cmd[i]);
 				free(g_data->cmd->cmd);
 			}
 			if (g_data->cmd->filename)
 				free(g_data->cmd->filename);
-			if (g_data->cmd->next)
-				g_data->cmd = g_data->cmd->next;
+			g_data->cmd = g_data->cmd->next;
 			free(fr);
 		}
-	}
 	g_data->cmd = NULL;
 }
 

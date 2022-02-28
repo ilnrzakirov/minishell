@@ -19,7 +19,7 @@ OBJS	=	$(SRCS:.c=.o)
 
 GCC		= clang
 
-CFLAGS	=	
+#CFLAGS	=	-Wall -Wextra -Werror
 
 FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include
 

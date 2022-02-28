@@ -79,12 +79,7 @@ int ft_cd(t_lst *cmd)
     }
     else
         if (get_dir(&old, cmd))
-            exit (1);
+            return (1);
 	cmd->data->exit_code = 0;
-	while (g_data->env && g_data->env->key)
-	{
-		printf("%s%s\n", g_data->env->key, g_data->env->value);
-		g_data->env = g_data->env->next;
-	}
 	return (0);
 }
