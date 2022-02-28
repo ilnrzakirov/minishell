@@ -2,7 +2,7 @@
 2) cat -e "   1 2 3 " test2 | echo "   hello"    | echo bye bye +
 3) cat -e"   1 2 3 "test2 | echo"   hello"| echo bye bye        +
 4) cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye           f
-5)        cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye "" +
+5)        cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye "" f
 
 //Redirects
 6) cat -e < test            +
@@ -25,19 +25,24 @@
 20) echo Hello>>"test"'Test'        +
 21) echo Hello    >>         "TEST" +
 
+22) echo "cat lol.c | cat>lol.c"    +
 
-//	int l = 1;
-//	while (g_data->cmd)
-//	{
-//		i = 0;
-//		printf("__________LIST_%d________\n", l++);
-//		if (g_data->cmd->cmd)
-//			while (g_data->cmd->cmd[i])
-//			{
-//				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
-//				i++;
-//			}
-//		if (g_data->cmd->filename)
-//			printf("filename = %s\n", g_data->cmd->filename);
-//		g_data->cmd = g_data->cmd->next;
-//	}
+23) echo '"$HOME"'                  +
+24) echo "'$HOME'"                  +
+
+
+	int l = 1;
+	while (g_data->cmd)
+	{
+		i = 0;
+		printf("__________LIST_%d________\n", l++);
+		if (g_data->cmd->cmd)
+			while (g_data->cmd->cmd[i])
+			{
+				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
+				i++;
+			}
+		if (g_data->cmd->filename)
+			printf("filename = %s\n", g_data->cmd->filename);
+		g_data->cmd = g_data->cmd->next;
+	}
