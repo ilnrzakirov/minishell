@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:50:43 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/26 16:44:04 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/27 12:42:13 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	correct_cmd(char *newline, int *i, char **s, char **s1)
 	free(newline);
 	newline = ft_strdup(*s);
 	free(*s);
-	*i += 3;
+	if (s[*i + 3])
+		*i += 3;
 	return (0);
 }
 

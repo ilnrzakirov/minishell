@@ -29,7 +29,11 @@
 
 23) echo '"$HOME"'                  +
 24) echo "'$HOME'"                  +
+25) echo "'$HOME'" echo '"$HOME"'   +
+26) cat -e"   1 2 3 "test2|echo"   hello"|echo bye bye       "'  $USER    '" +
+27) echo "cat $HOME lol.c | cat>lol.c" +
 
+echo "'
 
 	int l = 1;
 	while (g_data->cmd)
