@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/29 13:03:57 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 14:56:24 by bcarlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,7 @@ void    	here_doc(char *word);
 void		print_error_exit(char *str);
 char		*open_dollar(char *line, int i, int f);
 void		print_error_path(char *str);
+char		*ft_subst(char *str, int s, int l, int flag);
+char		*get_next_line(int fd);
+int			ft_strle(const char *str, char sym);
 #endif

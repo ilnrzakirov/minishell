@@ -6,7 +6,7 @@
 /*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 13:48:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/01/24 14:27:28 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 14:55:47 by bcarlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,30 @@ void	print_error_path(char *str)
 	write(2, str, ft_strlen(str));
 	write (2, ": ", 2);
 	write(2, "No such file or directory\n", 26);
+}
+
+char	*ft_subst(char *str, int s, int l, int flag)
+{
+	int		i;
+	int		k;
+	char	*res;
+
+	if (ft_strle(str, '\0') < (s + l))
+		l = ft_strle(str, '\0') - s;
+	res = malloc((sizeof(char) * (l + 1)));
+	k = 0;
+	if (s >= 0 && (ft_strle((char *)str, '\0') > s))
+	{
+		i = s;
+		while (str[i] && k < l)
+			res[k++] = str[i++];
+		res[k] = '\0';
+		if (flag == 1)
+			free(str);
+		return (res);
+	}
+	res[k] = '\0';
+	if (flag == 1)
+		free(str);
+	return (res);
 }
