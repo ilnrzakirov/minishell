@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 11:57:48 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:11:05 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:14:48 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,24 @@ char	*ft_strstr(char *str, char *to_find)
 		++i;
 	}
 	return (0);
+}
+
+void	clear_env(void)
+{
+	t_env	*en;
+
+	if (g_data->env)
+	{
+		while (g_data->env)
+		{
+			en = g_data->env;
+			if (g_data->env->key)
+				free(g_data->env->key);
+			if (g_data->env->value)
+				free(g_data->env->value);
+			g_data->env = g_data->env->next;
+			free(en);
+		}
+		free(g_data->env);
+	}
 }
