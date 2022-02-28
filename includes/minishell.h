@@ -87,5 +87,5 @@ int 		ft_unset(t_lst *cmd);
 int 		check_key(char *key);
 int 		replace_value_envp(char *key, char *value);
 void    	here_doc(char *word);
-char	*open_dollar(char *line, int i);
+char	*open_dollar(char *line, int i, int f);
 #endif

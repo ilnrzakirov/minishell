@@ -120,7 +120,7 @@ void	here_doc_find(char *here, int fd, int i)
             free(here);
             exit (0);
         }
-		line = open_dollar(line, -1);
+		line = open_dollar(line, -1, 0);
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);
