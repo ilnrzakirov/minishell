@@ -32,21 +32,6 @@ void	creat_list_cmd(char *line, int i)
 			line = make_right_redirect(line, &i, 0, 1);
 	}
 	make_pipe(line, &i, 0);
-	int l = 1;
-	while (g_data->cmd)
-	{
-		i = 0;
-		printf("__________LIST_%d________\n", l++);
-		if (g_data->cmd->cmd)
-			while (g_data->cmd->cmd[i])
-			{
-				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
-				i++;
-			}
-		if (g_data->cmd->filename)
-			printf("filename = %s\n", g_data->cmd->filename);
-		g_data->cmd = g_data->cmd->next;
-	}
 }
 
 char	*ft_find_key(char *key)
