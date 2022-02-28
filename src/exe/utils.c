@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:53:42 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:24:08 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:30:55 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	clear_struct(void)
 	int		i;
 	t_lst	*fr;
 
-	
 	while (g_data->cmd)
 	{
 		i = -1;
