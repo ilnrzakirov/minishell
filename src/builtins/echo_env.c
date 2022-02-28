@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   echo_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 11:26:21 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/01 11:26:23 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 14:38:02 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int ft_echo(char **arg)
+int	ft_echo(char **arg)
 {
 	size_t	i;
 	size_t	j;
@@ -36,17 +36,17 @@ int ft_echo(char **arg)
 	exit (0);
 }
 
-int ft_env(t_env *e)
+int	ft_env(t_env *e)
 {
-    t_env   *env;
+	t_env	*env;
 
-    env = e;
-    while(env)
-    {
-        write(1, env->key, ft_strlen(env->key));
-        write(1, env->value, ft_strlen(env->value));
-        write(1, "\n", 1);
-        env= env->next;
-    }
-    exit(0);
+	env = e;
+	while (env)
+	{
+		write(1, env->key, ft_strlen(env->key));
+		write(1, env->value, ft_strlen(env->value));
+		write(1, "\n", 1);
+		env = env->next;
+	}
+	exit(0);
 }

@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 09:39:41 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/20 09:39:42 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 14:40:13 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int replace_value_envp(char *key, char *value)
+int	replace_value_envp(char *key, char *value)
 {
-	t_env 	*temp;
+	t_env	*temp;
 
 	temp = g_data->env;
-	while(temp && temp->next)
+	while (temp && temp->next)
 	{
-		if(ft_strnstr(temp->key, key, ft_strlen(key))) {
+		if (ft_strnstr(temp->key, key, ft_strlen(key)))
+		{
 			free(temp->value);
 			temp->value = value;
 		}
@@ -29,20 +30,7 @@ int replace_value_envp(char *key, char *value)
 	return (0);
 }
 
-int check_key(char *key)
-{
-	t_env *temp;
-
-	temp = g_data->env;
-	while (temp && temp->key)
-	{
-		if (ft_strnstr(temp->key, key, ft_strlen(key)))
-			return (1);
-		temp = temp->next;
-	}
-	return (0);
-}
-t_env 	*lst_env_last(t_env *lst)
+t_env	*lst_env_last(t_env *lst)
 {
 	if (lst)
 	{
@@ -65,9 +53,9 @@ void	lst_env_add_back(t_env **lst, t_env *new)
 		*lst = new;
 }
 
-t_env 	*lst_env_new(char *key, char *value)
+t_env	*lst_env_new(char *key, char *value)
 {
-	t_env 	*newlist;
+	t_env	*newlist;
 
 	newlist = (t_env *)malloc(sizeof(t_env));
 	if (!newlist)
@@ -78,10 +66,11 @@ t_env 	*lst_env_new(char *key, char *value)
 	return (newlist);
 }
 
-int ft_export(t_lst *cmd, int i) {
-	char *line;
-	char *key;
-	char *value;
+int	ft_export(t_lst *cmd, int i)
+{
+	char	*line;
+	char	*key;
+	char	*value;
 
 	line = ft_strtrim(cmd->cmd[1], " ");
 	while (line[i] != '=' && line[i])
