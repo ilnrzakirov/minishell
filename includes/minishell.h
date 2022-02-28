@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 14:56:24 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/01/29 13:03:57 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,35 +64,40 @@ t_lst		*lst_new_p(int flag, char *filename, int r_t, char **cmd);
 t_lst		*lst_last(t_lst *lst);
 void		lst_back_p(t_lst **lst, t_lst *new);
 int			ft_strichr(const char *str, char c);
-int         ft_execve(t_data *data, char **env);
-void        clear_struct();
-char        *ft_find_path(char *str, int i);
-char        **get_env(t_data *data);
-void        init_signal_h();
-void        init_signal_chaild(t_data *data);
-char	    *ft_pwd(int flag);
-int         ft_env(t_env *e);
-int         ft_echo(char **arg);
-int     	ft_strcmp(const char *s1, const char *s2);
-int         ft_cd(t_lst *cmd);
-void        ft_exit(t_lst *cmd, t_data *data);
-void        buildins_hub(t_lst *cmd, t_data *data);
-int	        count_words(char *str);
-void	    lst_add_back(t_lst **lst, t_lst *new);
-t_lst	    *lst_new(void *content);
-int 		ft_export(t_lst *cmd, int i);
-t_env 		*lst_env_new(char *key, char *value);
+int			ft_execve(t_data *data, char **env);
+void		clear_struct();
+char		*ft_find_path(char *str, int i);
+char		**get_env(t_data *data);
+void		init_signal_h();
+void		init_signal_chaild(t_data *data);
+char		*ft_pwd(int flag);
+int			ft_env(t_env *e);
+int			ft_echo(char **arg);
+int			ft_strcmp(const char *s1, const char *s2);
+int			ft_cd(t_lst *cmd);
+void		ft_exit(t_lst *cmd, t_data *data);
+void		buildins_hub(t_lst *cmd, t_data *data);
+int			count_words(char *str);
+void		lst_add_back(t_lst **lst, t_lst *new);
+t_lst		*lst_new(void *content);
+int			ft_export(t_lst *cmd, int i);
+t_env		*lst_env_new(char *key, char *value);
 void		lst_env_add_back(t_env **lst, t_env *new);
-t_env 		*lst_env_last(t_env *lst);
-int 	   	buildins_hub_parent(t_lst *cmd);
-int 		ft_unset(t_lst *cmd);
-int 		check_key(char *key);
-int 		replace_value_envp(char *key, char *value);
-void    	here_doc(char *word);
+t_env		*lst_env_last(t_env *lst);
+int			buildins_hub_parent(t_lst *cmd);
+int			ft_unset(t_lst *cmd);
+int			check_key(char *key);
+int			replace_value_envp(char *key, char *value);
+void		here_doc(char *word);
 void		print_error_exit(char *str);
 char		*open_dollar(char *line, int i, int f);
 void		print_error_path(char *str);
+void		start_process(t_lst *lst, char **env);
 char		*ft_subst(char *str, int s, int l, int flag);
+void		exe_redirect(t_lst *lst, char **env);
+void		exe(t_lst *lst, char **env);
 char		*get_next_line(int fd);
 int			ft_strle(const char *str, char sym);
+
+
 #endif

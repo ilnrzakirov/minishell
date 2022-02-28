@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 09:39:41 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/20 09:39:42 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 14:38:22 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void delete_env_var(char *key){
-	t_env 	*temp;
+void	delete_env_var(char *key)
+{
+	t_env	*temp;
 
 	temp = g_data->env;
-	while(temp && temp->next)
+	while (temp && temp->next)
 	{
 		if (temp->next && ft_strnstr(temp->next->key, key, ft_strlen(key)))
 		{
@@ -31,10 +32,12 @@ void delete_env_var(char *key){
 	}
 }
 
-int ft_unset(t_lst *cmd){
-	char *key;
+int	ft_unset(t_lst *cmd)
+{
+	char	*key;
 
-	if (cmd->cmd[1]) {
+	if (cmd->cmd[1])
+	{
 		key = cmd->cmd[1];
 		if (ft_strnstr("PATH", key, 4))
 			g_data->check_path = 1;
@@ -43,5 +46,5 @@ int ft_unset(t_lst *cmd){
 			delete_env_var(key);
 		free(key);
 	}
-	return  (1);
+	return (1);
 }
