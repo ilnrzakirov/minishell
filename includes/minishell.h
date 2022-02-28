@@ -91,4 +91,5 @@ int 		replace_value_envp(char *key, char *value);
 void    	here_doc(char *word);
 void		print_error_exit(char *str);
 char		*open_dollar(char *line, int i, int f);
+void		print_error_path(char *str);
 #endif

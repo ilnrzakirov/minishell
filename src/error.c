@@ -33,3 +33,11 @@ int	print_error(char *str, int i)
         write(2, "Bash: unclosed quotes\n", 22);
 	return (0);
 }
+
+void	print_error_path(char *str)
+{
+	write(2, "Bash: ", 6);
+	write(2, str, ft_strlen(str));
+	write (2, ": ", 2);
+	write(2, "No such file or directory\n", 26);
+}
