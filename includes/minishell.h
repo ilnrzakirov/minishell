@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:52:35 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:56:20 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,26 @@ typedef struct s_env{
 }					t_env;
 
 typedef struct s_lst{
-	int		        flag;
-	char	        **cmd;
-	char            *tmp;
-	char            *filename;
-	int             redirect_type;
+	int				flag;
+	char			**cmd;
+	char			*tmp;
+	char			*filename;
+	int				redirect_type;
 	struct s_lst	*next;
-	struct s_data   *data;
-}			        t_lst;
+	struct s_data	*data;
+}	t_lst;
 
 typedef struct s_data{
-	t_env	    *env;
-	int 		error;
-	int 		check_path;
-	int		    std_out;
-	int		    std_in;
-	t_lst	    *cmd;
-	int         exit_code;
+	t_env	*env;
+	int		error;
+	int		check_path;
+	int		std_out;
+	int		std_in;
+	t_lst	*cmd;
+	int		exit_code;
 }			t_data;
 
-t_data *g_data;
+t_data	*g_data;
 
 void		rl_replace_line(const char *buffer, int val);
 char		*ft_strstr(char *str, char *to_find);
@@ -64,10 +64,10 @@ t_lst		*lst_last(t_lst *lst);
 void		lst_back_p(t_lst **lst, t_lst *new);
 int			ft_strichr(const char *str, char c);
 int			ft_execve(t_data *data, char **env);
-void		clear_struct();
+void		clear_struct(void);
 char		*ft_find_path(char *str, int i);
 char		**get_env(t_data *data);
-void		init_signal_h();
+void		init_signal_h(void);
 void		init_signal_chaild(t_data *data);
 char		*ft_pwd(int flag);
 int			ft_env(t_env *e);
