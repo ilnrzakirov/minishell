@@ -109,15 +109,15 @@ int	main(int i, char **argv, char **env)
          if (!line)
          {
              write(1, "exit\n", 5);
-		 	clear_struct();
-		 	clear_env();
+		 	 clear_struct();
+		 	 clear_env();
              return (data.exit_code);
          }
          if (line[0])
              add_history(line);
 		 if (!line[0])
 		 	continue ;
-		parser(line, &data);
+		 parser(line, &data);
 		 ft_execve(&data, env);
 		 free(line);
 		 line = NULL;

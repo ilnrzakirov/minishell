@@ -26,7 +26,9 @@ int    buildins_hub_parent(t_lst *cmd)
 		ft_cd(cmd);
 		return (1);
 	}
-		return (0);
+	else if (ft_strstr(cmd->cmd[0], "exit"))
+		ft_exit(cmd ,g_data);
+	return (0);
 }
 
 void    buildins_hub(t_lst *cmd, t_data *data)
@@ -35,8 +37,6 @@ void    buildins_hub(t_lst *cmd, t_data *data)
         ft_cd(cmd);
     else if (ft_strstr(cmd->cmd[0], "echo"))
         ft_echo(cmd->cmd);
-    else if (ft_strstr(cmd->cmd[0], "exit"))
-        ft_exit(cmd ,data);
     else if (ft_strstr(cmd->cmd[0], "env"))
         ft_env(data->env);
     else if (ft_strstr(cmd->cmd[0], "pwd"))
