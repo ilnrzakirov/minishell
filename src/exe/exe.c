@@ -66,7 +66,7 @@ void	ft_execve_util(t_lst *tmp, char **env)
 		if (tmp->redirect_type == 1)
 			get_data(tmp, env);
 		else if (tmp->redirect_type == 2)
-			here_doc(tmp->filename);
+			here_doc(tmp->filename, 0);
 	}
 	else if (tmp->flag == 2)
 		exe_redirect(tmp, env);

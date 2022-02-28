@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:14:56 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:26:12 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_data{
 	int		    std_out;
 	int		    std_in;
 	t_lst	    *cmd;
-	int         exit_code;
+    int         exit_code;
 }			t_data;
 
 t_data *g_data;
@@ -88,14 +88,16 @@ int			buildins_hub_parent(t_lst *cmd);
 int			ft_unset(t_lst *cmd);
 int			check_key(char *key);
 int			replace_value_envp(char *key, char *value);
-void		here_doc(char *word);
+void		here_doc(char *word, int pid);
 void		print_error_exit(char *str);
 char		*open_dollar(char *line, int i, int f);
 void		print_error_path(char *str);
 void		start_process(t_lst *lst, char **env);
-
+char		*ft_subst(char *str, int s, int l, int flag);
 void		exe_redirect(t_lst *lst, char **env);
 void		exe(t_lst *lst, char **env);
+char		*get_next_line(int fd);
+int			ft_strle(const char *str, char sym);
 void		sigint_func(int sig);
 void		clear_env(void);
 
