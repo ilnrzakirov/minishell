@@ -28,7 +28,7 @@ int	correct_cmd(char *newline, int *i, char **s, char **s1)
 	free(newline);
 	newline = ft_strdup(*s);
 	free(*s);
-	if(s[*i + 3])
+	if (s[*i + 3])
 		*i += 3;
 	return (0);
 }

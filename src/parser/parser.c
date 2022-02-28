@@ -14,14 +14,14 @@
 
 void	creat_list_cmd(char *line, int i)
 {
-	char ch;
+	char	ch;
 
 	while (line[++i])
 	{
 		if (line[i] == '\'' || line[i] == '\"')
 		{
 			ch = line[i++];
-			while(line[i] && line[i] != ch)
+			while (line[i] && line[i] != ch)
 				i++;
 		}
 		if (line[i] == '<')
@@ -66,26 +66,26 @@ char	*ft_find_key(char *key)
 	return (NULL);
 }
 
-char	*ft_open_dollar_util(char *line, int i, int j)
+char	*ft_open_dollar_util(char *line, int *i, int j)
 {
 	char	*begin;
-	char	*line2;
 	char	*key;
 	char	*value;
 
-	if (i > 0)
-		begin = ft_substr(line, 0, i);
+	if (*i > 0)
+		begin = ft_substr(line, 0, *i);
 	else
 		begin = ft_strdup("");
-	j = i;
+	j = *i;
 	while ((line[j] != ' ') && line[j])
 	{
-		if (line[j] == '\"')
+		if (line[j] == '\"' || line[j] == '\'')
 			break ;
 		j++;
 	}
-	key = ft_substr(line, i + 1, j - i - 1);
+	key = ft_substr(line, (*i) + 1, j - (*i) - 1);
 	value = ft_find_key(key);
+	(*i) = (int)ft_strlen(begin) + (int)ft_strlen(value);
 	line = ft_split_line(begin, value, line, j);
 	return (line);
 }
@@ -94,31 +94,21 @@ char	*open_dollar(char *line, int i, int f)
 {
 	while (line[++i])
 	{
-		if (line[i] == '\"')
-			f = 1;
-		if (line[i] == '\'' && !f)
+		if (line[i] == '\"' && !f)
+		{
+			i++;
+			f += 1;
+		}
+		if (line[i] == '\"' && f)
+			f--;
+		if (line[i] == '\'' && f != 1)
 		{
 			i++;
 			while (line[i] && line[i] != '\'')
 				i++;
 		}
 		if (line[i] == '$')
-			line = ft_open_dollar_util(line, i, 0);
-	}
-	i = -1;
-	f = 0;
-	while (line[++i])
-	{
-		if (line[i] == '\"')
-			f = 1;
-		if (line[i] == '\'' && !f)
-		{
-			i++;
-			while (line[i] && line[i] != '\'')
-				i++;
-		}
-		else if (line[i] == '$')
-			line = open_dollar(line, -1, 0);
+			line = ft_open_dollar_util(line, &i, 0);
 	}
 	return (line);
 }
