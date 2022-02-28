@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:26:12 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:29:27 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char		*get_next_line(int fd);
 int			ft_strle(const char *str, char sym);
 void		sigint_func(int sig);
 void		clear_env(void);
+char		*get_value(char *key);
 
 
 

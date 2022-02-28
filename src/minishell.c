@@ -6,25 +6,11 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:24:15 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:29:34 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*get_value(char *key)
-{
-	t_env	*temp;
-
-	temp = g_data->env;
-	while (temp && temp->key)
-	{
-		if (ft_strnstr(temp->key, key, ft_strlen(key)))
-			return (ft_strdup(temp->value));
-		temp = temp->next;
-	}
-	return (0);
-}
 
 void	replace_shell_lvl(void)
 {
@@ -87,6 +73,13 @@ void	main_part(int ac, char **av, char **env)
 	g_data->error = 0;
 }
 
+void	main_part2(void)
+{
+	dup2(g_data->std_in, 0);
+	dup2(g_data->std_out, 1);
+	init_signal_h();
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
@@ -94,9 +87,7 @@ int	main(int ac, char **av, char **env)
 	main_part(ac, av, env);
 	while (1)
 	{
-		dup2(data.std_in, 0);
-		dup2(data.std_out, 1);
-		init_signal_h();
+		main_part2();
 		line = readline("\033[1;31mminishell->\033[0m ");
 		if (!line)
 		{
