@@ -36,6 +36,8 @@ int ft_unset(t_lst *cmd){
 
 	if (cmd->cmd[1]) {
 		key = cmd->cmd[1];
+		if (ft_strnstr("PATH", key, 4))
+			g_data->check_path = 1;
 		key = ft_strjoin(ft_strdup(key), "=");
 		if (check_key(key))
 			delete_env_var(key);

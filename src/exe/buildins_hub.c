@@ -14,6 +14,8 @@
 
 int    buildins_hub_parent(t_lst *cmd)
 {
+	if (g_data ->check_path == 1)
+		return (0);
 	if (ft_strstr(cmd->cmd[0], "export")) {
 		ft_export(cmd, 0);
 		return (1);
@@ -33,6 +35,8 @@ int    buildins_hub_parent(t_lst *cmd)
 
 void    buildins_hub(t_lst *cmd, t_data *data)
 {
+	if (g_data ->check_path == 1)
+		exit(EXIT_FAILURE);
     if (ft_strstr(cmd->cmd[0], "cd"))
         ft_cd(cmd);
     else if (ft_strstr(cmd->cmd[0], "echo"))

@@ -12,6 +12,15 @@
 
 #include "../includes/minishell.h"
 
+void	print_error_exit(char *str)
+{
+	write(2, "Bash: ", 6);
+	write(2, str, ft_strlen(str));
+	write (2, ": ", 2);
+	write(2, "command not found\n", 18);
+	exit (127);
+}
+
 int	print_error(char *str, int i)
 {
 	if (i == 1)

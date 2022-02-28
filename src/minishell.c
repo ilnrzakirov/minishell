@@ -100,6 +100,8 @@ int	main(int i, char **argv, char **env)
     init_env(&data, env);
 	replace_shell_lvl();
     data.exit_code = 0;
+	g_data->check_path = 0;
+	g_data->error = 0;
 	while (1)
 	{
 		 dup2(data.std_in, 0);
