@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 14:52:06 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:08:06 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void		start_process(t_lst *lst, char **env);
 
 void		exe_redirect(t_lst *lst, char **env);
 void		exe(t_lst *lst, char **env);
+void		sigint_func(int sig);
+
 
 
 
