@@ -37,6 +37,8 @@ void    exe(t_lst *lst, char **env)
 		if (pid == 0) {
 			init_signal_chaild(lst->data);
 			buildins_hub(lst, g_data);
+			if (!path)
+				print_error_exit(lst->cmd[0]);
 			if (execve(path, lst->cmd, env) == -1)
 				perror("Bash: ");
 			exit(1);
@@ -63,6 +65,8 @@ void    exe_pipe(t_lst *lst, char **env) {
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		buildins_hub(lst, g_data);
+		if (!path)
+			print_error_exit(lst->cmd[0]);
 		if (execve(path, lst->cmd, env) == -1)
 			perror("Bash: ");
 		exit(1);
