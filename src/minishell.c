@@ -106,8 +106,8 @@ int	main(int i, char **argv, char **env)
 	{
 		 dup2(data.std_in, 0);
 		 dup2(data.std_out, 1);
-        init_signal_h();
-		line = readline("\033[1;31mminishell->\033[0m ");
+         init_signal_h();
+		 line = readline("\033[1;31mminishell->\033[0m ");
          if (!line)
          {
              write(1, "exit\n", 5);
