@@ -34,7 +34,7 @@ all		:	$(NAME)
 
 clean	:
 			@$(RM) $(OBJS)
-			@$(MAKE) clean -C ./libft
+			@$(MAKE) clean -C ./lib
 			@echo "\033[0;32m-------Clean completed-------"
 
 fclean	:	clean
