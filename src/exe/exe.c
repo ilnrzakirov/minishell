@@ -133,10 +133,11 @@ int ft_execve(t_data *data, char **env)
         else if (tmp->flag == 0)
             exe(tmp, env);
         tmp = tmp->next;
-		if (g_data ->error == 1)
+		if (g_data->error == 1)
 			break ;
     }
 	wait(&status);
+	wait(0);
 	g_data->exit_code = WEXITSTATUS(status);
 	clear_arr(env);
     return (0);
