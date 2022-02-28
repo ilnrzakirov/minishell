@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:49:37 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/28 14:51:50 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:46:04 by bcarlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,12 @@ void	exe(t_lst *lst, char **env)
 	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
 	dup2(lst->data->std_in, STDIN_FILENO);
+}
+
+void	check_line(void)
+{
+	write(1, "exit\n", 5);
+	clear_struct();
+	clear_env();
+	exit (g_data->exit_code);
 }

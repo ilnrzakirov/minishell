@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:29:27 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:52:35 by bcarlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../lib/libft.h"
-# include "exe.h"
 # include "parser.h"
 
 typedef struct s_env{
@@ -49,7 +48,7 @@ typedef struct s_data{
 	int		    std_out;
 	int		    std_in;
 	t_lst	    *cmd;
-    int         exit_code;
+	int         exit_code;
 }			t_data;
 
 t_data *g_data;
@@ -59,7 +58,7 @@ char		*ft_strstr(char *str, char *to_find);
 int			print_error(char *str, int i);
 void		clear_arr(char **arr);
 int			get_infile(char **line, t_data *mate);
-void 		parser(char *line, t_data *data);
+void		parser(char *line);
 t_lst		*lst_new_p(int flag, char *filename, int r_t, char **cmd);
 t_lst		*lst_last(t_lst *lst);
 void		lst_back_p(t_lst **lst, t_lst *new);
@@ -101,8 +100,6 @@ int			ft_strle(const char *str, char sym);
 void		sigint_func(int sig);
 void		clear_env(void);
 char		*get_value(char *key);
-
-
-
+void		check_line(void);
 
 #endif

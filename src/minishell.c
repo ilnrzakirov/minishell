@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:29:34 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:46:17 by bcarlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	replace_shell_lvl(void)
 	replace_value_envp(key, value);
 }
 
-t_env	*init_env(t_data *data, char **env)
+void	init_env(char **env)
 {
 	int		i;
 	char	*j;
@@ -55,20 +55,16 @@ t_env	*init_env(t_data *data, char **env)
 	tmp = NULL;
 	g_data->std_in = dup(0);
 	g_data->std_out = dup(1);
-	return (data->env);
 }
 
-void	main_part(int ac, char **av, char **env)
+void	main_part(int ac, char **av, char **env, t_data *data)
 {
-	t_data	data;
-
-	(void *)av;
-	g_data = &data;
+	(void)av;
 	if (ac > 1)
 		exit (print_error("No such file or directory\n", 2));
-	init_env(&data, env);
+	init_env(env);
 	replace_shell_lvl();
-	data.exit_code = 0;
+	g_data->exit_code = 0;
 	g_data->check_path = 0;
 	g_data->error = 0;
 }
@@ -83,25 +79,22 @@ void	main_part2(void)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
+	t_data	data;
 
-	main_part(ac, av, env);
+	g_data = &data;
+	main_part(ac, av, env, &data);
 	while (1)
 	{
 		main_part2();
 		line = readline("\033[1;31mminishell->\033[0m ");
 		if (!line)
-		{
-			write(1, "exit\n", 5);
-			clear_struct();
-			clear_env();
-			return (data.exit_code);
-		}
+			check_line();
 		if (line[0])
 			add_history(line);
 		if (!line[0])
 			continue ;
-		parser(line, &data);
-		ft_execve(&data, env);
+		parser(line);
+		ft_execve(g_data, env);
 		free(line);
 		line = NULL;
 		clear_struct();

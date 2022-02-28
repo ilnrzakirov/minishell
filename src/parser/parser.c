@@ -98,7 +98,7 @@ char	*open_dollar(char *line, int i, int f)
 	return (line);
 }
 
-void	parser(char *line, t_data *data)
+void	parser(char *line)
 {
 	if (preparser(&line, -1))
 	{

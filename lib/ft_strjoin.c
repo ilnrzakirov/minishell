@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sshera <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 14:19:56 by sshera            #+#    #+#             */
-/*   Updated: 2021/10/15 11:59:05 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:48:50 by bcarlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strjoin(char *s1, char const *s2)
@@ -34,6 +35,6 @@ char	*ft_strjoin(char *s1, char const *s2)
 	while (lens2-- > 0)
 		newstr[i++] = s2[j++];
 	newstr[i] = '\0';
-    free(s1);
+	free(s1);
 	return (newstr);
 }
