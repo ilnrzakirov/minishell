@@ -120,7 +120,7 @@ int	main(int i, char **argv, char **env)
 		 if (!line[0])
 		 	continue ;
 		 parser(line, &data);
-//		 ft_execve(&data, env);
+		 ft_execve(&data, env);
 		 free(line);
 		 line = NULL;
 		 clear_struct();

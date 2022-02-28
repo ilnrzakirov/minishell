@@ -12,6 +12,19 @@
 
 #include "../../includes/minishell.h"
 
+void	start_process(t_lst *lst, char **env)
+{
+	int     pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execve(lst->cmd[0], lst->cmd, env) == -1)
+			perror("Bash: ");
+		exit(1);
+	}
+}
+
 void    exe_redirect(t_lst *lst, char **env)
 {
     char    *path;
@@ -31,7 +44,9 @@ void    exe(t_lst *lst, char **env)
     char    *path;
     int     pid;
 
-	if (!(buildins_hub_parent(lst))) {
+	if (!ft_strncmp("./", lst->cmd[0], 2))
+		start_process(lst, env);
+	else if (!(buildins_hub_parent(lst))) {
         path = ft_find_path(lst->cmd[0], 0);
 		pid = fork();
 		if (pid == 0) {
