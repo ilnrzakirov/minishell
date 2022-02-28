@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 16:09:23 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 14:58:52 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:02:49 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exe_pipe_util(int *fd, t_lst *lst, char *path, char **env)
 {
-	init_signal_chaild(lst->data);
+	init_signal_child();
 	close(fd[0]);
 	close(STDOUT_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
@@ -47,7 +47,7 @@ void	exe_pipe(t_lst *lst, char **env)
 	close(fd[1]);
 }
 
-void	get_data(t_lst *lst, char **env)
+void	get_data(t_lst *lst)
 {
 	int	fd;
 
@@ -64,12 +64,12 @@ void	ft_execve_util(t_lst *tmp, char **env)
 	else if (tmp->flag == 3)
 	{
 		if (tmp->redirect_type == 1)
-			get_data(tmp, env);
+			get_data(tmp);
 		else if (tmp->redirect_type == 2)
 			here_doc(tmp->filename, 0);
 	}
 	else if (tmp->flag == 2)
-		exe_redirect(tmp, env);
+		exe_redirect(tmp);
 	else if (tmp->flag == 0)
 		exe(tmp, env);
 }
@@ -77,7 +77,6 @@ void	ft_execve_util(t_lst *tmp, char **env)
 int	ft_execve(t_data *data, char **env)
 {
 	t_lst	*tmp;
-	int		i;
 	int		status;
 
 	tmp = data->cmd;

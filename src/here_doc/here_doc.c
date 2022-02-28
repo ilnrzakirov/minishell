@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:04:00 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:08:44 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 16:01:56 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sign_here_doc(int i)
 	}
 }
 
-void	here_doc_find(char *here, int fd, int i)
+void	here_doc_find(char *here, int fd)
 {
 	char	*line;
 
@@ -83,7 +83,7 @@ void	here_doc(char *word, int pid)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_IGN);
-		here_doc_find(word, fd, 0);
+		here_doc_find(word, fd);
 	}
 	wait(&code);
 	g_data->exit_code = WEXITSTATUS(code);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:49:37 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/28 15:46:04 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 16:08:06 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@ void	start_process(t_lst *lst, char **env)
 	}
 }
 
-void	exe_redirect(t_lst *lst, char **env)
+void	exe_redirect(t_lst *lst)
 {
-	char	*path;
-	int		pid;
 	int		fd;
 
 	if (lst->redirect_type == 1)
 		fd = open(lst->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (lst->redirect_type == 2)
+	else
 		fd = open(lst->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -52,7 +50,7 @@ void	exe(t_lst *lst, char **env)
 		pid = fork();
 		if (pid == 0)
 		{
-			init_signal_chaild(lst->data);
+			init_signal_child();
 			buildins_hub(lst, g_data);
 			if (!path)
 				print_error_exit(lst->cmd[0]);
@@ -72,5 +70,6 @@ void	check_line(void)
 	write(1, "exit\n", 5);
 	clear_struct();
 	clear_env();
+	getchar();
 	exit (g_data->exit_code);
 }

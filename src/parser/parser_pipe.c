@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:29:54 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/27 12:27:09 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:15:31 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*make_pipe(char *s, int *i, int f)
 	(*i) = 0;
 	free(s);
 	cmd = get_cmd(temp, -1, 0, 0);
+	free(temp);
 	if (cmd[0])
 		lst_back_p(&g_data->cmd, lst_new_p(f, NULL, 0, cmd));
 	return (ret);

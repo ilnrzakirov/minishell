@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:25:55 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/26 16:59:34 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:26:21 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*ft_split_line(char *begin, char *value, char *line, int j)
 	{
 		begin = ft_strjoin(begin, value);
 		rem = ft_substr(line, j, ft_strlen(line));
+		free(line);
 		line = ft_strjoin(begin, rem);
 		free(rem);
 	}

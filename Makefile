@@ -13,7 +13,7 @@ SRCS	=	src/minishell.c				src/utils.c					src/error.c\
 
 LIB 	=	./lib/libft.a
 
-HEADER	=	includes/minishell.h ./lib/libft.h includes/exe.h
+HEADER	=	includes/minishell.h ./lib/libft.h
 
 RM		=	rm -f
 
@@ -21,13 +21,13 @@ OBJS	=	$(SRCS:.c=.o)
 
 GCC		= clang
 
-#CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
 FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include
 
 $(NAME)	:	$(OBJS) $(HEADER)
+			@$(MAKE) -C ./lib
 			@$(GCC) $(CFLAGS) $(OBJS) $(LIB) $(FLAG) -o ${NAME}
-			@$(RM) $(OBJS)
 			@echo "\033[0;32m-----Successful success!-----"
 
 .PHONY	:	all clean fclean re
@@ -44,6 +44,3 @@ fclean	:	clean
 			@echo "\033[0;32m------Fclean completed-------"
 
 re		:	fclean all
-
-run		: all
-		./minishell

@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 16:42:04 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/27 12:29:01 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:28:02 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	creat_list_cmd(char *line, int i)
 		else if (line[i] == '>')
 			line = make_right_redirect(line, &i, 0, 1);
 	}
-	make_pipe(line, &i, 0);
+	line = make_pipe(line, &i, 0);
+	free (line);
 }
 
 char	*ft_find_key(char *key)
@@ -45,9 +46,13 @@ char	*ft_find_key(char *key)
 	while (temp)
 	{
 		if (ft_strnstr(temp->key, key, ft_strlen(key)))
+		{
+			free(key);
 			return (ft_strdup(temp->value));
+		}
 		temp = temp->next;
 	}
+	free(key);
 	return (NULL);
 }
 
@@ -100,10 +105,13 @@ char	*open_dollar(char *line, int i, int f)
 
 void	parser(char *line)
 {
+	char	*line2;
+
 	if (preparser(&line, -1))
 	{
-		line = ft_cut_space(line);
-		line = open_dollar(line, -1, 0);
+		line2 = ft_cut_space(line);
+		free(line);
+		line = open_dollar(line2, -1, 0);
 		creat_list_cmd(line, -1);
 	}
 }
