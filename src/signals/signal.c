@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 09:40:21 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:07:46 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:01:00 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	sigint_proc(int sig)
 	}
 }
 
-void	init_signal_chaild(t_data *data)
+void	init_signal_child(void)
 {
 	signal(SIGQUIT, ft_signal_quit);
 	signal(SIGINT, sigquit);

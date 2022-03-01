@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:56:20 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:02:46 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		clear_struct(void);
 char		*ft_find_path(char *str, int i);
 char		**get_env(t_data *data);
 void		init_signal_h(void);
-void		init_signal_chaild(t_data *data);
+void		init_signal_child(void);
 char		*ft_pwd(int flag);
 int			ft_env(t_env *e);
 int			ft_echo(char **arg);
@@ -89,7 +89,7 @@ char		*open_dollar(char *line, int i, int f);
 void		print_error_path(char *str);
 void		start_process(t_lst *lst, char **env);
 char		*ft_subst(char *str, int s, int l, int flag);
-void		exe_redirect(t_lst *lst, char **env);
+void		exe_redirect(t_lst *lst);
 void		exe(t_lst *lst, char **env);
 char		*get_next_line(int fd);
 int			ft_strle(const char *str, char sym);

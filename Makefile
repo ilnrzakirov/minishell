@@ -21,11 +21,12 @@ OBJS	=	$(SRCS:.c=.o)
 
 GCC		= clang
 
-#CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
 FLAG	=	-lreadline -ltermcap -g -L/Users/$(USER)/.brew/opt/readline/lib/ -I/Users/$(USER)/.brew/opt/readline/include
 
 $(NAME)	:	$(OBJS) $(HEADER)
+			@$(MAKE) -C ./lib
 			@$(GCC) $(CFLAGS) $(OBJS) $(LIB) $(FLAG) -o ${NAME}
 			@echo "\033[0;32m-----Successful success!-----"
 
@@ -43,6 +44,3 @@ fclean	:	clean
 			@echo "\033[0;32m------Fclean completed-------"
 
 re		:	fclean all
-
-run		: all
-		./minishell

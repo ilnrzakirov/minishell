@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcarlee <bcarlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:46:17 by bcarlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:58:28 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_env(char **env)
 	g_data->std_out = dup(1);
 }
 
-void	main_part(int ac, char **av, char **env, t_data *data)
+void	main_part(int ac, char **av, char **env)
 {
 	(void)av;
 	if (ac > 1)
@@ -82,7 +82,7 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 
 	g_data = &data;
-	main_part(ac, av, env, &data);
+	main_part(ac, av, env);
 	while (1)
 	{
 		main_part2();
