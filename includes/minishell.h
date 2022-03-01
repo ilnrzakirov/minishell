@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:32:25 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 16:02:46 by sshera           ###   ########.fr       */
+/*   Updated: 2022/02/28 15:56:20 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		clear_struct(void);
 char		*ft_find_path(char *str, int i);
 char		**get_env(t_data *data);
 void		init_signal_h(void);
-void		init_signal_child(void);
+void		init_signal_child(t_data *data);
 char		*ft_pwd(int flag);
 int			ft_env(t_env *e);
 int			ft_echo(char **arg);

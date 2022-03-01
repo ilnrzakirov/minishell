@@ -68,7 +68,6 @@ char	*make_pipe(char *s, int *i, int f)
 	ret = ft_substr(s, *i, ft_strlen(s));
 	(*i) = 0;
 	cmd = get_cmd(temp, -1, 0, 0);
-	free(temp);
 	if (cmd[0])
 		lst_back_p(&g_data->cmd, lst_new_p(f, NULL, 0, cmd));
 	free(s);
