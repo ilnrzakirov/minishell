@@ -12,15 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-void	sign_here_doc(int i)
-{
-	if (i == SIGINT)
-	{
-		write(2, "\nheredoc> ", 10);
-		exit(1);
-	}
-}
-
 void	here_doc_find(char *here, int fd)
 {
 	char	*line;

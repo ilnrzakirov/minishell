@@ -67,7 +67,7 @@ void		clear_struct(void);
 char		*ft_find_path(char *str, int i);
 char		**get_env(t_data *data);
 void		init_signal_h(void);
-void		init_signal_child(t_data *data);
+void		init_signal_child(void);
 char		*ft_pwd(int flag);
 int			ft_env(t_env *e);
 int			ft_echo(char **arg);

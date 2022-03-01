@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:49:37 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/28 16:08:06 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/01 14:38:41 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ void	check_line(void)
 	write(1, "exit\n", 5);
 	clear_struct();
 	clear_env();
-	getchar();
 	exit (g_data->exit_code);
 }

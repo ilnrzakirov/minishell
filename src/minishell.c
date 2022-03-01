@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:58:28 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/01 14:43:35 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	replace_shell_lvl(void)
 {
-	t_env	*temp;
 	char	*key;
 	char	*value;
 	int		old_sh_lvl;
 
-	temp = g_data->env;
 	key = ft_strdup("SHLVL=");
 	value = get_value(key);
 	old_sh_lvl = ft_atoi(value);
@@ -93,8 +91,8 @@ int	main(int ac, char **av, char **env)
 			add_history(line);
 		if (!line[0])
 		{
-		    free(line);
-		    continue ;
+			free(line);
+			continue ;
 		}
 		parser(line);
 		ft_execve(g_data, env);

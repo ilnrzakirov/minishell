@@ -28,14 +28,6 @@ static void	ft_signal_quit(int sig)
 	g_data->exit_code = 131;
 }
 
-void	sigint_proc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		write(2, "\n", 1);
-	}
-}
-
 void	init_signal_child(void)
 {
 	signal(SIGQUIT, ft_signal_quit);
@@ -46,4 +38,17 @@ void	init_signal_h(void)
 {
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_func);
+}
+
+void	sigint_func(int sig)
+{
+	if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		write(2, "  \n", 3);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
