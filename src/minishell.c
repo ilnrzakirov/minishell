@@ -92,11 +92,12 @@ int	main(int ac, char **av, char **env)
 		if (line[0])
 			add_history(line);
 		if (!line[0])
-			continue ;
+		{
+		    free(line);
+		    continue ;
+		}
 		parser(line);
 		ft_execve(g_data, env);
-		free(line);
-		line = NULL;
 		clear_struct();
 	}
 	return (0);

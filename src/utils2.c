@@ -63,17 +63,6 @@ int	count_words(char *str)
 	return (count);
 }
 
-t_lst	*lst_new(void *content)
-{
-	t_lst	*newlist;
-
-	newlist = (t_lst *)malloc(sizeof(t_lst));
-	if (!newlist)
-		return (NULL);
-	newlist -> tmp = content;
-	newlist -> next = NULL;
-	return (newlist);
-}
 
 t_lst	*lst_last(t_lst *lst)
 {

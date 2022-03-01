@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:50:43 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/27 12:42:13 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/01 13:32:12 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ void	pipe_in_quotes(char *newline, int i)
 char	*ft_cut_space(char *line)
 {
 	char	*newline;
+	char	*res;
 
 	newline = ft_strtrim(line, " ");
 	pipe_in_quotes(newline, 0);
-	line = ft_strtrim(newline, " ");
+	res = ft_strtrim(newline, " ");
 	free(newline);
-	return (line);
+	free(line);
+	return (res);
 }

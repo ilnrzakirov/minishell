@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:29:54 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/27 12:27:09 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/01 13:31:14 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	**get_cmd(char *s, int i, int j, int h)
 			cmds[h++] = get_cmd_utils(s, &i, &j);
 		}
 	}
+	free(s);
 	return (cmds);
 }
 
@@ -59,14 +60,16 @@ char	*make_pipe(char *s, int *i, int f)
 	char	*ret;
 	char	**cmd;
 	char	*temp;
+	char	*line1;
 
-	temp = ft_cut_space(ft_substr(s, 0, (size_t)(*i)));
+	line1 = ft_substr(s, 0, (size_t)(*i));
+	temp = ft_cut_space(line1);
 	(*i) += 1;
 	ret = ft_substr(s, *i, ft_strlen(s));
 	(*i) = 0;
-	free(s);
 	cmd = get_cmd(temp, -1, 0, 0);
 	if (cmd[0])
 		lst_back_p(&g_data->cmd, lst_new_p(f, NULL, 0, cmd));
+	free(s);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:25:55 by sshera            #+#    #+#             */
-/*   Updated: 2022/02/26 16:59:34 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/01 13:30:54 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*cut_str(char *s, int i, int j)
 	s2 = ft_substr(s, j, ft_strlen(s) - j);
 	res = ft_strjoin(s1, s2);
 	free(s2);
+	free(s);
 	return (res);
 }
 
@@ -66,20 +67,21 @@ void	lst_back_p(t_lst **lst, t_lst *new)
 
 char	*ft_split_line(char *begin, char *value, char *line, int j)
 {
+	char	*line2;
 	char	*rem;
 
 	if (!value)
 	{
 		rem = ft_substr(line, j, ft_strlen(line));
-		line = ft_strjoin(begin, rem);
+		line2 = ft_strjoin(begin, rem);
 		free(rem);
 	}
 	else
 	{
 		begin = ft_strjoin(begin, value);
 		rem = ft_substr(line, j, ft_strlen(line));
-		line = ft_strjoin(begin, rem);
+		line2 = ft_strjoin(begin, rem);
 		free(rem);
 	}
-	return (line);
+	return (line2);
 }
