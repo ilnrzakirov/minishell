@@ -98,5 +98,6 @@ int	main(int ac, char **av, char **env)
 		ft_execve(g_data, env);
 		clear_struct();
 	}
+    clear_struct();
 	return (0);
 }
