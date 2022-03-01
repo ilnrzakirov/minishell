@@ -59,12 +59,11 @@ char	*ft_find_key(char *key)
 	return (NULL);
 }
 
-char	*ft_open_dollar_util(char *line, int *i, int j)
+char	*ft_open_dollar_util(char *line, int *i, int j, char *line2)
 {
 	char	*begin;
 	char	*key;
 	char	*value;
-	char	*line2;
 
 	if (*i > 0)
 		begin = ft_substr(line, 0, *i);
@@ -79,7 +78,10 @@ char	*ft_open_dollar_util(char *line, int *i, int j)
 	}
 	key = ft_substr(line, (*i) + 1, j - (*i) - 1);
 	value = ft_find_key(key);
-	(*i) = (int)ft_strlen(begin) + (int)ft_strlen(value);
+	if (value)
+		(*i) = (int)ft_strlen(begin) + (int)ft_strlen(value);
+	else
+		(*i) = (int)ft_strlen(begin);
 	line2 = ft_split_line(begin, value, line, j);
 	free(value);
 	free(line);
@@ -104,7 +106,7 @@ char	*open_dollar(char *line, int i, int f)
 				i++;
 		}
 		if (line[i] == '$')
-			line = ft_open_dollar_util(line, &i, 0);
+			line = ft_open_dollar_util(line, &i, 0, "");
 	}
 	return (line);
 }
@@ -119,4 +121,6 @@ void	parser(char *line)
 		line = open_dollar(line2, -1, 0);
 		creat_list_cmd(line, -1);
 	}
+	else
+		free(line);
 }
