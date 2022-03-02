@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 11:57:48 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 15:14:48 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/02 11:24:27 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	clear_arr(char **arr)
 	i = 0;
 	if (arr)
 	{
-		while (arr[i]) {
+		while (arr[i])
+		{
 			free(arr[i]);
 			i++;
 		}
