@@ -56,7 +56,7 @@ int	pre_pipe(char *line, int i)
 {
 	if (line[++i] == '|')
 		return (error_parser(PIPE));
-	while (line[++i])
+	while (line[i])
 	{
 		if (line[i] == '\'' || line[i] == '\"' )
 			pre_pipe_util(line, &i);
@@ -72,6 +72,7 @@ int	pre_pipe(char *line, int i)
 			if (line[i] == '|' || !line[i])
 				return (error_parser(PIPE));
 		}
+		i++;
 	}
 	return (1);
 }

@@ -12,27 +12,24 @@
 
 #include "../../includes/parser.h"
 
-char	*get_cmd_utils(char *s, int *i, int *j)
+char	*get_cmd_utils(char *s, int *i, int j)
 {
 	char	ch;
 	int		b;
-	int		end;
 
 	b = *i;
-	end = *j;
 	ch = s[b++];
-	end = b;
 	while (s[b] && s[b] != ch)
 		b++;
 	*i = b;
-	*j = *i;
-	return (ft_substr(s, end, b - end));
+	return (ft_substr(s, j + 1, b - j - 1));
 }
 
 char	**get_cmd(char *s, int i, int j, int h)
 {
 	char	**cmds;
 
+	printf("s = %s\n", s);
 	cmds = calloc(sizeof(char *), 100);
 	while (s[++i])
 	{
@@ -43,12 +40,20 @@ char	**get_cmd(char *s, int i, int j, int h)
 		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
 			i++;
 		if ((s[i] == ' ' || s[i] == '\0') && j != i)
+		{
 			cmds[h++] = ft_substr(s, j, i - j);
+			if (s[i] == '\0')
+				break ;
+		}
 		if (s[i] == '\'' || s[i] == '\"')
 		{
-			if (s[i - 1] && s[i - 1] != ' ')
+			if (i != 0 && s[i - 1] != ' ' && s[i - 1] != '\"' && s[i - 1]
+				!= '\'')
+			{
 				cmds[h++] = ft_substr(s, j, i - j);
-			cmds[h++] = get_cmd_utils(s, &i, &j);
+				j = i;
+			}
+			cmds[h++] = get_cmd_utils(s, &i, j);
 		}
 	}
 	free(s);
@@ -64,7 +69,8 @@ char	*make_pipe(char *s, int *i, int f)
 
 	line1 = ft_substr(s, 0, (size_t)(*i));
 	temp = ft_cut_space(line1);
-	(*i) += 1;
+	if (f == 1)
+		(*i) += 1;
 	ret = ft_substr(s, *i, ft_strlen(s));
 	(*i) = 0;
 	cmd = get_cmd(temp, -1, 0, 0);

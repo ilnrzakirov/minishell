@@ -18,13 +18,13 @@ void	check_next_command(t_lst *lst)
 	int		fd[2];
 
 	temp = lst;
+	dup2(lst->data->std_out, STDOUT_FILENO);
 	if (temp->next)
 	{
 		pipe(fd);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		dup2(lst->data->std_out, STDOUT_FILENO);
 	}
 }
 
@@ -72,11 +72,11 @@ void	exe(t_lst *lst, char **env)
 				print_error_exit(lst->cmd[0]);
 			if (execve(path, lst->cmd, env) == -1)
 				perror("Bash: ");
+			g_data->error = 1;
 			exit(1);
 		}
 		free(path);
 	}
-	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
 	dup2(lst->data->std_in, STDIN_FILENO);
 	check_next_command(lst);

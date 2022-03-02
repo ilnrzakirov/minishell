@@ -79,6 +79,7 @@ int	ft_execve(t_data *data, char **env)
 	t_lst	*tmp;
 	int		status;
 
+	g_data->error = 0;
 	tmp = data->cmd;
 	if (!tmp)
 		return (1);
@@ -92,9 +93,9 @@ int	ft_execve(t_data *data, char **env)
 		if (g_data->error == 1)
 			break ;
 	}
-	wait(0);
 	wait(&status);
 	g_data->exit_code = WEXITSTATUS(status);
+	wait(0);
 	clear_arr(env);
 	return (0);
 }

@@ -97,7 +97,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		parser(line);
-		ft_execve(g_data, env);
+//		ft_execve(g_data, env);
 		clear_struct();
 	}
 	return (0);

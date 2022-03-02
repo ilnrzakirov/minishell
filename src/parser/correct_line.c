@@ -48,7 +48,8 @@ void	pipe_in_quotes(char *newline, int i)
 			if (newline[i] == '\"')
 				while (newline[i + 1] && newline[++i] != '\"')
 					;
-			i++;
+			if (newline[i])
+				i++;
 		}
 		if (!newline[i] || i == 0 || (newline[i - 1] == ' ' \
 			&& newline[i + 1] && newline[i + 1] == ' '))
