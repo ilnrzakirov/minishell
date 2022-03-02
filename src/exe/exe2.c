@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void check_next_command(t_lst *lst)
+void	check_next_command(t_lst *lst)
 {
 	t_lst	*temp;
 	int		fd[2];
