@@ -50,6 +50,7 @@ void	ft_exit(t_lst *cmd, t_data *data)
 	{
 		data->exit_code = 1;
 		ft_putendl_fd("Bash: exit: too many arguments", 2);
+		exit (1);
 	}
 	else if (len_arr(cmd->cmd) == 2 && ft_atoi(cmd->cmd[1]))
 		exit (ft_atoi(cmd->cmd[1]));
