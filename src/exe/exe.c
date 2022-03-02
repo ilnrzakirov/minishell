@@ -92,8 +92,8 @@ int	ft_execve(t_data *data, char **env)
 		if (g_data->error == 1)
 			break ;
 	}
-	wait(&status);
 	wait(0);
+	wait(&status);
 	g_data->exit_code = WEXITSTATUS(status);
 	clear_arr(env);
 	return (0);

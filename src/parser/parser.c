@@ -12,7 +12,7 @@
 
 #include "../../includes/parser.h"
 
-void	creat_list_cmd(char *line, int i)
+void	creat_list_cmd(char *line, int i, int f)
 {
 	char	ch;
 
@@ -27,9 +27,15 @@ void	creat_list_cmd(char *line, int i)
 		if (line[i] == '<')
 			line = make_left_redirect(line, &i, 0, 1);
 		if (line[i] == '|')
-			line = make_pipe(line, &i, 1);
+		{
+			line = make_pipe(line, &i, f);
+			f = 1;
+		}
 		else if (line[i] == '>')
+		{
 			line = make_right_redirect(line, &i, 0, 1);
+			f = 0;
+		}
 	}
 	line = make_pipe(line, &i, 0);
 	free(line);
@@ -119,7 +125,7 @@ void	parser(char *line)
 	{
 		line2 = ft_cut_space(line);
 		line = open_dollar(line2, -1, 0);
-		creat_list_cmd(line, -1);
+		creat_list_cmd(line, -1, 1);
 	}
 	else
 		free(line);

@@ -12,6 +12,22 @@
 
 #include "../../includes/minishell.h"
 
+void check_next_command(t_lst *lst)
+{
+	t_lst	*temp;
+	int		fd[2];
+
+	temp = lst;
+	if (temp->next)
+	{
+		pipe(fd);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		dup2(lst->data->std_out, STDOUT_FILENO);
+	}
+}
+
 void	start_process(t_lst *lst, char **env)
 {
 	int	pid;
@@ -63,6 +79,7 @@ void	exe(t_lst *lst, char **env)
 	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
 	dup2(lst->data->std_in, STDIN_FILENO);
+	check_next_command(lst);
 }
 
 void	check_line(void)
