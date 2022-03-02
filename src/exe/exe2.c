@@ -42,7 +42,7 @@ void	exe(t_lst *lst, char **env)
 	char	*path;
 	int		pid;
 
-	if (!ft_strncmp("./", lst->cmd[0], 2))
+	if (!ft_strncmp("./", lst->cmd[0], 2) || !ft_strncmp("/", lst->cmd[0], 1))
 		start_process(lst, env);
 	else if (!(buildins_hub_parent(lst)))
 	{
