@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 09:39:41 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/02/28 14:38:22 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/02 11:30:31 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 void	delete_env_var(char *key)
 {
 	t_env	*temp;
+	t_env	*list;
 
 	temp = g_data->env;
 	while (temp && temp->next)
 	{
 		if (temp->next && ft_strnstr(temp->next->key, key, ft_strlen(key)))
 		{
+			list = temp->next;
 			free(temp->next->key);
 			free(temp->next->value);
 			if (temp->next->next)
 				temp->next = temp->next->next;
 			else
 				temp->next = NULL;
+			free(list);
 		}
 		temp = temp->next;
 	}
