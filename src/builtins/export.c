@@ -81,5 +81,6 @@ int	ft_export(t_lst *cmd, int i)
 		replace_value_envp(key, value);
 	else
 		lst_env_add_back(&g_data->env, lst_env_new(key, value));
+	free(line);
 	return (0);
 }
