@@ -25,20 +25,23 @@ char	*get_cmd_utils(char *s, int *i, int j)
 	return (ft_substr(s, j + 1, b - j - 1));
 }
 
+int		skip_i(char *s, int i)
+{
+	while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
+		i++;
+	return (i);
+}
+
 char	**get_cmd(char *s, int i, int j, int h)
 {
 	char	**cmds;
 
-	printf("s = %s\n", s);
 	cmds = calloc(sizeof(char *), 100);
 	while (s[++i])
 	{
 		i = skip_space(s, i);
-		if (s[i] == '\0')
-			break ;
 		j = i;
-		while (s[i] && s[i] != ' ' && s[i] != '\'' && s[i] != '\"')
-			i++;
+		i = skip_i(s, i)
 		if ((s[i] == ' ' || s[i] == '\0') && j != i)
 		{
 			cmds[h++] = ft_substr(s, j, i - j);

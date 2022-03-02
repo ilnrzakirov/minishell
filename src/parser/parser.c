@@ -37,7 +37,6 @@ void	creat_list_cmd(char *line, int i, int f)
 			f = 0;
 		}
 	}
-	printf("%d\n", i);
 	line = make_pipe(line, &i, 0);
 	free(line);
 	int l = 1;
