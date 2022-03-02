@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:14:20 by bcarlee           #+#    #+#             */
-/*   Updated: 2022/03/01 14:43:35 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/02 15:49:06 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		parser(line);
-//		ft_execve(g_data, env);
+		ft_execve(g_data, env);
 		clear_struct();
 	}
 	return (0);

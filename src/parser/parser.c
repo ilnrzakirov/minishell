@@ -6,7 +6,7 @@
 /*   By: sshera <sshera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 16:42:04 by sshera            #+#    #+#             */
-/*   Updated: 2022/03/01 14:44:37 by sshera           ###   ########.fr       */
+/*   Updated: 2022/03/02 15:48:53 by sshera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,6 @@ void	creat_list_cmd(char *line, int i, int f)
 	}
 	line = make_pipe(line, &i, 0);
 	free(line);
-	int l = 1;
-	while (g_data->cmd)
-	{
-		i = 0;
-		printf("__________LIST_%d________\n", l++);
-		if (g_data->cmd->cmd)
-			while (g_data->cmd->cmd[i])
-			{
-				printf("cmd[%d] = %s\n", i, g_data->cmd->cmd[i]);
-				i++;
-			}
-		if (g_data->cmd->filename)
-			printf("filename = %s\n", g_data->cmd->filename);
-		g_data->cmd = g_data->cmd->next;
-	}
 }
 
 char	*ft_find_key(char *key)
