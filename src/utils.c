@@ -17,12 +17,14 @@ void	clear_arr(char **arr)
 	int	i;
 
 	i = 0;
-	while (arr[i])
+	if (arr)
 	{
-		free(arr[i]);
-		i++;
+		while (arr[i]) {
+			free(arr[i]);
+			i++;
+		}
+		free(arr);
 	}
-	free(arr);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

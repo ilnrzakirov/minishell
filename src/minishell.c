@@ -25,6 +25,8 @@ void	replace_shell_lvl(void)
 	free(value);
 	value = ft_itoa(old_sh_lvl);
 	replace_value_envp(key, value);
+	if (!check_key("PATH="))
+		g_data->check_path = 1;
 }
 
 void	init_env(char **env)
@@ -61,10 +63,10 @@ void	main_part(int ac, char **av, char **env)
 	if (ac > 1)
 		exit (print_error("No such file or directory\n", 2));
 	init_env(env);
-	replace_shell_lvl();
 	g_data->exit_code = 0;
 	g_data->check_path = 0;
 	g_data->error = 0;
+	replace_shell_lvl();
 }
 
 void	main_part2(void)
